@@ -4,6 +4,7 @@ const styles = require("../styles/IndexPage");
 
 const Header = require("../fragments/IndexPage/header");
 const InformationBlock = require("../fragments/IndexPage/informationBlock");
+const Slider = require("../fragments/IndexPage/slider");
 
 /* 
   @name: IndexPage [page/AI component]
@@ -30,6 +31,7 @@ class IndexPage extends React.Component  {
         <Header />
         <InformationBlock />
         <div className="divBlock"></div>
+        <Slider />
       </div>
     );
   }

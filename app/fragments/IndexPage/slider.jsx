@@ -25,12 +25,11 @@ class Slider extends React.Component {
   
   
   increaseTimeToChange() {
-   if (this.timeToChange !== 16) {
+   if (this.state.timeToChange !== 16) {
       this.setState({
          timeToChange: this.state.timeToChange + 1
       });
     }
-      
    else {
       this.setState({
          timeToChange: 0
@@ -94,7 +93,7 @@ class Slider extends React.Component {
   }
   
   changeSliderImgByTick() {
-    const timeToChange = this.state;
+    const { timeToChange } = this.state;
     
     if (this.checkTimeInDiapazone1__5(timeToChange)) {
         this.setState({
@@ -131,9 +130,9 @@ class Slider extends React.Component {
       <div className="IndexPage__slider">
         <img src={ imgSrc } className="sliderImg"></img>
         <div className="dots">
-          <div className="dot" onClick={ () => { this.changeSliderImgByClicking(0) } }></div>
-          <div className="dot" onClick={ () => { this.changeSliderImgByClicking(1) } }></div>
-          <div className="dot" onClick={ () => { this.changeSliderImgByClicking(2) } }></div>
+          <div className={ imgSrc === imgs[0] ? "dot_active" : "dot" } onClick={ () => { this.changeSliderImgByClicking(0) } }></div>
+          <div className={ imgSrc === imgs[1] ? "dot_active" : "dot" } onClick={ () => { this.changeSliderImgByClicking(1) } }></div>
+          <div className={ imgSrc === imgs[2] ? "dot_active" : "dot" } onClick={ () => { this.changeSliderImgByClicking(2) } }></div>
         </div>
       </div>
     );

@@ -63,13 +63,38 @@
   border-radius: 50%;
 }
 
+.IndexPage__slider {
+  display: inline-block;
+}
+
 .sliderImg {
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 450px;
+  margin: 30px 0 -100px 25px;
+  border: 10px double #E9D9FF;
+  box-sizing: border-box;
+}
+
+.dots {
+ margin-left: 145px; 
 }
 
 .dot {
- height: 10px;
- width: 10px;
- background: green;
+ height: 20px;
+ width: 20px;
+ background: rgba(255, 255, 255, 0.62);
+ border-radius: 50%;
+ display: inline-block;
+ margin: 3px;
+ cursor: pointer;
+}
+
+.dot_active {
+ height: 20px;
+ width: 20px;
+ background: #E87272;
+ border-radius: 50%;
+ display: inline-block;
+ margin: 3px;
+ cursor: pointer;
 }
