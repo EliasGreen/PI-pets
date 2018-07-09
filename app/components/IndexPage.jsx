@@ -4,6 +4,9 @@ const styles = require("../styles/IndexPage");
 
 const Header = require("../fragments/IndexPage/header");
 const InformationBlock = require("../fragments/IndexPage/informationBlock");
+const Slider = require("../fragments/IndexPage/slider");
+const RegisterModal = require("../fragments/IndexPage/registerModal");
+const LoginModal = require("../fragments/IndexPage/loginModal");
 
 /* 
   @name: IndexPage [page/AI component]
@@ -20,16 +23,36 @@ class IndexPage extends React.Component  {
   constructor(props) {
     super(props);
     this.state = {
-      
+      showRegisterModal: false,
+      showLoginModal: false
     }
+    
+    this.toggleBooleanVariableFromState = this.toggleBooleanVariableFromState.bind(this);
+  }
+  
+  toggleBooleanVariableFromState(variable) {
+    this.setState({
+         variable: !this.state[variable]
+      });
   }
   
   render() {
+    const {showRegisterModal, showLoginModal} = this.state;
     return (
       <div className="IndexPage__body">
         <Header />
+        
         <InformationBlock />
         <div className="divBlock"></div>
+        <Slider />
+        
+        <div className="blureLine"></div>
+        
+        <button className="registerButton" onClick={ () => { this.toggleBooleanVariableFromState("showRegisterModal") }}>Register now!</button>
+        <button className="loginButton" onClick={ () => { this.toggleBooleanVariableFromState("showLoginModal") }}>or login</button>
+        
+        {showRegisterModal && <RegisterModal />}
+        {showLoginModal && <LoginModal />}
       </div>
     );
   }
