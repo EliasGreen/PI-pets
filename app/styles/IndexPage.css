@@ -2,6 +2,7 @@
   margin: auto;
   background: rgba(158, 53, 116, 0.28);
   width: 900px;
+  min-height: 800px;
   height: 100vh;
 }
 
@@ -97,4 +98,52 @@
  display: inline-block;
  margin: 3px;
  cursor: pointer;
+}
+
+.blureLine {
+  width: 600px;
+  height: 2px;
+  background: rgb(191, 115, 115);
+  margin: 60px auto auto auto;
+  -webkit-box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);
+  -moz-box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);
+  box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);
+}
+
+.registerButton {
+  display: block;
+  margin: 20px auto;
+  width: 300px;
+  height: 35px;
+  background: rgba(232, 114, 114, 0.4);
+  border: 1px solid #BF7373;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: 0.7s;
+}
+
+.registerButton:hover {
+    background: rgb(232, 114, 114);
+    border: 3px solid #FFD9E2;
+}
+
+.loginButton {
+  display: block;
+  margin: 10px auto;
+  width: 100px;
+  background: rgb(232, 114, 114);
+  border: 1px solid #BF7373;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.53);
+  font-size: 0.8rem;
+  font-weight: bold;
+  transition: 0.7s;
+}
+
+.loginButton:hover {
+  background: rgb(232, 79, 79);
+  border: 2px solid #FBECEC;
+  color: rgb(255, 255, 255);
 }

@@ -17,7 +17,7 @@ class Slider extends React.Component {
     
    this.increaseTimeToChange = this.increaseTimeToChange.bind(this);
    this.changeSliderImgByClicking = this.changeSliderImgByClicking.bind(this);
-    this.changeSliderImgByTick = this.changeSliderImgByTick.bind(this);
+   this.changeSliderImgByTick = this.changeSliderImgByTick.bind(this);
    this.checkTimeInDiapazone1__5 = this.checkTimeInDiapazone1__5.bind(this);
    this.checkTimeInDiapazone6__10 = this.checkTimeInDiapazone6__10.bind(this);
    this.checkTimeInDiapazone11__15 = this.checkTimeInDiapazone11__15.bind(this);
