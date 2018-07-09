@@ -32,7 +32,7 @@ class IndexPage extends React.Component  {
   
   toggleBooleanVariableFromState(variable) {
     this.setState({
-         variable: !this.state[variable]
+         [variable]: !this.state[variable]
       });
   }
   
