@@ -28790,6 +28790,8 @@ class RegisterModal extends React.Component {
     this.validateEmail = this.validateEmail.bind(this);
     this.validateUsername = this.validateUsername.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
+    this.shouldRenderValidationErrorBox = this.shouldRenderValidationErrorBox.bind(this);
+    this.renderValidationErrorBox = this.renderValidationErrorBox.bind(this);
   }
   
   validateEmail(email) {
@@ -28806,7 +28808,36 @@ class RegisterModal extends React.Component {
     // Minimum 8 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character:
    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,16}/;
    return re.test(password);
-  } 
+  }
+  
+  shouldRenderValidationErrorBox() {
+    const { email, username, password } = this.state;
+  
+    if(this.validateEmail(email) && this.validateUsername(username) && this.validatePassword(password)) {
+      return false;
+    }
+    else {
+      return true; 
+    }
+  }
+  
+  setValidationErrorText() {
+    const { email, username, password } = this.state;
+    const text = "";
+    
+    if (!this.validateEmail(email)) {
+      text += "Invalid email \n"
+    }
+    if (!this.validateUsername(username)) {
+      text += "Username: minimum 3 and maximum 15 characters \n"
+    }
+    if (!this.validatePassword(password)) {
+      text += "Password: minimum 8 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character \n"
+    }
+    this.setState({
+      validationErrorText: text
+    });
+  }
   
   handleInputChange(event) {
     this.setState({
@@ -28817,23 +28848,26 @@ class RegisterModal extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     
-    const { email, username, password} = this.state;
-    
-    console.log(email, username, password);
-    console.log("email " + this.validateEmail(email));
-    console.log("username " + this.validateUsername(username));
-    console.log("password " + this.validatePassword(password));
+    if(this.shouldRenderValidationErrorBox()) {
+      this.renderValidationErrorBox();
+    }
+    else {
+      this.setState({
+      showErrorBox: false
+      });
+    }
   }
   
-  renderValidationErrorBox(validationErrorText) {
+  renderValidationErrorBox() {
+    this.validationErrorText();
     this.setState({
-      validationErrorText: validationErrorText,
       showErrorBox: true
     });
   }
   
   render() {
     const { toggleFunctionFromParent } = this.props;
+    const { showErrorBox, validationErrorText } = this.state;
    return (
       React.createElement("form", {onSubmit: this.handleSubmit, className: "IndexPage__registerModal"}, 
       React.createElement("div", {className: "registerFormContainer"}, 
@@ -28851,6 +28885,8 @@ class RegisterModal extends React.Component {
         React.createElement("input", {type: "password", placeholder: "Enter Password", name: "password", required: true, className: "modalInput", onChange: this.handleInputChange}), 
 
         React.createElement("p", {className: "confirmText "}, "By creating an account you agree to our ", React.createElement("a", {href: "#", className: "confirmLink"}, "Terms & Privacy"), "."), 
+        
+        showErrorBox && React.createElement("div", {className: "errorBox"}, " ", validationErrorText, " "), 
 
         React.createElement("div", {className: "clearfix"}, 
           React.createElement("button", {type: "button", className: "cancelButton", onClick:  toggleFunctionFromParent }, "Cancel"), 
