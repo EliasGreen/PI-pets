@@ -2,8 +2,11 @@
   margin: auto;
   background: rgba(158, 53, 116, 0.28);
   width: 900px;
-  min-height: 800px;
+  min-height: 850px;
   height: 100vh;
+  -webkit-box-shadow: 1px 1px 22px 12px rgba(156, 103, 103, 0.75);
+  -moz-box-shadow: 1px 1px 22px 12px rgba(156, 103, 103, 0.75);
+  box-shadow: 1px 1px 22px 12px rgba(156, 103, 103, 0.75);
 }
 
 .IndexPage__header {
@@ -50,18 +53,24 @@
   height: 450px;
   padding: 50px;
   border: 10px double #E9D9FF;
-  display: inline-block;
+  float: left;
   color: white;
+  overflow: auto;
+}
+
+@media (max-width: 500px) { 
+  .IndexPage__informationBlock {
+    font-size: 14px;
+  }
 }
 
 .divBlock {
-  width: 10px;
+  width: 40px;
   height: 450px;
   margin: 30px 0 -94px 25px;
-  background: #F0948F;
+  background: rgb(255, 102, 93);
   display: inline-block;
   border: 10px solid rgba(233, 217, 255, 0.72);
-  border-radius: 50%;
 }
 
 .IndexPage__slider {
@@ -104,7 +113,7 @@
   width: 600px;
   height: 2px;
   background: rgb(191, 115, 115);
-  margin: 60px auto auto auto;
+  margin: 170px auto auto auto;
   -webkit-box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);
   -moz-box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);
   box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);
@@ -149,62 +158,100 @@
 }
 
 
-.indexPage__registerModal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.31);
-  width: 100%;
-  height: 100vh;
-}
-
-* {box-sizing: border-box}
-
-  input[type=text], input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-/* Extra styles for the cancel button */
-.cancelButton {
-  padding: 14px 20px;
-  background-color: #f44336;
-}
-
-/* Float cancel and signup buttons and add an equal width */
-.cancelButton, .signupButton {
-  float: left;
-  width: 50%;
-}
-
-/* Add padding to container elements */
-.registerFormContainer {
-  padding: 16px;
-}
-
-/* Clear floats */
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-  .cancelButton, .signupButton {
+.IndexPage__registerModal {
+    position: fixed;
     width: 100%;
-  }
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.48);
+}
+
+.registerFormContainer {
+  width: 800px;
+  height: 400px;
+  margin: 300px auto;
+  background: #E64D4D;
+  border: 10px solid #D6C1C7;
+  border-radius: 30px;
+}
+
+.labelSignUp {
+  text-align: center;
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.labelToolTip {
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(238, 232, 170, 0.47);
+}
+
+.labelEmail, .labelUsername, .labelPassword {
+  display: block;
+  margin: 10px 0 0 230px;
+  color: white;
+  font-family: monospace;
+  font-size: 1.2rem;
+  border-bottom: 2px solid white;
+}
+
+.labelEmail {
+  margin-right: 515px;
+}
+
+.labelUsername {
+  margin-right: 485px;
+}
+
+.labelPassword {
+  margin-right: 480px;
+}
+
+.modalInput {
+  display: block;
+  width: 350px;
+  color: white;
+  margin: 10px 0 0 230px;
+  background: rgba(150, 150, 150, 0.85);
+  border: 2px solid white;
+  padding: 5px;
+}
+
+.confirmText {
+  padding: 10px 0 0 234px;
+  color: rgb(255, 153, 125);
+}
+
+.confirmLink {
+  color: wheat;
+}
+
+.clearfix {
+  width: 400px;
+  margin: 10px auto;
+  padding-left: 20px;
+}
+
+.cancelButton, .signupButton {
+  width: 200px;
+  padding: 2px;
+  background: #F7F7F7;
+  color: #E64D4D;
+  cursor: pointer;
+  font-family: fantasy;
+  letter-spacing: 4px;
+}
+
+.cancelButton {
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.signupButton {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
 }
