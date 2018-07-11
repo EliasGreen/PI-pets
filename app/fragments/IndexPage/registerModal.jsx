@@ -7,7 +7,9 @@ class RegisterModal extends React.Component {
    this.state = {
      email: "",
      username: "",
-     password: ""
+     password: "",
+     showErrorBox: false,
+     validationErrorText: ""
    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,10 +24,12 @@ class RegisterModal extends React.Component {
   }
   
   validateUsername(username) {
+    // Minimum 3 and maximum 15 characters
    return (username.length >= 3 && username.length <= 15) ? true : false;
   }
   
   validatePassword(password) {
+    // Minimum 8 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character:
    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,16}/;
    return re.test(password);
   } 
@@ -45,6 +49,13 @@ class RegisterModal extends React.Component {
     console.log("email " + this.validateEmail(email));
     console.log("username " + this.validateUsername(username));
     console.log("password " + this.validatePassword(password));
+  }
+  
+  renderValidationErrorBox(validationErrorText) {
+    this.setState({
+      validationErrorText: validationErrorText,
+      showErrorBox: true
+    });
   }
   
   render() {
