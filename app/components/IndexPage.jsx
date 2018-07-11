@@ -32,7 +32,7 @@ class IndexPage extends React.Component  {
   
   toggleBooleanVariableFromState(variable) {
     this.setState({
-         variable: !this.state[variable]
+         [variable]: !this.state[variable]
       });
   }
   
@@ -51,8 +51,8 @@ class IndexPage extends React.Component  {
         <button className="registerButton" onClick={ () => { this.toggleBooleanVariableFromState("showRegisterModal") }}>Register now!</button>
         <button className="loginButton" onClick={ () => { this.toggleBooleanVariableFromState("showLoginModal") }}>or login</button>
         
-        {showRegisterModal && <RegisterModal />}
-        {showLoginModal && <LoginModal />}
+        {showRegisterModal && <RegisterModal toggleFunctionFromParent={ () => { this.toggleBooleanVariableFromState("showRegisterModal") } } />}
+        {showLoginModal && <LoginModal toggleFunctionFromParent={ () => { this.toggleBooleanVariableFromState("showLoginModal") } } />}
       </div>
     );
   }
