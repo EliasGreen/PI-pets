@@ -9,7 +9,8 @@ class RegisterModal extends React.Component {
      username: "",
      password: "",
      showErrorBox: false,
-     validationErrorText: ""
+     validationErrorTexts: [],
+     signUpButtonDisabled: false
    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,19 +50,19 @@ class RegisterModal extends React.Component {
   
   setValidationErrorText() {
     const { email, username, password } = this.state;
-    const text = "";
+    let texts = [];
     
-    if (!this.validateEmail(email)) {
-      text += "Invalid email \n"
+    if(!this.validateEmail(email)) {
+      texts.push("Invalid email");
     }
-    if (!this.validateUsername(username)) {
-      text += "Username: minimum 3 and maximum 15 characters \n"
+    if(!this.validateUsername(username)) {
+      texts.push("Username: minimum 3 and maximum 15 characters");
     }
-    if (!this.validatePassword(password)) {
-      text += "Password: minimum 8 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character \n"
+    if(!this.validatePassword(password)) {
+      texts.push("Password: minimum 8 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
     }
     this.setState({
-      validationErrorText: text
+      validationErrorTexts: texts
     });
   }
   
@@ -73,19 +74,54 @@ class RegisterModal extends React.Component {
   
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({
+      signUpButtonDisabled: true
+    });
     
     if(this.shouldRenderValidationErrorBox()) {
       this.renderValidationErrorBox();
+      this.setState({
+              signUpButtonDisabled: false
+            });
     }
     else {
-      this.setState({
-      showErrorBox: false
-      });
+      const { email, username, password } = this.state;
+      const newUser = {
+        email: email,
+        username: username,
+        password: password
+      }
+      
+      fetch("authenticating/signup",
+      {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(newUser)
+      })
+        .then((response) => {
+          if(response.ok) {
+            return response;
+          }
+          throw new Error("Network response was not ok");
+          })
+        .then((response) => {
+          this.setState({
+              showErrorBox: false
+            });
+          })
+        .catch((error) => {
+        this.setState({
+              signUpButtonDisabled: false
+            });
+        console.log("ERROR with fetch operation: " + error.message);
+        });
     }
   }
   
   renderValidationErrorBox() {
-    this.validationErrorText();
+    this.setValidationErrorText();
     this.setState({
       showErrorBox: true
     });
@@ -93,7 +129,7 @@ class RegisterModal extends React.Component {
   
   render() {
     const { toggleFunctionFromParent } = this.props;
-    const { showErrorBox, validationErrorText } = this.state;
+    const { showErrorBox, validationErrorTexts, signUpButtonDisabled } = this.state;
    return (
       <form onSubmit={this.handleSubmit} className="IndexPage__registerModal">
       <div className="registerFormContainer">
@@ -112,11 +148,16 @@ class RegisterModal extends React.Component {
 
         <p className="confirmText ">By creating an account you agree to our <a href="#" className="confirmLink">Terms & Privacy</a>.</p>
         
-        {showErrorBox && <div className="errorBox"> {validationErrorText} </div>}
+        { showErrorBox && 
+        <div className="errorBox"> 
+          { validationErrorTexts.map((text) => {
+            return <p key={text} className="errorParagraph"> { text } </p>;
+          })} 
+        </div> }
 
         <div className="clearfix">
           <button type="button" className="cancelButton" onClick={ toggleFunctionFromParent }>Cancel</button>
-          <button type="submit" className="signupButton">Sign Up</button>
+          <button type="submit" className="signupButton" disabled={signUpButtonDisabled}>Sign Up</button>
         </div>
       </div>
     </form>
