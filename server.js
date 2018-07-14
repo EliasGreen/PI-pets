@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 
+const authenticating_router = require("./server/routers/authenticating");
+app.use("/authenticating", authenticating_router);
+
 app.use(express.static("public"));
 
 app.get("*", (request, response) => {

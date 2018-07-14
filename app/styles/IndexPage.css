@@ -169,7 +169,6 @@
 
 .registerFormContainer {
   width: 800px;
-  height: 400px;
   margin: 300px auto;
   background: #E64D4D;
   border: 10px solid #D6C1C7;
@@ -254,4 +253,22 @@
 .signupButton {
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.errorBox {
+  width: 600px;
+  margin: 10px auto;
+  background: whitesmoke;
+  padding: 10px;
+  font-size: 0.8rem;
+  border: 2px solid #a18a8a; 
+}
+
+.errorParagraph {
+  background: wheat;
+  color: firebrick;
+  text-align: center;
+  padding: 3px;
+  margin: 5px;
+  font-weight: bold;
 }

@@ -28573,7 +28573,7 @@ exports = module.exports = __webpack_require__(115)(false);
 
 
 // module
-exports.push([module.i, ".IndexPage__body {\n  margin: auto;\n  background: rgba(158, 53, 116, 0.28);\n  width: 900px;\n  min-height: 850px;\n  height: 100vh;\n  -webkit-box-shadow: 1px 1px 22px 12px rgba(156, 103, 103, 0.75);\n  -moz-box-shadow: 1px 1px 22px 12px rgba(156, 103, 103, 0.75);\n  box-shadow: 1px 1px 22px 12px rgba(156, 103, 103, 0.75);\n}\n\n.IndexPage__header {\n  background: #e87272;\n  width: 700px;\n  height: 100px;\n  display: inline-block;\n  margin: 20px 0 0 100px;\n  border: 10px solid #E9D9FF;\n  border-radius: 20px;\n}\n\n.first_raw_text {\n  font-size: 4rem;\n  padding-left: 50px;\n  font-family: cursive;\n  font-weight: bold;\n  color: #fff;\n  float: left;\n}\n\n.second_raw_text {\n  color: rgba(251, 191, 197, 0.71);\n  font-size: 1.1rem;\n  font-weight: 600;\n  display: inline-block;\n  padding-top: 70px;\n}\n\n.logo {\n  width: 100px;\n  border-radius: 100%;\n  height: 100px;\n  float: right;\n  padding: 10px;\n  box-sizing: border-box;\n}\n\n.IndexPage__informationBlock {\n  background: #e87272;\n  width: 300px;\n  box-sizing: border-box;\n  margin: 30px 0 0 100px;\n  height: 450px;\n  padding: 50px;\n  border: 10px double #E9D9FF;\n  float: left;\n  color: white;\n  overflow: auto;\n}\n\n@media (max-width: 500px) { \n  .IndexPage__informationBlock {\n    font-size: 14px;\n  }\n}\n\n.divBlock {\n  width: 40px;\n  height: 450px;\n  margin: 30px 0 -94px 25px;\n  background: rgb(255, 102, 93);\n  display: inline-block;\n  border: 10px solid rgba(233, 217, 255, 0.72);\n}\n\n.IndexPage__slider {\n  display: inline-block;\n}\n\n.sliderImg {\n  width: 300px;\n  height: 450px;\n  margin: 30px 0 -100px 25px;\n  border: 10px double #E9D9FF;\n  box-sizing: border-box;\n}\n\n.dots {\n margin-left: 145px; \n}\n\n.dot {\n height: 20px;\n width: 20px;\n background: rgba(255, 255, 255, 0.62);\n border-radius: 50%;\n display: inline-block;\n margin: 3px;\n cursor: pointer;\n}\n\n.dot_active {\n height: 20px;\n width: 20px;\n background: #E87272;\n border-radius: 50%;\n display: inline-block;\n margin: 3px;\n cursor: pointer;\n}\n\n.blureLine {\n  width: 600px;\n  height: 2px;\n  background: rgb(191, 115, 115);\n  margin: 170px auto auto auto;\n  -webkit-box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);\n  -moz-box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);\n  box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);\n}\n\n.registerButton {\n  display: block;\n  margin: 20px auto;\n  width: 300px;\n  height: 35px;\n  background: rgba(232, 114, 114, 0.4);\n  border: 1px solid #BF7373;\n  cursor: pointer;\n  color: #fff;\n  font-size: 1.1rem;\n  font-weight: bold;\n  transition: 0.7s;\n}\n\n.registerButton:hover {\n    background: rgb(232, 114, 114);\n    border: 3px solid #FFD9E2;\n}\n\n.loginButton {\n  display: block;\n  margin: 10px auto;\n  width: 100px;\n  background: rgb(232, 114, 114);\n  border: 1px solid #BF7373;\n  cursor: pointer;\n  color: rgba(255, 255, 255, 0.53);\n  font-size: 0.8rem;\n  font-weight: bold;\n  transition: 0.7s;\n}\n\n.loginButton:hover {\n  background: rgb(232, 79, 79);\n  border: 2px solid #FBECEC;\n  color: rgb(255, 255, 255);\n}\n\n\n.IndexPage__registerModal {\n    position: fixed;\n    width: 100%;\n    top: 0;\n    left: 0;\n    height: 100%;\n    background: rgba(0, 0, 0, 0.48);\n}\n\n.registerFormContainer {\n  width: 800px;\n  height: 400px;\n  margin: 300px auto;\n  background: #E64D4D;\n  border: 10px solid #D6C1C7;\n  border-radius: 30px;\n}\n\n.labelSignUp {\n  text-align: center;\n  padding: 10px;\n  font-size: 2rem;\n  font-weight: bold;\n  color: white;\n}\n\n.labelToolTip {\n  text-align: center;\n  font-size: 0.8rem;\n  color: rgba(238, 232, 170, 0.47);\n}\n\n.labelEmail, .labelUsername, .labelPassword {\n  display: block;\n  margin: 10px 0 0 230px;\n  color: white;\n  font-family: monospace;\n  font-size: 1.2rem;\n  border-bottom: 2px solid white;\n}\n\n.labelEmail {\n  margin-right: 515px;\n}\n\n.labelUsername {\n  margin-right: 485px;\n}\n\n.labelPassword {\n  margin-right: 480px;\n}\n\n.modalInput {\n  display: block;\n  width: 350px;\n  color: white;\n  margin: 10px 0 0 230px;\n  background: rgba(150, 150, 150, 0.85);\n  border: 2px solid white;\n  padding: 5px;\n}\n\n.confirmText {\n  padding: 10px 0 0 234px;\n  color: rgb(255, 153, 125);\n}\n\n.confirmLink {\n  color: wheat;\n}\n\n.clearfix {\n  width: 400px;\n  margin: 10px auto;\n  padding-left: 20px;\n}\n\n.cancelButton, .signupButton {\n  width: 200px;\n  padding: 2px;\n  background: #F7F7F7;\n  color: #E64D4D;\n  cursor: pointer;\n  font-family: fantasy;\n  letter-spacing: 4px;\n}\n\n.cancelButton {\n  border-bottom-left-radius: 10px;\n  border-top-left-radius: 10px;\n}\n\n.signupButton {\n    border-bottom-right-radius: 10px;\n    border-top-right-radius: 10px;\n}", ""]);
+exports.push([module.i, ".IndexPage__body {\n  margin: auto;\n  background: rgba(158, 53, 116, 0.28);\n  width: 900px;\n  min-height: 850px;\n  height: 100vh;\n  -webkit-box-shadow: 1px 1px 22px 12px rgba(156, 103, 103, 0.75);\n  -moz-box-shadow: 1px 1px 22px 12px rgba(156, 103, 103, 0.75);\n  box-shadow: 1px 1px 22px 12px rgba(156, 103, 103, 0.75);\n}\n\n.IndexPage__header {\n  background: #e87272;\n  width: 700px;\n  height: 100px;\n  display: inline-block;\n  margin: 20px 0 0 100px;\n  border: 10px solid #E9D9FF;\n  border-radius: 20px;\n}\n\n.first_raw_text {\n  font-size: 4rem;\n  padding-left: 50px;\n  font-family: cursive;\n  font-weight: bold;\n  color: #fff;\n  float: left;\n}\n\n.second_raw_text {\n  color: rgba(251, 191, 197, 0.71);\n  font-size: 1.1rem;\n  font-weight: 600;\n  display: inline-block;\n  padding-top: 70px;\n}\n\n.logo {\n  width: 100px;\n  border-radius: 100%;\n  height: 100px;\n  float: right;\n  padding: 10px;\n  box-sizing: border-box;\n}\n\n.IndexPage__informationBlock {\n  background: #e87272;\n  width: 300px;\n  box-sizing: border-box;\n  margin: 30px 0 0 100px;\n  height: 450px;\n  padding: 50px;\n  border: 10px double #E9D9FF;\n  float: left;\n  color: white;\n  overflow: auto;\n}\n\n@media (max-width: 500px) { \n  .IndexPage__informationBlock {\n    font-size: 14px;\n  }\n}\n\n.divBlock {\n  width: 40px;\n  height: 450px;\n  margin: 30px 0 -94px 25px;\n  background: rgb(255, 102, 93);\n  display: inline-block;\n  border: 10px solid rgba(233, 217, 255, 0.72);\n}\n\n.IndexPage__slider {\n  display: inline-block;\n}\n\n.sliderImg {\n  width: 300px;\n  height: 450px;\n  margin: 30px 0 -100px 25px;\n  border: 10px double #E9D9FF;\n  box-sizing: border-box;\n}\n\n.dots {\n margin-left: 145px; \n}\n\n.dot {\n height: 20px;\n width: 20px;\n background: rgba(255, 255, 255, 0.62);\n border-radius: 50%;\n display: inline-block;\n margin: 3px;\n cursor: pointer;\n}\n\n.dot_active {\n height: 20px;\n width: 20px;\n background: #E87272;\n border-radius: 50%;\n display: inline-block;\n margin: 3px;\n cursor: pointer;\n}\n\n.blureLine {\n  width: 600px;\n  height: 2px;\n  background: rgb(191, 115, 115);\n  margin: 170px auto auto auto;\n  -webkit-box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);\n  -moz-box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);\n  box-shadow: -2px 0px 96px 24px rgb(255, 223, 233);\n}\n\n.registerButton {\n  display: block;\n  margin: 20px auto;\n  width: 300px;\n  height: 35px;\n  background: rgba(232, 114, 114, 0.4);\n  border: 1px solid #BF7373;\n  cursor: pointer;\n  color: #fff;\n  font-size: 1.1rem;\n  font-weight: bold;\n  transition: 0.7s;\n}\n\n.registerButton:hover {\n    background: rgb(232, 114, 114);\n    border: 3px solid #FFD9E2;\n}\n\n.loginButton {\n  display: block;\n  margin: 10px auto;\n  width: 100px;\n  background: rgb(232, 114, 114);\n  border: 1px solid #BF7373;\n  cursor: pointer;\n  color: rgba(255, 255, 255, 0.53);\n  font-size: 0.8rem;\n  font-weight: bold;\n  transition: 0.7s;\n}\n\n.loginButton:hover {\n  background: rgb(232, 79, 79);\n  border: 2px solid #FBECEC;\n  color: rgb(255, 255, 255);\n}\n\n\n.IndexPage__registerModal {\n    position: fixed;\n    width: 100%;\n    top: 0;\n    left: 0;\n    height: 100%;\n    background: rgba(0, 0, 0, 0.48);\n}\n\n.registerFormContainer {\n  width: 800px;\n  margin: 300px auto;\n  background: #E64D4D;\n  border: 10px solid #D6C1C7;\n  border-radius: 30px;\n}\n\n.labelSignUp {\n  text-align: center;\n  padding: 10px;\n  font-size: 2rem;\n  font-weight: bold;\n  color: white;\n}\n\n.labelToolTip {\n  text-align: center;\n  font-size: 0.8rem;\n  color: rgba(238, 232, 170, 0.47);\n}\n\n.labelEmail, .labelUsername, .labelPassword {\n  display: block;\n  margin: 10px 0 0 230px;\n  color: white;\n  font-family: monospace;\n  font-size: 1.2rem;\n  border-bottom: 2px solid white;\n}\n\n.labelEmail {\n  margin-right: 515px;\n}\n\n.labelUsername {\n  margin-right: 485px;\n}\n\n.labelPassword {\n  margin-right: 480px;\n}\n\n.modalInput {\n  display: block;\n  width: 350px;\n  color: white;\n  margin: 10px 0 0 230px;\n  background: rgba(150, 150, 150, 0.85);\n  border: 2px solid white;\n  padding: 5px;\n}\n\n.confirmText {\n  padding: 10px 0 0 234px;\n  color: rgb(255, 153, 125);\n}\n\n.confirmLink {\n  color: wheat;\n}\n\n.clearfix {\n  width: 400px;\n  margin: 10px auto;\n  padding-left: 20px;\n}\n\n.cancelButton, .signupButton {\n  width: 200px;\n  padding: 2px;\n  background: #F7F7F7;\n  color: #E64D4D;\n  cursor: pointer;\n  font-family: fantasy;\n  letter-spacing: 4px;\n}\n\n.cancelButton {\n  border-bottom-left-radius: 10px;\n  border-top-left-radius: 10px;\n}\n\n.signupButton {\n    border-bottom-right-radius: 10px;\n    border-top-right-radius: 10px;\n}\n\n.errorBox {\n  width: 600px;\n  margin: 10px auto;\n  background: whitesmoke;\n  padding: 10px;\n  font-size: 0.8rem;\n  border: 2px solid #a18a8a; \n}\n\n.errorParagraph {\n  background: wheat;\n  color: firebrick;\n  text-align: center;\n  padding: 3px;\n  margin: 5px;\n  font-weight: bold;\n}", ""]);
 
 // exports
 
@@ -28783,7 +28783,8 @@ class RegisterModal extends React.Component {
      username: "",
      password: "",
      showErrorBox: false,
-     validationErrorText: ""
+     validationErrorTexts: [],
+     signUpButtonDisabled: false
    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28823,19 +28824,19 @@ class RegisterModal extends React.Component {
   
   setValidationErrorText() {
     const { email, username, password } = this.state;
-    const text = "";
+    let texts = [];
     
-    if (!this.validateEmail(email)) {
-      text += "Invalid email \n"
+    if(!this.validateEmail(email)) {
+      texts.push("Invalid email");
     }
-    if (!this.validateUsername(username)) {
-      text += "Username: minimum 3 and maximum 15 characters \n"
+    if(!this.validateUsername(username)) {
+      texts.push("Username: minimum 3 and maximum 15 characters");
     }
-    if (!this.validatePassword(password)) {
-      text += "Password: minimum 8 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character \n"
+    if(!this.validatePassword(password)) {
+      texts.push("Password: minimum 8 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
     }
     this.setState({
-      validationErrorText: text
+      validationErrorTexts: texts
     });
   }
   
@@ -28847,19 +28848,54 @@ class RegisterModal extends React.Component {
   
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({
+      signUpButtonDisabled: true
+    });
     
     if(this.shouldRenderValidationErrorBox()) {
       this.renderValidationErrorBox();
+      this.setState({
+              signUpButtonDisabled: false
+            });
     }
     else {
-      this.setState({
-      showErrorBox: false
-      });
+      const { email, username, password } = this.state;
+      const newUser = {
+        email: email,
+        username: username,
+        password: password
+      }
+      
+      fetch("authenticating/signup",
+      {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(newUser)
+      })
+        .then((response) => {
+          if(response.ok) {
+            return response;
+          }
+          throw new Error("Network response was not ok");
+          })
+        .then((response) => {
+          this.setState({
+              showErrorBox: false
+            });
+          })
+        .catch((error) => {
+        this.setState({
+              signUpButtonDisabled: false
+            });
+        console.log("ERROR with fetch operation: " + error.message);
+        });
     }
   }
   
   renderValidationErrorBox() {
-    this.validationErrorText();
+    this.setValidationErrorText();
     this.setState({
       showErrorBox: true
     });
@@ -28867,7 +28903,7 @@ class RegisterModal extends React.Component {
   
   render() {
     const { toggleFunctionFromParent } = this.props;
-    const { showErrorBox, validationErrorText } = this.state;
+    const { showErrorBox, validationErrorTexts, signUpButtonDisabled } = this.state;
    return (
       React.createElement("form", {onSubmit: this.handleSubmit, className: "IndexPage__registerModal"}, 
       React.createElement("div", {className: "registerFormContainer"}, 
@@ -28886,11 +28922,16 @@ class RegisterModal extends React.Component {
 
         React.createElement("p", {className: "confirmText "}, "By creating an account you agree to our ", React.createElement("a", {href: "#", className: "confirmLink"}, "Terms & Privacy"), "."), 
         
-        showErrorBox && React.createElement("div", {className: "errorBox"}, " ", validationErrorText, " "), 
+         showErrorBox && 
+        React.createElement("div", {className: "errorBox"}, 
+           validationErrorTexts.map((text) => {
+            return React.createElement("p", {key: text, className: "errorParagraph"}, " ",  text, " ");
+          })
+        ), 
 
         React.createElement("div", {className: "clearfix"}, 
           React.createElement("button", {type: "button", className: "cancelButton", onClick:  toggleFunctionFromParent }, "Cancel"), 
-          React.createElement("button", {type: "submit", className: "signupButton"}, "Sign Up")
+          React.createElement("button", {type: "submit", className: "signupButton", disabled: signUpButtonDisabled}, "Sign Up")
         )
       )
     )
