@@ -88,8 +88,30 @@ router.post("/signup", urlencodedParser, jsonParser, (req, res) => {
 *  @security: public
 */
 router.post("/login", urlencodedParser, jsonParser, (req, res) => {
-  console.log("login authenticating !!!", req.body);
-  res.send("login");
+  const { email, username, password } = req.body;
+  
+  userModel.findOne({email: email}, (err, user) => {
+    if(!err) {
+      if(user) {
+        bcrypt.compare(password, user.password, (err, bcryptResponse) => {
+          if(bcryptResponse === true) {
+            req.login(user["id"], () => {
+               res.status(201).redirect("https://pi-pets.glitch.me/playground");
+            });
+          }
+          else {
+            res.sendStatus(409); 
+          }
+        });
+      }
+      else {
+        res.sendStatus(409); 
+      }
+    }
+    else {
+      res.sendStatus(404); 
+    }
+  });
 });
 
 module.exports = router;

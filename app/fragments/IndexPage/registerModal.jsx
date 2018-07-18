@@ -111,23 +111,31 @@ class RegisterModal extends React.Component {
           if(response.ok) {
             return response;
           }
-          throw new Error("Network response was not ok");
+          throw new Error(response.status);
           })
         .then((response) => {
-          //window.location.assign(response.url);
+          window.location.assign(response.url);
           this.setState({
               showErrorBox: false,
               signUpButtonOpacity: 1,
-              textOfModalHeader: "Successfully completed! You will be redirected to your playground"
+              textOfModalHeader: "Successfully completed! \n You will be redirected to your playground"
             });
           })
         .catch((error) => {
-        console.log(error);
-        this.setState({
-              signUpButtonDisabled: false,
-              signUpButtonOpacity: 1,
-              textOfModalHeader: "Server-side error: please, try again later"
-            });
+          if(error.message == 409) {
+            this.setState({
+                signUpButtonDisabled: false,
+                signUpButtonOpacity: 1,
+                textOfModalHeader: "Error: this email is already registered"
+              });
+          }
+          else {
+            this.setState({
+                signUpButtonDisabled: false,
+                signUpButtonOpacity: 1,
+                textOfModalHeader: "Server-side error: please, try again later"
+              });
+          }
         });
     }
   }
