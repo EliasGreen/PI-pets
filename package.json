@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "express": "^4.15.4",
+    "express-session": "^1.15.6",
     "jsx-loader": "^0.13.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -24,7 +25,11 @@
     "style-loader": "^0.19.1",
     "mongodb": "*",
     "mongoose": "^4.13.8",
-    "body-parser": "^1.18.2"
+    "body-parser": "^1.18.2",
+    "bcrypt": "*",
+    "passport": "*",
+    "connect-mongodb-session": "*",
+    "cookie-parser": "*"
   },
   "engines": {
     "node": "8.x"

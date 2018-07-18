@@ -28784,7 +28784,9 @@ class RegisterModal extends React.Component {
      password: "",
      showErrorBox: false,
      validationErrorTexts: [],
-     signUpButtonDisabled: false
+     signUpButtonDisabled: false,
+     textOfModalHeader: "Sign Up",
+     signUpButtonOpacity: 1
    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28849,13 +28851,17 @@ class RegisterModal extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({
-      signUpButtonDisabled: true
+      signUpButtonDisabled: true,
+      signUpButtonOpacity: 0.7,
+      textOfModalHeader: "Please, wait..."
     });
     
     if(this.shouldRenderValidationErrorBox()) {
       this.renderValidationErrorBox();
       this.setState({
-              signUpButtonDisabled: false
+              signUpButtonDisabled: false,
+              signUpButtonOpacity: 1,
+              textOfModalHeader: "Validation errors: please, try again"
             });
     }
     else {
@@ -28869,6 +28875,7 @@ class RegisterModal extends React.Component {
       fetch("authenticating/signup",
       {
           method: "post",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json"
           },
@@ -28881,15 +28888,20 @@ class RegisterModal extends React.Component {
           throw new Error("Network response was not ok");
           })
         .then((response) => {
+          //window.location.assign(response.url);
           this.setState({
-              showErrorBox: false
+              showErrorBox: false,
+              signUpButtonOpacity: 1,
+              textOfModalHeader: "Successfully completed! You will be redirected to your playground"
             });
           })
         .catch((error) => {
+        console.log(error);
         this.setState({
-              signUpButtonDisabled: false
+              signUpButtonDisabled: false,
+              signUpButtonOpacity: 1,
+              textOfModalHeader: "Server-side error: please, try again later"
             });
-        console.log("ERROR with fetch operation: " + error.message);
         });
     }
   }
@@ -28903,11 +28915,11 @@ class RegisterModal extends React.Component {
   
   render() {
     const { toggleFunctionFromParent } = this.props;
-    const { showErrorBox, validationErrorTexts, signUpButtonDisabled } = this.state;
+    const { showErrorBox, validationErrorTexts, signUpButtonDisabled, textOfModalHeader, signUpButtonOpacity } = this.state;
    return (
       React.createElement("form", {onSubmit: this.handleSubmit, className: "IndexPage__registerModal"}, 
       React.createElement("div", {className: "registerFormContainer"}, 
-        React.createElement("h1", {className: "labelSignUp"}, "Sign Up"), 
+        React.createElement("h1", {className: "labelSignUp"},  textOfModalHeader ), 
         React.createElement("p", {className: "labelToolTip"}, "Please fill in this form to create an account."), 
         React.createElement("hr", null), 
 
@@ -28931,7 +28943,7 @@ class RegisterModal extends React.Component {
 
         React.createElement("div", {className: "clearfix"}, 
           React.createElement("button", {type: "button", className: "cancelButton", onClick:  toggleFunctionFromParent }, "Cancel"), 
-          React.createElement("button", {type: "submit", className: "signupButton", disabled: signUpButtonDisabled}, "Sign Up")
+          React.createElement("button", {type: "submit", className: "signupButton", disabled: signUpButtonDisabled, style: {opacity: signUpButtonOpacity}}, "Sign Up")
         )
       )
     )
