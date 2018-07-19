@@ -12,12 +12,14 @@ let store = createStore(reducers);
 
 /* Import Components */
 const IndexPage = require("./components/IndexPage");
+const Playground = require("./components/Playground");
 
 render((
   <Provider store={store}>
     <BrowserRouter>
       <div>
         <Route exact path="/" component={IndexPage}/>
+        <Route exact path="/playground" component={Playground}/>
       </div>
     </BrowserRouter>
   </Provider>), document.getElementById("main"));

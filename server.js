@@ -3,6 +3,7 @@ const app = express();
 app.use(express.static("public"));
 
 const mongoDB__utils = require("./server/utils/mongoDB");
+const loginCheck = require("./server/middlewares/loginCheck");
 
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
@@ -21,7 +22,7 @@ app.use(mongoDB__utils.session({
 const authenticating_router = require("./server/routers/authenticating");
 app.use("/authenticating", authenticating_router);
 
-app.get("*", (request, response) => {
+app.get("*", loginCheck, (request, response) => {
   response.sendFile(__dirname + "/app/index.html");
 });
 
