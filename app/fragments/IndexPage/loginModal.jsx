@@ -87,9 +87,9 @@ class LoginModal extends React.Component {
     const { toggleFunctionFromParent } = this.props;
     const { showErrorBox, errorText, loginButtonDisabled, textOfModalHeader, loginButtonOpacity } = this.state;
    return (
-      <form onSubmit={this.handleSubmit} className="IndexPage__registerModal">
-      <div className="registerFormContainer">
-        <h1 className="labelSignUp">{ textOfModalHeader }</h1>
+      <form onSubmit={this.handleSubmit} className="IndexPage__modal">
+      <div className="formContainer">
+        <h1 className="label">{ textOfModalHeader }</h1>
         <p className="labelToolTip">Please fill in this form to login.</p>
         <hr/>
 
@@ -99,11 +99,11 @@ class LoginModal extends React.Component {
         <label htmlFor ="password" className="labelPassword">Password</label>
         <input type="password" placeholder="Enter Password" name="password" required className="modalInput" onChange={this.handleInputChange}/>
         
-        { showErrorBox && <div className="errorBox">{ errorText }</div> }
+        { showErrorBox && <div className="errorBox"><p className="errorParagraph">{ errorText }</p></div> }
 
         <div className="clearfix">
           <button type="button" className="cancelButton" onClick={ toggleFunctionFromParent }>Cancel</button>
-          <button type="submit" className="signupButton" disabled={ loginButtonDisabled } style={{ opacity: loginButtonOpacity }}>Login</button>
+          <button type="submit" className="modalButton" disabled={ loginButtonDisabled } style={{ opacity: loginButtonOpacity }}>Login</button>
         </div>
       </div>
     </form>

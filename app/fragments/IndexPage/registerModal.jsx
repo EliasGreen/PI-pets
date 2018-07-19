@@ -87,7 +87,7 @@ class RegisterModal extends React.Component {
       this.setState({
               signUpButtonDisabled: false,
               signUpButtonOpacity: 1,
-              textOfModalHeader: "Validation errors: please, try again"
+              textOfModalHeader: "Sign Up"
             });
     }
     else {
@@ -151,9 +151,9 @@ class RegisterModal extends React.Component {
     const { toggleFunctionFromParent } = this.props;
     const { showErrorBox, validationErrorTexts, signUpButtonDisabled, textOfModalHeader, signUpButtonOpacity } = this.state;
    return (
-      <form onSubmit={this.handleSubmit} className="IndexPage__registerModal">
-      <div className="registerFormContainer">
-        <h1 className="labelSignUp">{ textOfModalHeader }</h1>
+      <form onSubmit={this.handleSubmit} className="IndexPage__modal">
+      <div className="formContainer">
+        <h1 className="label">{ textOfModalHeader }</h1>
         <p className="labelToolTip">Please fill in this form to create an account.</p>
         <hr/>
 
@@ -177,7 +177,7 @@ class RegisterModal extends React.Component {
 
         <div className="clearfix">
           <button type="button" className="cancelButton" onClick={ toggleFunctionFromParent }>Cancel</button>
-          <button type="submit" className="signupButton" disabled={signUpButtonDisabled} style={{opacity: signUpButtonOpacity}}>Sign Up</button>
+          <button type="submit" className="modalButton" disabled={signUpButtonDisabled} style={{opacity: signUpButtonOpacity}}>Sign Up</button>
         </div>
       </div>
     </form>
