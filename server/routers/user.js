@@ -33,7 +33,6 @@ passport.deserializeUser((user_id, done) => {
 router.get("/information", loginCheck, (req, res) => {
   userModel.findById(req.session.passport.user, (err, user) => {
     if(!err) {
-      console.log("Got GER REQUEST! INFORMATION");
       res.status(200).json({
         username: user.username,
         coins: user.coins,
