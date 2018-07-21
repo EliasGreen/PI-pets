@@ -21,6 +21,7 @@ class RegisterModal extends React.Component {
     this.validatePassword = this.validatePassword.bind(this);
     this.shouldRenderValidationErrorBox = this.shouldRenderValidationErrorBox.bind(this);
     this.renderValidationErrorBox = this.renderValidationErrorBox.bind(this);
+    this.signUp = this.signUp.bind(this);
   }
   
   validateEmail(email) {
@@ -74,6 +75,48 @@ class RegisterModal extends React.Component {
     });
   }
   
+  async signUp() {
+    const { email, username, password } = this.state;
+    const newUser = {
+      email: email,
+      username: username,
+      password: password
+    }
+    
+    try {
+      const response = await fetch("authenticating/signup", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" }, body: JSON.stringify(newUser)});
+      
+      if(response.redirected && response.ok) {
+        window.location.assign(response.url);
+        this.setState({
+          showErrorBox: false,
+          signUpButtonOpacity: 1,
+          textOfModalHeader: "Successfully completed! \n You will be redirected to your playground"
+        });
+      }
+      else {
+        throw new Error(response.status);
+      }
+    }
+    catch(error) {
+      if(error.message == 409) {
+          this.setState({
+            signUpButtonDisabled: false,
+            signUpButtonOpacity: 1,
+            textOfModalHeader: "Error: this email is already registered"
+          });
+        }
+        else {
+          this.setState({
+            signUpButtonDisabled: false,
+            signUpButtonOpacity: 1,
+            textOfModalHeader: "Server-side error: please, try again later"
+        });
+      }
+    }
+  }
+  
+  
   handleSubmit(event) {
     event.preventDefault();
     this.setState({
@@ -91,52 +134,7 @@ class RegisterModal extends React.Component {
             });
     }
     else {
-      const { email, username, password } = this.state;
-      const newUser = {
-        email: email,
-        username: username,
-        password: password
-      }
-      
-      fetch("authenticating/signup",
-      {
-          method: "post",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(newUser)
-      })
-        .then((response) => {
-          if(response.ok) {
-            return response;
-          }
-          throw new Error(response.status);
-          })
-        .then((response) => {
-          window.location.assign(response.url);
-          this.setState({
-              showErrorBox: false,
-              signUpButtonOpacity: 1,
-              textOfModalHeader: "Successfully completed! \n You will be redirected to your playground"
-            });
-          })
-        .catch((error) => {
-          if(error.message == 409) {
-            this.setState({
-                signUpButtonDisabled: false,
-                signUpButtonOpacity: 1,
-                textOfModalHeader: "Error: this email is already registered"
-              });
-          }
-          else {
-            this.setState({
-                signUpButtonDisabled: false,
-                signUpButtonOpacity: 1,
-                textOfModalHeader: "Server-side error: please, try again later"
-              });
-          }
-        });
+      this.signUp();
     }
   }
   

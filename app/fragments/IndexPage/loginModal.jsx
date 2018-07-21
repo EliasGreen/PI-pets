@@ -15,12 +15,57 @@ class LoginModal extends React.Component {
    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.login = this.login.bind(this);
   }
    
   handleInputChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+  
+  async login() {
+    const { email, password } = this.state;
+    const user = {
+      email: email,
+      password: password
+    }
+    
+    try {
+      const response = await fetch("authenticating/login", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" }, body: JSON.stringify(user)});
+      
+      if(response.redirected && response.ok) {
+        window.location.assign(response.url);
+        this.setState({
+          showErrorBox: false,
+          loginButtonOpacity: 1,
+          textOfModalHeader: "Successfully completed! \n You will be redirected to your playground"
+        }); 
+      }
+      else {
+        throw new Error(response.status);
+      }
+    }
+    catch(error) {
+      if(error.message == 409) {
+        this.setState({
+          loginButtonDisabled: false,
+          loginButtonOpacity: 1,
+          showErrorBox: true,
+          errorText: "Error: invalid email or password",
+          textOfModalHeader: "Login"
+        });
+      }
+      else {
+        this.setState({
+          loginButtonDisabled: false,
+          loginButtonOpacity: 1,
+          showErrorBox: true,
+          errorText: "Server-side error: please, try again later",
+          textOfModalHeader: "Login"
+        });
+      }
+    }
   }
   
   handleSubmit(event) {
@@ -31,56 +76,7 @@ class LoginModal extends React.Component {
       textOfModalHeader: "Please, wait..."
     });
     
-    const { email, password } = this.state;
-    
-    const user = {
-      email: email,
-      password: password
-    }
-
-    fetch("authenticating/login",
-    {
-        method: "post",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-    })
-      .then((response) => {
-        if(response.ok) {
-          return response;
-        }
-        throw new Error(response.status);
-        })
-      .then((response) => {
-        window.location.assign(response.url);
-        this.setState({
-            showErrorBox: false,
-            loginButtonOpacity: 1,
-            textOfModalHeader: "Successfully completed! \n You will be redirected to your playground"
-          });
-        })
-      .catch((error) => {
-        if(error.message == 409) {
-          this.setState({
-              loginButtonDisabled: false,
-              loginButtonOpacity: 1,
-              showErrorBox: true,
-              errorText: "Error: invalid email or password",
-              textOfModalHeader: "Login"
-            });
-        }
-        else {
-          this.setState({
-              loginButtonDisabled: false,
-              loginButtonOpacity: 1,
-              showErrorBox: true,
-              errorText: "Server-side error: please, try again later",
-              textOfModalHeader: "Login"
-            });
-        }
-      });
+    this.login();
   }
   
   render() {
