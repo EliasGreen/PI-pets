@@ -1,0 +1,32 @@
+.Playground__body {
+  width: 1200px;
+  height: 700px;
+  background: #ffd9e2;
+  margin: 70px auto;
+  border: 10px solid rgb(255, 102, 93);
+  border-radius: 20px;
+  -webkit-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);
+  -moz-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);
+  box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);
+}
+
+.Playground__frame {
+  float: left;
+  width: 70%;
+  height: 100%;
+  box-sizing: border-box;
+  background: rgb(255, 153, 125);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px
+}
+
+.Playground__userInformationBlock {
+  float: right;
+  width: 30%;
+  box-sizing: border-box;
+  height: 100%;
+  background: firebrick;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: 10px solid #ff665d;
+}
