@@ -29164,7 +29164,7 @@ exports = module.exports = __webpack_require__(66)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".Playground__body {\n  width: 1200px;\n  height: 700px;\n  background: #ffd9e2;\n  margin: 70px auto;\n  border: 10px solid rgb(255, 102, 93);\n  border-radius: 20px;\n  -webkit-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  -moz-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n}\n\n.Playground__frame {\n  float: left;\n  width: 70%;\n  height: 100%;\n  box-sizing: border-box;\n  background: rgb(255, 153, 125);\n  border-top-left-radius: 10px;\n  border-bottom-left-radius: 10px\n}\n\n.Playground__userInformationBlock {\n  float: right;\n  width: 30%;\n  box-sizing: border-box;\n  height: 100%;\n  background: firebrick;\n  border-top-right-radius: 10px;\n  border-bottom-right-radius: 10px;\n  border-left: 10px solid #ff665d;\n}", ""]);
 
 // exports
 
@@ -29191,11 +29191,85 @@ module.exports = Frame;
 const React = __webpack_require__(4);
 const styles = __webpack_require__(68);
 
-const UserInformationBlock = () => (
-  React.createElement("div", {className: "Playground__userInformationBlock"}, 
-    "userInformationBlock"
-  )
-);
+class UserInformationBlock extends React.Component {
+  constructor(props) {
+    super(props); 
+    this.state = {
+      avatarImgSrc: "",
+      username: "",
+      coins: 0,
+      petsAmount: 0,
+      error: null,
+      loading: false
+    }
+    
+    this.getInformationAboutUser = this.getInformationAboutUser.bind(this);
+  }
+  
+ async getInformationAboutUser() {
+    this.setState({
+      loading: true 
+    });
+   
+    try {
+      const response = await fetch("/user/information", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
+      const result = await response.json();
+      console.log(result);
+      
+      this.setState({
+        loading: false
+      });
+    } 
+    catch(error) {
+      this.setState({
+        error,
+        loading: false
+      });
+    }
+  }
+  
+  componentDidMount() {
+    this.getInformationAboutUser();
+  }
+  
+  render() {
+    const { avatarImgSrc, username, coins, petsAmount, error, loading } = this.state;
+    
+    if(error) {
+      return(
+        React.createElement("div", {className: "Playground__userInformationBlock"}, 
+          "ERROR"
+        )
+      );
+    }
+    
+    if(loading) {
+      return(
+        React.createElement("div", {className: "Playground__userInformationBlock"}, 
+          "loading..."
+        )
+      );
+    }
+    
+    return(
+      React.createElement("div", {className: "Playground__userInformationBlock"}, 
+        React.createElement("img", {src:  avatarImgSrc, alt: "avatar", className: "userAvatarImg"}), 
+        React.createElement("h2", {className: "usernameHeading"},  username ), 
+        React.createElement("div", {className: "userDataBlock"}, 
+          React.createElement("p", {className: "coinsUserData"}, "Coins: ",  coins ), 
+          React.createElement("p", {className: "petsUserData"}, "Pets: ",  petsAmount )
+        ), 
+
+        React.createElement("div", {className: "navigationButtonsBlock"}, 
+          React.createElement("button", {className: "buttonPlaygroundFrame"}, "Pets Polygon"), 
+          React.createElement("button", {className: "buttonIngameShop"}, "Ingame Shop"), 
+          React.createElement("button", {className: "buttonWorldMarket"}, "World Market"), 
+          React.createElement("button", {className: "buttonUsersTop"}, "Users TOP")
+        )
+      )
+    );
+  }
+}
 
 module.exports = UserInformationBlock;
 

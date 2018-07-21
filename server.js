@@ -22,6 +22,9 @@ app.use(mongoDB__utils.session({
 const authenticating_router = require("./server/routers/authenticating");
 app.use("/authenticating", authenticating_router);
 
+const user_router = require("./server/routers/user");
+app.use("/user", user_router);
+
 app.get("*", loginCheck, (request, response) => {
   response.sendFile(__dirname + "/app/index.html");
 });
