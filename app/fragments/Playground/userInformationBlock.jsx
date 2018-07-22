@@ -5,7 +5,7 @@ class UserInformationBlock extends React.Component {
   constructor(props) {
     super(props); 
     this.state = {
-      avatarImgSrc: "",
+      avatarImgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNBRURE93_LfM_m1EGtHVwGczXh8iWAmpO9FqFW2wKE5H890eZ",
       username: "",
       coins: 0,
       petsAmount: 0,
@@ -24,9 +24,11 @@ class UserInformationBlock extends React.Component {
     try {
       const response = await fetch("/user/information", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
       const result = await response.json();
-      console.log(result);
       
       this.setState({
+        username: result.username,
+        coins: result.coins,
+        petsAmount: result.petsAmount,
         loading: false
       });
     } 
@@ -48,7 +50,7 @@ class UserInformationBlock extends React.Component {
     if(error) {
       return(
         <div className="Playground__userInformationBlock">
-          ERROR
+          <div className="errorBox">ERROR</div>
         </div>
       );
     }
@@ -56,7 +58,7 @@ class UserInformationBlock extends React.Component {
     if(loading) {
       return(
         <div className="Playground__userInformationBlock">
-          loading...
+          <div className="loadingSpinner">loading...</div>
         </div>
       );
     }
@@ -71,10 +73,11 @@ class UserInformationBlock extends React.Component {
         </div>
 
         <div className="navigationButtonsBlock">
-          <button className="buttonPlaygroundFrame">Pets Polygon</button>
-          <button className="buttonIngameShop">Ingame Shop</button>
-          <button className="buttonWorldMarket">World Market</button>
-          <button className="buttonUsersTop">Users TOP</button>
+          <button className="buttonPlaygroundFrame noSelect">Pets Polygon</button>
+          <button className="buttonInventory noSelect">Inventory</button>
+          <button className="buttonIngameShop noSelect">Ingame Shop</button>
+          <button className="buttonWorldMarket noSelect">World Market</button>
+          <button className="buttonUsersTop noSelect">Users TOP</button>
         </div>
       </div>
     );

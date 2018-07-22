@@ -1,9 +1,11 @@
 const React = require("react");
 const styles = require("../../styles/Playground");
 
+const Pets = require("./pets");
+
 const Frame = () => (
   <div className="Playground__frame">
-    frame
+    <Pets />
   </div>
 );
 

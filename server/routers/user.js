@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
 
-const cookieParser = require("cookie-parser");
-
 const loginCheck = require("../middlewares/loginCheck");
 
 const mongoDB__utils = require("../utils/mongoDB");
@@ -36,7 +34,7 @@ router.get("/information", loginCheck, (req, res) => {
       res.status(200).json({
         username: user.username,
         coins: user.coins,
-        pets: user.pets.length,
+        petsAmount: user.pets.length,
         food: user.meta.food
       });
     }
