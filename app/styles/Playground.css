@@ -12,7 +12,7 @@
 
 .Playground__frame {
   float: left;
-  width: 70%;
+  width: 67%;
   height: 100%;
   box-sizing: border-box;
   background: rgb(255, 153, 125);
@@ -22,7 +22,7 @@
 
 .Playground__userInformationBlock {
   float: right;
-  width: 30%;
+  width: 33%;
   box-sizing: border-box;
   height: 100%;
   background: firebrick;
