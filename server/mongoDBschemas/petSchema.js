@@ -5,7 +5,7 @@ const Schema = mongoose.Schema,
 
 const petSchema = new Schema({
   type: String,
-  bodyColors: {
+  petColors: {
     top: String,
     center: String,
     down: String,

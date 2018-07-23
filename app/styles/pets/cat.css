@@ -1,0 +1,99 @@
+.Pets__cat {
+  float: left;
+}
+
+.leftCatEar {
+  animation-name: leftCatEarMoving;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes leftCatEarMoving {
+  0% {
+    transform: matrix(0.1875,0,0,0.1875,0,0);
+  }
+  
+  25% {
+    transform: matrix(0.1875,0,0,0.1875,2,1);
+  }
+  
+  50% {
+    transform: matrix(0.1875,0,0,0.1875,1,-1);
+  }
+  
+  100% {
+    transform: matrix(0.1875,0,0,0.1875,0,0);
+  }
+}
+
+.rightCatEar {
+  animation-name: rightCatEarMoving;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rightCatEarMoving {
+  0% {
+    transform: matrix(0.0682651,0.174631,-0.174631,0.0682651,75.567918,-63.372535);
+  }
+  
+  25% {
+    transform: matrix(0.0682651,0.174631,-0.174631,0.0682651,73.567918,-66.372535);
+  }
+  
+  40% {
+    transform: matrix(0.0682651,0.174631,-0.174631,0.0682651,72.567918,-65.372535);
+  }
+  
+  100% {
+    transform: matrix(0.0682651,0.174631,-0.174631,0.0682651,75.567918,-63.372535);
+  }
+}
+
+.leftCatPaw {
+  animation-name: leftCatPawMoving;
+  animation-duration: 7s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes leftCatPawMoving {
+  0% {
+    transform: matrix(0.1875,0,0,0.1875,0,0);
+  }
+  
+  45% {
+    transform: matrix(0.1875,0,0,0.1875,1,-1);
+  }
+  
+  70% {
+    transform: matrix(0.1875,0,0,0.1875,-1,3);
+  }
+  
+  100% {
+    transform: matrix(0.1875,0,0,0.1875,0,0);
+  }
+}
+
+.rightCatPaw {
+  animation-name: leftCatPawMoving;
+  animation-duration: 9s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rightCatPawMoving {
+  0% {
+    transform: matrix(0.1875,0,0,0.1875,0,0);
+  }
+  
+  15% {
+    transform: matrix(0.1875,0,0,0.1875,2,3);
+  }
+  
+  50% {
+    transform: matrix(0.1875,0,0,0.1875,3,1);
+  }
+  
+  100% {
+    transform: matrix(0.1875,0,0,0.1875,0,0);
+  }
+}
