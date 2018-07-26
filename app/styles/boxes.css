@@ -1,0 +1,14 @@
+.Boxes__PI {
+  background: #f14949;
+  border-radius: 10px;
+  height: 70%;
+  width: 70%;
+  margin: 12px auto;
+  box-sizing: border-box;
+  color: black;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  line-height: 65px;
+  border: 2px solid darkred;
+}

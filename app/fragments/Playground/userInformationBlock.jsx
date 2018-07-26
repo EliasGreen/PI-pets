@@ -10,13 +10,31 @@ class UserInformationBlock extends React.Component {
       coins: 0,
       petsAmount: 0,
       error: null,
-      loading: false
+      loading: false,
+      currentActiveButton: "buttonPlaygroundFrame",
+      buttonPlaygroundFrameAdditionClass: "activeButton",
+      buttonInventoryAdditionClass: "",
+      buttonIngameShopAdditionClass: "",
+      buttonWorldMarketAdditionClass: "",
+      buttonUsersTopAdditionClass: ""
     }
     
     this.getInformationAboutUser = this.getInformationAboutUser.bind(this);
+    this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive = this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive.bind(this);
   }
   
- async getInformationAboutUser() {
+  setPressedButtonToAnActiveClassAndOthersButtonsToInactive(targetButtonStringName) {
+    const prevActiveButtonName = `${this.state.currentActiveButton}AdditionClass`;
+    const currentActiveButtonName = `${targetButtonStringName}AdditionClass`;
+    
+    this.setState({
+      [prevActiveButtonName]: "inactiveButton",
+      [currentActiveButtonName]: "activeButton",
+      currentActiveButton: targetButtonStringName
+    });
+  }
+  
+  async getInformationAboutUser() {
     this.setState({
       loading: true 
     });
@@ -45,7 +63,18 @@ class UserInformationBlock extends React.Component {
   }
   
   render() {
-    const { avatarImgSrc, username, coins, petsAmount, error, loading } = this.state;
+    const { avatarImgSrc,
+           username,
+           coins,
+           petsAmount,
+           error,
+           loading,
+           buttonPlaygroundFrameAdditionClass,
+           buttonInventoryAdditionClass,
+           buttonIngameShopAdditionClass,
+           buttonWorldMarketAdditionClass,
+           buttonUsersTopAdditionClass} = this.state;
+    const { changeCurrentFrameFunction } = this.props;
     
     if(error) {
       return(
@@ -73,11 +102,11 @@ class UserInformationBlock extends React.Component {
         </div>
 
         <div className="navigationButtonsBlock">
-          <button className="buttonPlaygroundFrame noSelect">Pets Polygon</button>
-          <button className="buttonInventory noSelect">Inventory</button>
-          <button className="buttonIngameShop noSelect">Ingame Shop</button>
-          <button className="buttonWorldMarket noSelect">World Market</button>
-          <button className="buttonUsersTop noSelect">Users TOP</button>
+          <button className={`buttonPlaygroundFrame ${buttonPlaygroundFrameAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("Pets"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonPlaygroundFrame") } }>Pets Polygon</button>
+          <button className={`buttonInventory ${buttonInventoryAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("Inventory"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonInventory") } }>Inventory</button>
+          <button className={`buttonIngameShop ${buttonIngameShopAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("IngameShop"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonIngameShop") } }>Ingame Shop</button>
+          <button className={`buttonWorldMarket ${buttonWorldMarketAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("WorldMarket"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonWorldMarket") } }>World Market</button>
+          <button className={`buttonUsersTop ${buttonUsersTopAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("UsersTOP"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonUsersTop") } }>Users TOP</button>
         </div>
       </div>
     );
