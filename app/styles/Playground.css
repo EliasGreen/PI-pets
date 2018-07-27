@@ -97,12 +97,48 @@
   border-bottom-right-radius: 50%;
 }
 
-.noSelect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+.Playground__frame__inventory {
+  height: 100%; 
+}
+
+.inventoryCell {
+  box-sizing: border-box;
+  width: calc(20% - 20px);
+  background: #dcbfbf;
+  float: left;
+  height: calc(20% - 20px);
+  margin: 10px;
+  border: 10px solid rgba(82, 53, 72, 0.63);
+}
+
+.activeButton {
+  background: #fff2f5;
+  animation-name: colorIntoActiveButton;
+  animation-duration: 1s;
+}
+
+@keyframes colorIntoActiveButton {
+  0% {
+    background: #69031f;
+  }
+  
+  100% {
+    background: #fff2f5;
+  }
+}
+
+.inactiveButton {
+  background: #69031f;
+  animation-name: colorIntoinactiveButton;
+  animation-duration: 1s;
+}
+
+@keyframes colorIntoinactiveButton {
+  0% {
+    background: #fff2f5;
+  }
+  
+  100% {
+    background: #69031f;
+  }
 }

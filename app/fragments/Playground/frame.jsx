@@ -10,9 +10,7 @@ const UsersTOP = require("./frames/usersTOP");
 class Frame extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentFrame: "Pets"
-    }
+    this.state = {};
   }
   
   render() {
@@ -23,7 +21,9 @@ class Frame extends React.Component {
       WorldMarket: WorldMarket,
       UsersTOP: UsersTOP
     };
-    const CurrentFrame = frames["Pets"];
+    
+    const CurrentFrame = frames[`${this.props.currentFrame}`];
+    
     return(
       <div className="Playground__frame">
         <CurrentFrame />

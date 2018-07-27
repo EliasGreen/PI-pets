@@ -17,14 +17,24 @@ class Playground extends React.Component  {
   constructor(props) {
     super(props);
     this.state = {
+      currentFrame: "Pets"
     }
+    
+    this.changeCurrentFrame = this.changeCurrentFrame.bind(this);
+  }
+  
+  changeCurrentFrame(newCurrentFrame) {
+    this.setState({
+      currentFrame: newCurrentFrame
+    });
   }
   
   render() {
+    const { currentFrame } = this.state;
     return (
       <div className="Playground__body">
-        <Frame />
-        <UserInformationBlock />
+        <Frame currentFrame={ currentFrame }/>
+        <UserInformationBlock changeCurrentFrameFunction={ this.changeCurrentFrame }/>
       </div>
     );
   }

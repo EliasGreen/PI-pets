@@ -7,11 +7,19 @@ const userSchema = new Schema({
   email: String,
   username: String,
   password: String,
-  pets: [petSchema],
-  coins: Number,
+  pets: { type: [petSchema], default: [] },
+  coins: { type: Number, default: 0 },
+  xp: { type: Number, default: 0 },
   inventory: [],
   meta: {
-   registrationDate: { type: Date, default: Date.now },  
+   registrationDate: { type: Date, default: Date.now },
+   firstLogIn: {
+     petPolygon: { type: Boolean, default: true },
+     inventory: { type: Boolean, default: true },
+     ingameShop: { type: Boolean, default: true },
+     worldShop: { type: Boolean, default: true },
+     usersTOP: { type: Boolean, default: true }
+   }
   }
 });
 const userModel = mongoose.model("pi-pets-users", userSchema);
