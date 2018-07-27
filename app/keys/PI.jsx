@@ -9,7 +9,7 @@ class PI extends React.Component {
   
   render() {
     return(
-      <div className="Keys__PI">
+      <div className="Keys__PI" draggable="true">
         3.14
       </div>
     );

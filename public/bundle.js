@@ -27212,28 +27212,115 @@ module.exports = Cat;
 
 const React = __webpack_require__(3);
 const styles = __webpack_require__(20);
+
 const KeyPI = __webpack_require__(249);
 const BoxPI = __webpack_require__(252);
 
 class Inventory extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      inventory: [],
+      loading: false,
+      loadingError: null
+    }
+    this.getDataFromUserInventory = this.getDataFromUserInventory.bind(this);
+    this.grabKey = this.grabKey.bind(this);
+  }
+  
+  grabKey(ev) {
+    console.log(ev);
+  }
+  
+  async getDataFromUserInventory() {
+    this.setState({
+      loading: true 
+    });
+   
+    try {
+      const response = await fetch("/user/inventory", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
+      const result = await response.json();
+      
+      this.setState({
+        inventory: result.inventory,
+        loading: false
+      });
+    } 
+    catch(loadingError) {
+      this.setState({
+        loadingError,
+        loading: false
+      });
+    }
+  }
+  
+  componentDidMount() {
+    this.getDataFromUserInventory();
   }
   
   render() {
+    const { inventory, loading, loadingError} = this.state;
+    let error = null;
+    
+    if (loadingError) {
+      return(
+        React.createElement("div", {className: "Playground__frame__inventory"}, 
+          "loadingError"
+        )
+      );
+    }
+    
+     if (loading) {
+      return(
+        React.createElement("div", {className: "Playground__frame__inventory"}, 
+          "loading..."
+        )
+      );
+    }
+    
     let inventoryCells = [];
     for (let i = 0; i < 25; i++) {
-      if (i === 1) {
-        inventoryCells.push(React.createElement("div", {className: "inventoryCell", key: `cell#${i}`}, React.createElement(BoxPI, {key: `box#${i}`})));
-      }
-      else if (i === 2) {
-        inventoryCells.push(React.createElement("div", {className: "inventoryCell", key: `cell#${i}`}, React.createElement(KeyPI, {key: `key#${i}`})));
-      }
-      else {
+      if (inventory[i]) {
+        switch (inventory[i]["type"]) {
+          case "PIbox":
+            inventoryCells.push(React.createElement("div", {className: "inventoryCell", key: `cell#${i}`}, React.createElement(BoxPI, {key: `box#${i}`})));
+            break;
+          case "PIkey":
+            inventoryCells.push(React.createElement("div", {className: "inventoryCell", key: `cell#${i}`}, React.createElement(KeyPI, {key: `key#${i}`})));
+            break;
+          default:
+            error = "Unexpected error in switch statement";
+       }   
+     }
+     else {
         inventoryCells.push(React.createElement("div", {className: "inventoryCell", key: `cell#${i}`}));
       }
     }
+    
+    if (error) {
+      return(
+        React.createElement("div", {className: "Playground__frame__inventory"}, 
+           error 
+        )
+      );
+    }
+    
+    if (loadingError) {
+      return(
+        React.createElement("div", {className: "Playground__frame__inventory"}, 
+          "loadingError"
+        )
+      );
+    }
+    
+    if (loading) {
+      return(
+        React.createElement("div", {className: "Playground__frame__inventory"}, 
+          "loading..."
+        )
+      );
+    }
+    
     return(
       React.createElement("div", {className: "Playground__frame__inventory"}, 
         inventoryCells
@@ -27259,7 +27346,7 @@ class PI extends React.Component {
   
   render() {
     return(
-      React.createElement("div", {className: "Keys__PI"}, 
+      React.createElement("div", {className: "Keys__PI", draggable: "true"}, 
         "3.14"
       )
     );
@@ -27307,7 +27394,7 @@ exports = module.exports = __webpack_require__(26)(false);
 
 
 // module
-exports.push([module.i, ".Keys__PI {\n  color: dimgrey;\n  font-size: 2em;\n  font-weight: bold;\n  text-align: center;\n  margin-top: 1em;\n}", ""]);
+exports.push([module.i, ".Keys__PI {\n  color: dimgrey;\n  font-size: 2em;\n  font-weight: bold;\n  text-align: center;\n  margin-top: 1em;\n  cursor: grab;\n}", ""]);
 
 // exports
 
@@ -27467,7 +27554,7 @@ class UserInformationBlock extends React.Component {
       username: "",
       coins: 0,
       petsAmount: 0,
-      error: null,
+      loadingError: null,
       loading: false,
       currentActiveButton: "buttonPlaygroundFrame",
       buttonPlaygroundFrameAdditionClass: "activeButton",
@@ -27508,9 +27595,9 @@ class UserInformationBlock extends React.Component {
         loading: false
       });
     } 
-    catch(error) {
+    catch(loadingError) {
       this.setState({
-        error,
+        loadingError,
         loading: false
       });
     }
@@ -27525,7 +27612,7 @@ class UserInformationBlock extends React.Component {
            username,
            coins,
            petsAmount,
-           error,
+           loadingError,
            loading,
            buttonPlaygroundFrameAdditionClass,
            buttonInventoryAdditionClass,
@@ -27534,7 +27621,7 @@ class UserInformationBlock extends React.Component {
            buttonUsersTopAdditionClass} = this.state;
     const { changeCurrentFrameFunction } = this.props;
     
-    if(error) {
+    if(loadingError) {
       return(
         React.createElement("div", {className: "Playground__userInformationBlock"}, 
           React.createElement("div", {className: "errorBox"}, "ERROR")

@@ -29,13 +29,32 @@ passport.deserializeUser((user_id, done) => {
 *  @security: private
 */
 router.get("/information", loginCheck, (req, res) => {
-  userModel.findById(req.session.passport.user, (err, user) => {
+  userModel.findById(req.session.passport.user, "username coins pets meta xp", (err, user) => {
     if(!err) {
       res.status(200).json({
         username: user.username,
         coins: user.coins,
         petsAmount: user.pets.length,
-        food: user.meta.food
+        food: user.meta.food,
+        xp: user.xp
+      });
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
+*  @information GET
+*  @dest: send the requested user inventory
+*  @security: private
+*/
+router.get("/inventory", loginCheck, (req, res) => {
+  userModel.findById(req.session.passport.user, "inventory", (err, user) => {
+    if(!err) {
+      res.status(200).json({
+        inventory: user.inventory
       });
     }
     else {

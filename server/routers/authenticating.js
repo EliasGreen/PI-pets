@@ -28,8 +28,21 @@ const createNewUserInDB = (userInformation, req, res) => {
             email: userInformation.email,
             username: userInformation.username,
             password: hash,
-            pets: [],
-            coins: 0,
+            inventory: [
+              { 
+                type: "PIkey",
+                rarity: "Legendary",
+                for: "PIbox",
+                cost: 1000 
+              },
+              { 
+                type: "PIbox",
+                rarity: "Legendary",
+                openTool: "PIkey",
+                output: "Random pet",
+                cost: 5000
+              }
+            ],
             meta: {
              food: []
             }

@@ -9,7 +9,7 @@ class UserInformationBlock extends React.Component {
       username: "",
       coins: 0,
       petsAmount: 0,
-      error: null,
+      loadingError: null,
       loading: false,
       currentActiveButton: "buttonPlaygroundFrame",
       buttonPlaygroundFrameAdditionClass: "activeButton",
@@ -50,9 +50,9 @@ class UserInformationBlock extends React.Component {
         loading: false
       });
     } 
-    catch(error) {
+    catch(loadingError) {
       this.setState({
-        error,
+        loadingError,
         loading: false
       });
     }
@@ -67,7 +67,7 @@ class UserInformationBlock extends React.Component {
            username,
            coins,
            petsAmount,
-           error,
+           loadingError,
            loading,
            buttonPlaygroundFrameAdditionClass,
            buttonInventoryAdditionClass,
@@ -76,7 +76,7 @@ class UserInformationBlock extends React.Component {
            buttonUsersTopAdditionClass} = this.state;
     const { changeCurrentFrameFunction } = this.props;
     
-    if(error) {
+    if(loadingError) {
       return(
         <div className="Playground__userInformationBlock">
           <div className="errorBox">ERROR</div>
