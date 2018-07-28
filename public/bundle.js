@@ -1308,7 +1308,7 @@ var _prodInvariant = __webpack_require__(4),
     _assign = __webpack_require__(5);
 
 var CallbackQueue = __webpack_require__(78);
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 var ReactFeatureFlags = __webpack_require__(79);
 var ReactReconciler = __webpack_require__(23);
 var Transaction = __webpack_require__(38);
@@ -1561,7 +1561,7 @@ module.exports = ReactUpdates;
 
 var _assign = __webpack_require__(5);
 
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 
 var emptyFunction = __webpack_require__(11);
 var warning = __webpack_require__(2);
@@ -2165,6 +2165,37 @@ module.exports = warning;
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(243);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(27)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../rbd/pnpm-volume/9baded2b-bdfd-45e5-891f-0dfd4e93b84e/node_modules/.registry.npmjs.org/css-loader/0.28.11/node_modules/css-loader/index.js!./Playground.css", function() {
+			var newContent = require("!!../../../rbd/pnpm-volume/9baded2b-bdfd-45e5-891f-0dfd4e93b84e/node_modules/.registry.npmjs.org/css-loader/0.28.11/node_modules/css-loader/index.js!./Playground.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2014-present, Facebook, Inc.
@@ -2507,7 +2538,7 @@ module.exports = ReactElement;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2623,37 +2654,6 @@ module.exports = PooledClass;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(243);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(27)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../rbd/pnpm-volume/9baded2b-bdfd-45e5-891f-0dfd4e93b84e/node_modules/.registry.npmjs.org/css-loader/0.28.11/node_modules/css-loader/index.js!./Playground.css", function() {
-			var newContent = require("!!../../../rbd/pnpm-volume/9baded2b-bdfd-45e5-891f-0dfd4e93b84e/node_modules/.registry.npmjs.org/css-loader/0.28.11/node_modules/css-loader/index.js!./Playground.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2673,7 +2673,7 @@ var _assign = __webpack_require__(5);
 var ReactBaseClasses = __webpack_require__(67);
 var ReactChildren = __webpack_require__(107);
 var ReactDOMFactories = __webpack_require__(111);
-var ReactElement = __webpack_require__(18);
+var ReactElement = __webpack_require__(19);
 var ReactPropTypes = __webpack_require__(115);
 var ReactVersion = __webpack_require__(117);
 
@@ -8111,7 +8111,7 @@ module.exports = getIteratorFn;
 
 var ReactCurrentOwner = __webpack_require__(12);
 var ReactComponentTreeHook = __webpack_require__(8);
-var ReactElement = __webpack_require__(18);
+var ReactElement = __webpack_require__(19);
 
 var checkReactTypeSpec = __webpack_require__(112);
 
@@ -9108,7 +9108,7 @@ var _prodInvariant = __webpack_require__(4);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 
 var invariant = __webpack_require__(1);
 
@@ -12333,7 +12333,7 @@ render((
 
 
 var PooledClass = __webpack_require__(108);
-var ReactElement = __webpack_require__(18);
+var ReactElement = __webpack_require__(19);
 
 var emptyFunction = __webpack_require__(11);
 var traverseAllChildren = __webpack_require__(109);
@@ -12884,7 +12884,7 @@ module.exports = KeyEscapeUtils;
 
 
 
-var ReactElement = __webpack_require__(18);
+var ReactElement = __webpack_require__(19);
 
 /**
  * Create a factory that creates HTML tag elements.
@@ -13197,7 +13197,7 @@ module.exports = ReactPropTypesSecret;
 
 
 
-var _require = __webpack_require__(18),
+var _require = __webpack_require__(19),
     isValidElement = _require.isValidElement;
 
 var factory = __webpack_require__(72);
@@ -13338,7 +13338,7 @@ module.exports = '15.6.2';
 var _require = __webpack_require__(67),
     Component = _require.Component;
 
-var _require2 = __webpack_require__(18),
+var _require2 = __webpack_require__(19),
     isValidElement = _require2.isValidElement;
 
 var ReactNoopUpdateQueue = __webpack_require__(68);
@@ -14296,7 +14296,7 @@ module.exports = factory;
 
 var _prodInvariant = __webpack_require__(22);
 
-var ReactElement = __webpack_require__(18);
+var ReactElement = __webpack_require__(19);
 
 var invariant = __webpack_require__(1);
 
@@ -15017,7 +15017,7 @@ module.exports = BeforeInputEventPlugin;
 
 var _assign = __webpack_require__(5);
 
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 
 var getTextContentAccessor = __webpack_require__(77);
 
@@ -21096,7 +21096,7 @@ module.exports = flattenChildren;
 
 var _assign = __webpack_require__(5);
 
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 var Transaction = __webpack_require__(38);
 var ReactInstrumentation = __webpack_require__(9);
 var ReactServerUpdateQueue = __webpack_require__(171);
@@ -21775,7 +21775,7 @@ var _assign = __webpack_require__(5);
 
 var EventListener = __webpack_require__(94);
 var ExecutionEnvironment = __webpack_require__(7);
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactUpdates = __webpack_require__(13);
 
@@ -22011,7 +22011,7 @@ module.exports = ReactInjection;
 var _assign = __webpack_require__(5);
 
 var CallbackQueue = __webpack_require__(78);
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 var ReactBrowserEventEmitter = __webpack_require__(42);
 var ReactInputSelection = __webpack_require__(95);
 var ReactInstrumentation = __webpack_require__(9);
@@ -27005,10 +27005,10 @@ module.exports = LoginModal;
 
 const React = __webpack_require__(3);
 const Link = __webpack_require__(33).Link
-const styles = __webpack_require__(20);
+const styles = __webpack_require__(18);
 
 const Frame = __webpack_require__(244);
-const UserInformationBlock = __webpack_require__(258);
+const UserInformationBlock = __webpack_require__(259);
 
 /* 
   @name: Playgeound [page/AI component]
@@ -27066,13 +27066,13 @@ exports.push([module.i, ".Playground__body {\n  width: 1200px;\n  height: 740px;
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
-const styles = __webpack_require__(20);
+const styles = __webpack_require__(18);
 
 const Pets = __webpack_require__(245);
 const Inventory = __webpack_require__(248);
-const IngameShop = __webpack_require__(255);
-const WorldMarket = __webpack_require__(256);
-const UsersTOP = __webpack_require__(257);
+const IngameShop = __webpack_require__(256);
+const WorldMarket = __webpack_require__(257);
+const UsersTOP = __webpack_require__(258);
 
 class Frame extends React.Component {
   constructor(props) {
@@ -27211,10 +27211,12 @@ module.exports = Cat;
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
-const styles = __webpack_require__(20);
+const styles = __webpack_require__(18);
 
 const KeyPI = __webpack_require__(249);
 const BoxPI = __webpack_require__(252);
+
+const BoxOpenModal = __webpack_require__(255);
 
 class Inventory extends React.Component {
   constructor(props) {
@@ -27222,14 +27224,39 @@ class Inventory extends React.Component {
     this.state = {
       inventory: [],
       loading: false,
-      loadingError: null
+      loadingError: null,
+      currentPickedKey: { name: "", position: -1 },
+      currentPickedBox: { name: "", position: -1 },
+      showBoxOpenModal: false
     }
     this.getDataFromUserInventory = this.getDataFromUserInventory.bind(this);
-    this.grabKey = this.grabKey.bind(this);
+    this.setCurrentPickedKeyNameAndPosition = this.setCurrentPickedKeyNameAndPosition.bind(this);
+    this.setCurrentPickedBoxNameAndPosition = this.setCurrentPickedBoxNameAndPosition.bind(this);
+    this.toggleShowBoxOpenModal = this.toggleShowBoxOpenModal.bind(this);
   }
   
-  grabKey(ev) {
-    console.log(ev);
+  toggleShowBoxOpenModal() {
+   this.setState({
+     showBoxOpenModal: !this.state.showBoxOpenModal
+   });
+  }
+  
+  setCurrentPickedKeyNameAndPosition(name, position) {
+    this.setState({ 
+      currentPickedKey: {
+        name: name,
+        position: position
+      }
+    });
+  }
+  
+  setCurrentPickedBoxNameAndPosition(name, position) {
+    this.setState({ 
+      currentPickedBox: {
+        name: name,
+        position: position
+      }
+    });
   }
   
   async getDataFromUserInventory() {
@@ -27259,7 +27286,7 @@ class Inventory extends React.Component {
   }
   
   render() {
-    const { inventory, loading, loadingError} = this.state;
+    const { inventory, loading, loadingError, showBoxOpenModal} = this.state;
     let error = null;
     
     if (loadingError) {
@@ -27283,10 +27310,10 @@ class Inventory extends React.Component {
       if (inventory[i]) {
         switch (inventory[i]["type"]) {
           case "PIbox":
-            inventoryCells.push(React.createElement("div", {className: "inventoryCell", key: `cell#${i}`}, React.createElement(BoxPI, {key: `box#${i}`})));
+            inventoryCells.push(React.createElement("div", {className: "inventoryCell", key: `cell#${i}`}, React.createElement(BoxPI, {key: `box#${i}`, setCurrentPickedBoxNameAndPosition:  () => { this.setCurrentPickedBoxNameAndPosition("BoxPI", i) }, toggleShowBoxOpenModal:  this.toggleShowBoxOpenModal})));
             break;
           case "PIkey":
-            inventoryCells.push(React.createElement("div", {className: "inventoryCell", key: `cell#${i}`}, React.createElement(KeyPI, {key: `key#${i}`})));
+            inventoryCells.push(React.createElement("div", {className: "inventoryCell", key: `cell#${i}`}, React.createElement(KeyPI, {key: `key#${i}`, setCurrentPickedKeyNameAndPosition:  () => { this.setCurrentPickedKeyNameAndPosition("KeyPI", i) }})));
             break;
           default:
             error = "Unexpected error in switch statement";
@@ -27323,7 +27350,8 @@ class Inventory extends React.Component {
     
     return(
       React.createElement("div", {className: "Playground__frame__inventory"}, 
-        inventoryCells
+         inventoryCells, 
+         showBoxOpenModal && React.createElement(BoxOpenModal, {toggleShowBoxOpenModal:  this.toggleShowBoxOpenModal})
       )
     );
   }
@@ -27342,11 +27370,49 @@ class PI extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.selectKey = this.selectKey.bind(this);
+    this.unselectKey = this.unselectKey.bind(this);
+  }
+  
+  unselectKey(event) {
+    const el = event.currentTarget;
+    el.style.cursor = "cell";
+    if (window.getSelection && document.createRange) {
+      window.getSelection().removeAllRanges();
+    }
+  }
+  
+  selectKey(event) {
+    this.props.setCurrentPickedKeyNameAndPosition();
+    
+    let sel;
+    let range;
+    
+    const el = event.currentTarget;
+    el.style.cursor = "-webkit-grab";
+    
+    if (window.getSelection && document.createRange) {
+      sel = window.getSelection();
+      if (sel.toString() == "") {
+        range = document.createRange();
+        range.selectNodeContents(el);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    } else if (document.selection) {
+        sel = document.selection.createRange();
+        if (sel.text == "") { 
+          range = document.body.createTextRange();
+          range.moveToElementText(el);
+          range.select();
+        }
+    }
   }
   
   render() {
+    const { ondragstart } = this.props;
     return(
-      React.createElement("div", {className: "Keys__PI", draggable: "true"}, 
+      React.createElement("div", {className: "Keys__PI", onClick:  this.selectKey, onMouseLeave:  this.unselectKey}, 
         "3.14"
       )
     );
@@ -27394,7 +27460,7 @@ exports = module.exports = __webpack_require__(26)(false);
 
 
 // module
-exports.push([module.i, ".Keys__PI {\n  color: dimgrey;\n  font-size: 2em;\n  font-weight: bold;\n  text-align: center;\n  margin-top: 1em;\n  cursor: grab;\n}", ""]);
+exports.push([module.i, ".Keys__PI {\n  color: dimgrey;\n  font-size: 2em;\n  font-weight: bold;\n  text-align: center;\n  margin-top: 1em;\n  cursor: cell;\n}\n\n.Keys__PI::selection {\n    background: rgba(60, 130, 230, 0);\n}", ""]);
 
 // exports
 
@@ -27410,11 +27476,25 @@ class PI extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.allowDrop = this.allowDrop.bind(this);
+    this.dropKey = this.dropKey.bind(this);
+  }
+  
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
+  
+  dropKey(ev) {
+    const { setCurrentPickedBoxNameAndPosition, toggleShowBoxOpenModal } = this.props;
+    
+    setCurrentPickedBoxNameAndPosition();
+    toggleShowBoxOpenModal();
   }
   
   render() {
+    const { dropkey } = this.props;
     return(
-      React.createElement("div", {className: "Boxes__PI"}, 
+      React.createElement("div", {className: "Boxes__PI", onDrop:  this.dropKey, onDragOver:  this.allowDrop}, 
         "3.14"
       )
     );
@@ -27472,7 +27552,33 @@ exports.push([module.i, ".Boxes__PI {\n  background: #f14949;\n  border-radius: 
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
-const styles = __webpack_require__(20);
+const styles = __webpack_require__(18);
+
+class BoxOpenModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+  
+  render() {
+    const { toggleShowBoxOpenModal } = this.props;
+    return(
+      React.createElement("div", {className: "Playground__frames__BoxOpenModal"}, 
+        "Playground__frames__BoxOpenModal", 
+        React.createElement("button", {onClick:  toggleShowBoxOpenModal }, " Cancel ")
+      )
+    );
+  }
+}
+
+module.exports = BoxOpenModal;
+
+/***/ }),
+/* 256 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const React = __webpack_require__(3);
+const styles = __webpack_require__(18);
 
 class IngameShop extends React.Component {
   constructor(props) {
@@ -27492,11 +27598,11 @@ class IngameShop extends React.Component {
 module.exports = IngameShop;
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
-const styles = __webpack_require__(20);
+const styles = __webpack_require__(18);
 
 class WorldMarket extends React.Component {
   constructor(props) {
@@ -27516,11 +27622,11 @@ class WorldMarket extends React.Component {
 module.exports = WorldMarket;
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
-const styles = __webpack_require__(20);
+const styles = __webpack_require__(18);
 
 class UsersTOP extends React.Component {
   constructor(props) {
@@ -27540,11 +27646,11 @@ class UsersTOP extends React.Component {
 module.exports = UsersTOP;
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
-const styles = __webpack_require__(20);
+const styles = __webpack_require__(18);
 
 class UserInformationBlock extends React.Component {
   constructor(props) {

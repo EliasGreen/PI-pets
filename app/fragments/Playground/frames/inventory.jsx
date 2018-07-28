@@ -4,20 +4,47 @@ const styles = require("../../../styles/Playground");
 const KeyPI = require("../../../keys/PI");
 const BoxPI = require("../../../boxes/PI");
 
+const BoxOpenModal = require("./boxOpenModal");
+
 class Inventory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       inventory: [],
       loading: false,
-      loadingError: null
+      loadingError: null,
+      currentPickedKey: { name: "", position: -1 },
+      currentPickedBox: { name: "", position: -1 },
+      showBoxOpenModal: false
     }
     this.getDataFromUserInventory = this.getDataFromUserInventory.bind(this);
-    this.grabKey = this.grabKey.bind(this);
+    this.setCurrentPickedKeyNameAndPosition = this.setCurrentPickedKeyNameAndPosition.bind(this);
+    this.setCurrentPickedBoxNameAndPosition = this.setCurrentPickedBoxNameAndPosition.bind(this);
+    this.toggleShowBoxOpenModal = this.toggleShowBoxOpenModal.bind(this);
   }
   
-  grabKey(ev) {
-    console.log(ev);
+  toggleShowBoxOpenModal() {
+   this.setState({
+     showBoxOpenModal: !this.state.showBoxOpenModal
+   });
+  }
+  
+  setCurrentPickedKeyNameAndPosition(name, position) {
+    this.setState({ 
+      currentPickedKey: {
+        name: name,
+        position: position
+      }
+    });
+  }
+  
+  setCurrentPickedBoxNameAndPosition(name, position) {
+    this.setState({ 
+      currentPickedBox: {
+        name: name,
+        position: position
+      }
+    });
   }
   
   async getDataFromUserInventory() {
@@ -47,7 +74,7 @@ class Inventory extends React.Component {
   }
   
   render() {
-    const { inventory, loading, loadingError} = this.state;
+    const { inventory, loading, loadingError, showBoxOpenModal} = this.state;
     let error = null;
     
     if (loadingError) {
@@ -71,10 +98,10 @@ class Inventory extends React.Component {
       if (inventory[i]) {
         switch (inventory[i]["type"]) {
           case "PIbox":
-            inventoryCells.push(<div className="inventoryCell" key={`cell#${i}`}><BoxPI key={`box#${i}`}/></div>);
+            inventoryCells.push(<div className="inventoryCell" key={`cell#${i}`}><BoxPI key={`box#${i}`} setCurrentPickedBoxNameAndPosition={ () => { this.setCurrentPickedBoxNameAndPosition("BoxPI", i) } } toggleShowBoxOpenModal={ this.toggleShowBoxOpenModal }/></div>);
             break;
           case "PIkey":
-            inventoryCells.push(<div className="inventoryCell" key={`cell#${i}`}><KeyPI key={`key#${i}`}/></div>);
+            inventoryCells.push(<div className="inventoryCell" key={`cell#${i}`}><KeyPI key={`key#${i}`} setCurrentPickedKeyNameAndPosition={ () => { this.setCurrentPickedKeyNameAndPosition("KeyPI", i) } }/></div>);
             break;
           default:
             error = "Unexpected error in switch statement";
@@ -111,7 +138,8 @@ class Inventory extends React.Component {
     
     return(
       <div className="Playground__frame__inventory">
-        {inventoryCells}
+        { inventoryCells }
+        { showBoxOpenModal && <BoxOpenModal toggleShowBoxOpenModal={ this.toggleShowBoxOpenModal } /> }
       </div>
     );
   }

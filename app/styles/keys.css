@@ -4,5 +4,9 @@
   font-weight: bold;
   text-align: center;
   margin-top: 1em;
-  cursor: grab;
+  cursor: cell;
+}
+
+.Keys__PI::selection {
+    background: rgba(60, 130, 230, 0);
 }
