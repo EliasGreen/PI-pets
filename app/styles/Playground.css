@@ -142,3 +142,13 @@
     background: #69031f;
   }
 }
+
+.Playground__frames__BoxOpenModal {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.35);
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+    
