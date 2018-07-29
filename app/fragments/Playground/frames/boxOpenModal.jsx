@@ -13,17 +13,34 @@ class BoxOpenModal extends React.Component {
     }
     
     this.getCurrentPickedBox = this.getCurrentPickedBox.bind(this);
+    this.openBox = this.openBox.bind(this);
+  }
+  
+  async openBox() {
+    const { currentPickedBoxName } = this.props;
+    let data = {};
+    switch (currentPickedBoxName) {
+      case "BoxPI":
+        data.pet = "dsfdf";
+        break;
+      default:
+        throw new Error("Unknown currentPickedBoxName property");
+    }
+    
+    //TODO [SEND REQUEST]
   }
   
   getCurrentPickedBox(currentPickedBoxName) {
     switch (currentPickedBoxName) {
       case "BoxPI":
         return (
-          <div>
+          <div className="boxContainer">
             <BoxPI />
             <p> You will get a random PI-pet from it </p>
-            <label htmlFor="petNameInput"> Type in a name of your future PI-pet </label>
-            <input type="text" id="petNameInput" placeholder="Kitty-pitty"/>
+            <div className="inputContainer">
+              <label htmlFor="petNameInput"> Type in a name of your future PI-pet </label>
+              <input type="text" id="petNameInput" placeholder="Kitty-pitty" maxlength="10"/>
+            </div>
           </div>
         );
       default:
