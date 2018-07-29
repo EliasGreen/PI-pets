@@ -21,6 +21,17 @@ class Inventory extends React.Component {
     this.setCurrentPickedKeyNameAndPosition = this.setCurrentPickedKeyNameAndPosition.bind(this);
     this.setCurrentPickedBoxNameAndPosition = this.setCurrentPickedBoxNameAndPosition.bind(this);
     this.toggleShowBoxOpenModal = this.toggleShowBoxOpenModal.bind(this);
+    this.checkKeyFitBox = this.checkKeyFitBox.bind(this);
+  }
+  
+  checkKeyFitBox() {
+    const { currentPickedKey, currentPickedBox } = this.state;
+    switch (currentPickedKey.name) {
+      case "KeyPI":
+        return currentPickedBox.name == "BoxPI" ? true : false;
+      default: 
+        throw Error("Unexpecred key name");
+    }
   }
   
   toggleShowBoxOpenModal() {
@@ -74,7 +85,7 @@ class Inventory extends React.Component {
   }
   
   render() {
-    const { inventory, loading, loadingError, showBoxOpenModal} = this.state;
+    const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox} = this.state;
     let error = null;
     
     if (loadingError) {
@@ -139,7 +150,7 @@ class Inventory extends React.Component {
     return(
       <div className="Playground__frame__inventory">
         { inventoryCells }
-        { showBoxOpenModal && <BoxOpenModal toggleShowBoxOpenModal={ this.toggleShowBoxOpenModal } /> }
+        { showBoxOpenModal && this.checkKeyFitBox() && <BoxOpenModal toggleShowBoxOpenModal={ this.toggleShowBoxOpenModal } currentPickedBoxName={ currentPickedBox.name }/> }
       </div>
     );
   }

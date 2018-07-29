@@ -142,3 +142,93 @@
     background: #69031f;
   }
 }
+
+.Playground__frames__BoxOpenModal {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.35);
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+
+
+.Playground__frames__BoxOpenModal__innerContent {
+  width: 900px;
+  background: #9a848e;
+  margin: 150px auto auto auto;
+  padding: 20px;
+  min-height: 500px;
+  border: 20px rgba(226, 210, 213, 0.22);
+  border-style: dotted solid;
+  border-radius: 170px;
+  box-sizing: border-box;
+}
+
+.Playground__frames__BoxOpenModal__innerContent h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  border: 5px solid #ffdead;
+  color: beige;
+  padding: 10px;
+  background: rgb(222, 43, 84);
+  width: 60%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.Playground__frames__BoxOpenModal__innerContent .boxContainer {
+  background: rgba(220, 220, 220, 0.18);
+  padding: 10px;
+  border-radius: 10px;
+  width: 70%;
+  margin: 10px auto;
+}
+
+.Playground__frames__BoxOpenModal__innerContent p {
+    text-align: center;
+    color: beige;
+    background: rgba(82, 78, 68, 0.31);
+    width: 50%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.Playground__frames__BoxOpenModal__innerContent .inputContainer {
+  background: rgba(194, 180, 183, 0.3);
+  margin: 20px auto;
+  width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.Playground__frames__BoxOpenModal__innerContent input {
+  width: 50%;
+  padding: 5px;
+  margin: auto;
+  display: block;
+  background: rgba(241, 73, 73, 0.35);
+  border: 1px solid white;
+  color: white; 
+}
+
+.Playground__frames__BoxOpenModal__innerContent label {
+  display: block;
+  padding: 5px;
+  text-align: center;
+  color: white;
+}
+
+.Playground__frames__BoxOpenModal__innerContent button {
+  width: 40%;
+  display: block;
+  margin: 10px auto;
+  border: 1px solid #ffdead;
+  color: beige;
+  padding: 10px;
+  background: rgb(222, 43, 84);
+  cursor: pointer;
+  font-size: 1rem;
+}
