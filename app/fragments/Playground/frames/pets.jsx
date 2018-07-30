@@ -3,33 +3,52 @@ const styles = require("../../../styles/pets/cat");
 
 const Cat = require("../../../pets/cat");
 
-const generateRandomPetColorInRGB = () => {
-  return(
-    {
-      top: `rgb(${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40})`,
-      center: `rgb(${Math.floor(Math.random() * (200 - 40 + 1)) + 60},${Math.floor(Math.random() * (200 - 40 + 1)) + 60},${Math.floor(Math.random() * (200 - 40 + 1)) + 60})`,
-      down: `rgb(${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40})`,
-      details: `rgb(${Math.floor(Math.random() * (255 - 40 + 1)) + 10},${Math.floor(Math.random() * (255 - 40 + 1)) + 10},${Math.floor(Math.random() * (255 - 40 + 1)) + 10})`
-    } 
-  );
-}
-
 class Pets extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      loading: false,
+      loadingError: false,
+      pets: []
+    }
+    this.getDataFromUserPets = this.getDataFromUserPets.bind(this);
+  }
+  
+   async getDataFromUserPets() {
+    this.setState({
+      loading: true 
+    });
+   
+    try {
+      const response = await fetch("/user/pets", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
+      const result = await response.json();
+      
+      this.setState({
+        pets: result.pets,
+        loading: false
+      });
+    } 
+    catch(loadingError) {
+      this.setState({
+        loadingError,
+        loading: false
+      });
+    }
+  }
+  
+  componentDidMount() {
+    this.getDataFromUserPets();
   }
   
   render() {
-    let cats = [];
-    for(let i = 0; i < 10; i++) {
-      let newGeneratedPerColorsInRGB = generateRandomPetColorInRGB();
-      cats.push(<Cat key={i+"key"} petColors={newGeneratedPerColorsInRGB}/>);
-    }
+    const { pets } = this.state;
+    
+    console.log("Pets");
+    console.log(pets);
     
     return(
       <div className="Playground__frame__pets">
-        { cats }
+        {  }
       </div>
     );
   }

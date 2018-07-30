@@ -22,6 +22,16 @@ class Inventory extends React.Component {
     this.setCurrentPickedBoxNameAndPosition = this.setCurrentPickedBoxNameAndPosition.bind(this);
     this.toggleShowBoxOpenModal = this.toggleShowBoxOpenModal.bind(this);
     this.checkKeyFitBox = this.checkKeyFitBox.bind(this);
+    this.deleteUsedKeyAndBoxFromInventory = this.deleteUsedKeyAndBoxFromInventory.bind(this);
+  }
+  
+  deleteUsedKeyAndBoxFromInventory() {
+    const { currentPickedKey, currentPickedBox, inventory } = this.state;
+    const newInventory = (inventory.splice(currentPickedKey.position, 1)).splice(currentPickedBox.position, 1);
+    
+    this.setState({
+     inventory: newInventory
+   });
   }
   
   checkKeyFitBox() {
@@ -85,7 +95,7 @@ class Inventory extends React.Component {
   }
   
   render() {
-    const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox} = this.state;
+    const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox, currentPickedKey} = this.state;
     let error = null;
     
     if (loadingError) {
@@ -150,7 +160,13 @@ class Inventory extends React.Component {
     return(
       <div className="Playground__frame__inventory">
         { inventoryCells }
-        { showBoxOpenModal && this.checkKeyFitBox() && <BoxOpenModal toggleShowBoxOpenModal={ this.toggleShowBoxOpenModal } currentPickedBoxName={ currentPickedBox.name }/> }
+        { showBoxOpenModal && this.checkKeyFitBox() && 
+          <BoxOpenModal 
+            toggleShowBoxOpenModal={ this.toggleShowBoxOpenModal } 
+            currentPickedBoxName={ currentPickedBox.name } 
+            deleteUsedKeyAndBoxFromInventory={ this.deleteUsedKeyAndBoxFromInventory } 
+            currentPickedKeyPosition={ currentPickedKey.position } 
+            currentPickedBoxPosition={ currentPickedBox.position }/> }
       </div>
     );
   }

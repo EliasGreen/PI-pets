@@ -21,7 +21,7 @@ const userSchema = new Schema({
      usersTOP: { type: Boolean, default: true }
    }
   }
-});
+}, { usePushEach: true });
 const userModel = mongoose.model("pi-pets-users", userSchema);
 
 module.exports = userModel;

@@ -27146,33 +27146,52 @@ const styles = __webpack_require__(105);
 
 const Cat = __webpack_require__(248);
 
-const generateRandomPetColorInRGB = () => {
-  return(
-    {
-      top: `rgb(${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40})`,
-      center: `rgb(${Math.floor(Math.random() * (200 - 40 + 1)) + 60},${Math.floor(Math.random() * (200 - 40 + 1)) + 60},${Math.floor(Math.random() * (200 - 40 + 1)) + 60})`,
-      down: `rgb(${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40})`,
-      details: `rgb(${Math.floor(Math.random() * (255 - 40 + 1)) + 10},${Math.floor(Math.random() * (255 - 40 + 1)) + 10},${Math.floor(Math.random() * (255 - 40 + 1)) + 10})`
-    } 
-  );
-}
-
 class Pets extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      loading: false,
+      loadingError: false,
+      pets: []
+    }
+    this.getDataFromUserPets = this.getDataFromUserPets.bind(this);
+  }
+  
+   async getDataFromUserPets() {
+    this.setState({
+      loading: true 
+    });
+   
+    try {
+      const response = await fetch("/user/pets", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
+      const result = await response.json();
+      
+      this.setState({
+        pets: result.pets,
+        loading: false
+      });
+    } 
+    catch(loadingError) {
+      this.setState({
+        loadingError,
+        loading: false
+      });
+    }
+  }
+  
+  componentDidMount() {
+    this.getDataFromUserPets();
   }
   
   render() {
-    let cats = [];
-    for(let i = 0; i < 10; i++) {
-      let newGeneratedPerColorsInRGB = generateRandomPetColorInRGB();
-      cats.push(React.createElement(Cat, {key: i+"key", petColors: newGeneratedPerColorsInRGB}));
-    }
+    const { pets } = this.state;
+    
+    console.log("Pets");
+    console.log(pets);
     
     return(
-      React.createElement("div", {className: "Playground__frame__pets"}, 
-         cats 
+      React.createElement("div", {className: "Playground__frame__pets"}
+        
       )
     );
   }
@@ -27271,6 +27290,16 @@ class Inventory extends React.Component {
     this.setCurrentPickedBoxNameAndPosition = this.setCurrentPickedBoxNameAndPosition.bind(this);
     this.toggleShowBoxOpenModal = this.toggleShowBoxOpenModal.bind(this);
     this.checkKeyFitBox = this.checkKeyFitBox.bind(this);
+    this.deleteUsedKeyAndBoxFromInventory = this.deleteUsedKeyAndBoxFromInventory.bind(this);
+  }
+  
+  deleteUsedKeyAndBoxFromInventory() {
+    const { currentPickedKey, currentPickedBox, inventory } = this.state;
+    const newInventory = (inventory.splice(currentPickedKey.position, 1)).splice(currentPickedBox.position, 1);
+    
+    this.setState({
+     inventory: newInventory
+   });
   }
   
   checkKeyFitBox() {
@@ -27334,7 +27363,7 @@ class Inventory extends React.Component {
   }
   
   render() {
-    const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox} = this.state;
+    const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox, currentPickedKey} = this.state;
     let error = null;
     
     if (loadingError) {
@@ -27399,7 +27428,13 @@ class Inventory extends React.Component {
     return(
       React.createElement("div", {className: "Playground__frame__inventory"}, 
          inventoryCells, 
-         showBoxOpenModal && this.checkKeyFitBox() && React.createElement(BoxOpenModal, {toggleShowBoxOpenModal:  this.toggleShowBoxOpenModal, currentPickedBoxName:  currentPickedBox.name})
+         showBoxOpenModal && this.checkKeyFitBox() && 
+          React.createElement(BoxOpenModal, {
+            toggleShowBoxOpenModal:  this.toggleShowBoxOpenModal, 
+            currentPickedBoxName:  currentPickedBox.name, 
+            deleteUsedKeyAndBoxFromInventory:  this.deleteUsedKeyAndBoxFromInventory, 
+            currentPickedKeyPosition:  currentPickedKey.position, 
+            currentPickedBoxPosition:  currentPickedBox.position})
       )
     );
   }
@@ -27572,9 +27607,11 @@ class BoxOpenModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addDataForServer: {},
-      deleteDataForServer: {},
-      currentPickedBox: null
+      loadingError: null,
+      loading: false,
+      currentPickedBox: null,
+      dropFromBox: null,
+      data: {}
     }
     
     this.getCurrentPickedBox = this.getCurrentPickedBox.bind(this);
@@ -27582,20 +27619,40 @@ class BoxOpenModal extends React.Component {
   }
   
   async openBox() {
-    const { currentPickedBoxName } = this.props;
-    let data = {};
+    this.setState({
+        loading: false
+      });
+    
+    const { currentPickedBoxName, deleteUsedKeyAndBoxFromInventory, currentPickedKeyPosition, currentPickedBoxPosition} = this.props;
+    let data = {
+      currentPickedKeyPosition: currentPickedKeyPosition,
+      currentPickedBoxPosition: currentPickedBoxPosition
+    };
     switch (currentPickedBoxName) {
       case "BoxPI":
-        const newPetNickname = document.getElementById("petNameInput").value;
-        data.pet = generateNewPet(newPetNickname);
+        const newPetNickname = document.getElementById("petNameInput").value || "PetName";
+        data.drop = generateNewPet(newPetNickname);
         break;
       default:
         throw new Error("Unknown currentPickedBoxName property");
     }
     
-    console.log(data);
+    deleteUsedKeyAndBoxFromInventory();
     
-    //TODO [SEND REQUEST]
+    try {
+      const postRequest = await fetch("/user/open-box", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify(data) });
+      
+      this.setState({
+        loading: false,
+        data: data
+      });
+    } 
+    catch(loadingError) {
+      this.setState({
+        loadingError,
+        loading: false
+      });
+    }
   }
   
   getCurrentPickedBox(currentPickedBoxName) {
