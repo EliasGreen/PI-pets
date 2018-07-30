@@ -1,18 +1,22 @@
-const rarities = [ "Poor",
-                 "Common",
-                 "Uncommon ",
-                 "Rare",
-                 "Epic",
-                 "Legendary",
-                 "Artifact",
-                 "Heirloom" ];
-
+const rarities = [ { label: "Poor", coefficient: 0.8 },
+                   { label: "Common", coefficient: 1 },
+                   { label: "Uncommon", coefficient: 1.1 },
+                   { label: "Rare", coefficient: 1.2 },
+                   { label: "Epic", coefficient: 1.3 },
+                   { label: "Legendary", coefficient: 1.4 },
+                   { label: "Artifact", coefficient: 1.5 } ];
 const sexes = [ "Male", "Female" ];
-
-const specializations = [ "Fighter", "Coinser", "Model", "LongLiver", "HungryBullet", "SpeedRunner", "Wild"]
+const specializations = [ "Fighter", "Coinser", "Model", "LongLiver", "HungryBullet", "SpeedRunner", "Wild"];
+const petTypes = [ "Cat" , "Dog" ];
 
 const chooseRandomItemFromArray = (array) => {
-  return array[Math.floor(Math.random() * ((array.length-1) - 0 + 1)) + 0];
+  if (array != rarities) {
+    return array[Math.floor(Math.random() * ((array.length-1) - 0 + 1)) + 0];
+  }
+  else {
+    let randomIndex  = Math.random() > 0.2 ? (Math.floor(Math.random() * (2 - 0 + 1)) + 0) : (Math.floor(Math.random() * ((array.length-1) - 0 + 1)) + 0);
+    return array[randomIndex];
+  }
 }
 
 const generateRandomPetColorInRGB = () => {
@@ -26,20 +30,23 @@ const generateRandomPetColorInRGB = () => {
   );
 }
 
-const generateNewPet = (petType, nickname) => {
+const generateNewPet = (nickname) => {
   const newGeneratedPerColorsInRGB = generateRandomPetColorInRGB();
+  
   const pet = {
-    type: petType,
+    type: chooseRandomItemFromArray(petTypes),
     petColors: newGeneratedPerColorsInRGB,
     nickname: nickname,
-    
+    specialist: chooseRandomItemFromArray(specializations),
+    sex: chooseRandomItemFromArray(sexes),
+    rarity: chooseRandomItemFromArray(rarities),
+    hitPoints: 100
   };
-  // specialist: String,
-  // sex: String,
-  // rarity: String,
-  // hitPoints:  { type: Number, min: 0, max: 100, default: 100},
-  // attack: { type: Number, min: 0, max: 100, default: 5},
-  // defense: { type: Number, min: 0, max: 20, default: 1}
+
+  pet.attack = Math.round((Math.floor(Math.random() * 66) + 5) * pet.rarity.coefficient);
+  pet.defense = Math.round((Math.floor(Math.random() * 13) + 1) * pet.rarity.coefficient);
+  
+  return pet;
 }
 
 

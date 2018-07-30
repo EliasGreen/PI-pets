@@ -2,6 +2,7 @@ const React = require("react");
 const styles = require("../../../styles/Playground");
 
 const BoxPI = require("../../../boxes/PI");
+const generateNewPet = require("../../../functions/generateNewPet");
 
 class BoxOpenModal extends React.Component {
   constructor(props) {
@@ -21,11 +22,14 @@ class BoxOpenModal extends React.Component {
     let data = {};
     switch (currentPickedBoxName) {
       case "BoxPI":
-        data.pet = "dsfdf";
+        const newPetNickname = document.getElementById("petNameInput").value;
+        data.pet = generateNewPet(newPetNickname);
         break;
       default:
         throw new Error("Unknown currentPickedBoxName property");
     }
+    
+    console.log(data);
     
     //TODO [SEND REQUEST]
   }
@@ -39,7 +43,7 @@ class BoxOpenModal extends React.Component {
             <p> You will get a random PI-pet from it </p>
             <div className="inputContainer">
               <label htmlFor="petNameInput"> Type in a name of your future PI-pet </label>
-              <input type="text" id="petNameInput" placeholder="Kitty-pitty" maxlength="10"/>
+              <input type="text" id="petNameInput" placeholder="Kitty-pitty" maxLength="10" required/>
             </div>
           </div>
         );
@@ -64,7 +68,7 @@ class BoxOpenModal extends React.Component {
         <div className="Playground__frames__BoxOpenModal__innerContent">
            <h1> You are going to open this box </h1>
            { currentPickedBox }
-          <button> Open </button> 
+          <button onClick= { this.openBox }> Open </button> 
           <button onClick={ toggleShowBoxOpenModal }> Cancel </button> 
         </div>
       </div>

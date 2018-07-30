@@ -27045,7 +27045,7 @@ const Link = __webpack_require__(33).Link
 const styles = __webpack_require__(18);
 
 const Frame = __webpack_require__(245);
-const UserInformationBlock = __webpack_require__(259);
+const UserInformationBlock = __webpack_require__(260);
 
 /* 
   @name: Playgeound [page/AI component]
@@ -27107,9 +27107,9 @@ const styles = __webpack_require__(18);
 
 const Pets = __webpack_require__(246);
 const Inventory = __webpack_require__(249);
-const IngameShop = __webpack_require__(256);
-const WorldMarket = __webpack_require__(257);
-const UsersTOP = __webpack_require__(258);
+const IngameShop = __webpack_require__(257);
+const WorldMarket = __webpack_require__(258);
+const UsersTOP = __webpack_require__(259);
 
 class Frame extends React.Component {
   constructor(props) {
@@ -27566,6 +27566,7 @@ const React = __webpack_require__(3);
 const styles = __webpack_require__(18);
 
 const BoxPI = __webpack_require__(106);
+const generateNewPet = __webpack_require__(256);
 
 class BoxOpenModal extends React.Component {
   constructor(props) {
@@ -27585,11 +27586,14 @@ class BoxOpenModal extends React.Component {
     let data = {};
     switch (currentPickedBoxName) {
       case "BoxPI":
-        data.pet = "dsfdf";
+        const newPetNickname = document.getElementById("petNameInput").value;
+        data.pet = generateNewPet(newPetNickname);
         break;
       default:
         throw new Error("Unknown currentPickedBoxName property");
     }
+    
+    console.log(data);
     
     //TODO [SEND REQUEST]
   }
@@ -27603,7 +27607,7 @@ class BoxOpenModal extends React.Component {
             React.createElement("p", null, " You will get a random PI-pet from it "), 
             React.createElement("div", {className: "inputContainer"}, 
               React.createElement("label", {htmlFor: "petNameInput"}, " Type in a name of your future PI-pet "), 
-              React.createElement("input", {type: "text", id: "petNameInput", placeholder: "Kitty-pitty", maxlength: "10"})
+              React.createElement("input", {type: "text", id: "petNameInput", placeholder: "Kitty-pitty", maxLength: "10", required: true})
             )
           )
         );
@@ -27628,7 +27632,7 @@ class BoxOpenModal extends React.Component {
         React.createElement("div", {className: "Playground__frames__BoxOpenModal__innerContent"}, 
            React.createElement("h1", null, " You are going to open this box "), 
             currentPickedBox, 
-          React.createElement("button", null, " Open "), 
+          React.createElement("button", {onClick:  this.openBox}, " Open "), 
           React.createElement("button", {onClick:  toggleShowBoxOpenModal }, " Cancel ")
         )
       )
@@ -27640,6 +27644,64 @@ module.exports = BoxOpenModal;
 
 /***/ }),
 /* 256 */
+/***/ (function(module, exports) {
+
+const rarities = [ { label: "Poor", coefficient: 0.8 },
+                   { label: "Common", coefficient: 1 },
+                   { label: "Uncommon", coefficient: 1.1 },
+                   { label: "Rare", coefficient: 1.2 },
+                   { label: "Epic", coefficient: 1.3 },
+                   { label: "Legendary", coefficient: 1.4 },
+                   { label: "Artifact", coefficient: 1.5 } ];
+const sexes = [ "Male", "Female" ];
+const specializations = [ "Fighter", "Coinser", "Model", "LongLiver", "HungryBullet", "SpeedRunner", "Wild"];
+const petTypes = [ "Cat" , "Dog" ];
+
+const chooseRandomItemFromArray = (array) => {
+  if (array != rarities) {
+    return array[Math.floor(Math.random() * ((array.length-1) - 0 + 1)) + 0];
+  }
+  else {
+    let randomIndex  = Math.random() > 0.2 ? (Math.floor(Math.random() * (2 - 0 + 1)) + 0) : (Math.floor(Math.random() * ((array.length-1) - 0 + 1)) + 0);
+    return array[randomIndex];
+  }
+}
+
+const generateRandomPetColorInRGB = () => {
+  return(
+    {
+      top: `rgb(${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40})`,
+      center: `rgb(${Math.floor(Math.random() * (200 - 40 + 1)) + 60},${Math.floor(Math.random() * (200 - 40 + 1)) + 60},${Math.floor(Math.random() * (200 - 40 + 1)) + 60})`,
+      down: `rgb(${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40},${Math.floor(Math.random() * (255 - 40 + 1)) + 40})`,
+      details: `rgb(${Math.floor(Math.random() * (255 - 40 + 1)) + 10},${Math.floor(Math.random() * (255 - 40 + 1)) + 10},${Math.floor(Math.random() * (255 - 40 + 1)) + 10})`
+    } 
+  );
+}
+
+const generateNewPet = (nickname) => {
+  const newGeneratedPerColorsInRGB = generateRandomPetColorInRGB();
+  
+  const pet = {
+    type: chooseRandomItemFromArray(petTypes),
+    petColors: newGeneratedPerColorsInRGB,
+    nickname: nickname,
+    specialist: chooseRandomItemFromArray(specializations),
+    sex: chooseRandomItemFromArray(sexes),
+    rarity: chooseRandomItemFromArray(rarities),
+    hitPoints: 100
+  };
+
+  pet.attack = Math.round((Math.floor(Math.random() * 66) + 5) * pet.rarity.coefficient);
+  pet.defense = Math.round((Math.floor(Math.random() * 13) + 1) * pet.rarity.coefficient);
+  
+  return pet;
+}
+
+
+module.exports = generateNewPet;
+
+/***/ }),
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
@@ -27663,7 +27725,7 @@ class IngameShop extends React.Component {
 module.exports = IngameShop;
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
@@ -27687,7 +27749,7 @@ class WorldMarket extends React.Component {
 module.exports = WorldMarket;
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
@@ -27711,7 +27773,7 @@ class UsersTOP extends React.Component {
 module.exports = UsersTOP;
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
