@@ -16,7 +16,7 @@ const petSchema = new Schema({
   sex: String,
   pregnant: { type: Boolean, default: false },
   timeOfpregnant: { type: Number, min: 0, max: 9, default: 0},
-  rarity: String,
+  rarity: {},
   birthdate: { type: Date, default: Date.now },
   foodPoints:  { type: Number, min: 0, max: 12, default: 12},
   waterPoints:  { type: Number, min: 0, max: 12, default: 12},

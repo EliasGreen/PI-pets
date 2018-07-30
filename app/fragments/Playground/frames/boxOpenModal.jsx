@@ -8,9 +8,11 @@ class BoxOpenModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addDataForServer: {},
-      deleteDataForServer: {},
-      currentPickedBox: null
+      loadingError: null,
+      loading: false,
+      currentPickedBox: null,
+      dropFromBox: null,
+      data: {}
     }
     
     this.getCurrentPickedBox = this.getCurrentPickedBox.bind(this);
@@ -18,20 +20,40 @@ class BoxOpenModal extends React.Component {
   }
   
   async openBox() {
-    const { currentPickedBoxName } = this.props;
-    let data = {};
+    this.setState({
+        loading: false
+      });
+    
+    const { currentPickedBoxName, deleteUsedKeyAndBoxFromInventory, currentPickedKeyPosition, currentPickedBoxPosition} = this.props;
+    let data = {
+      currentPickedKeyPosition: currentPickedKeyPosition,
+      currentPickedBoxPosition: currentPickedBoxPosition
+    };
     switch (currentPickedBoxName) {
       case "BoxPI":
-        const newPetNickname = document.getElementById("petNameInput").value;
-        data.pet = generateNewPet(newPetNickname);
+        const newPetNickname = document.getElementById("petNameInput").value || "PetName";
+        data.drop = generateNewPet(newPetNickname);
         break;
       default:
         throw new Error("Unknown currentPickedBoxName property");
     }
     
-    console.log(data);
+    deleteUsedKeyAndBoxFromInventory();
     
-    //TODO [SEND REQUEST]
+    try {
+      const postRequest = await fetch("/user/open-box", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify(data) });
+      
+      this.setState({
+        loading: false,
+        data: data
+      });
+    } 
+    catch(loadingError) {
+      this.setState({
+        loadingError,
+        loading: false
+      });
+    }
   }
   
   getCurrentPickedBox(currentPickedBoxName) {
