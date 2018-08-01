@@ -12,14 +12,14 @@ const userSchema = new Schema({
   xp: { type: Number, default: 0 },
   inventory: [],
   meta: {
-   registrationDate: { type: Date, default: Date.now },
-   firstLogIn: {
-     petPolygon: { type: Boolean, default: true },
-     inventory: { type: Boolean, default: true },
-     ingameShop: { type: Boolean, default: true },
-     worldShop: { type: Boolean, default: true },
-     usersTOP: { type: Boolean, default: true }
-   }
+    registrationDate: { type: Date, default: Date.now },
+    firstLogIn: {
+      petPolygon: { type: Boolean, default: true },
+      inventory: { type: Boolean, default: true },
+      ingameShop: { type: Boolean, default: true },
+      worldShop: { type: Boolean, default: true },
+      usersTOP: { type: Boolean, default: true }
+    }
   }
 }, { usePushEach: true });
 const userModel = mongoose.model("pi-pets-users", userSchema);

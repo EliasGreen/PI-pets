@@ -27155,6 +27155,21 @@ class Pets extends React.Component {
       pets: []
     }
     this.getDataFromUserPets = this.getDataFromUserPets.bind(this);
+    this.compilePetsIntoComponents = this.compilePetsIntoComponents.bind(this);
+  }
+  
+  compilePetsIntoComponents(pets) {
+       
+    const petComponents = {
+      "Cat": Cat,
+      "Dog": "DOG-TODO"
+    }
+    
+    return pets.map( pet => {
+      const PetComponent = petComponents[pet.type];
+      const opacity = pet.alive === true ? 1 : 0.4;
+      return React.createElement(PetComponent, {petColors: pet.petColors, opacity: opacity, key: pet._id})
+    });
   }
   
    async getDataFromUserPets() {
@@ -27186,12 +27201,11 @@ class Pets extends React.Component {
   render() {
     const { pets } = this.state;
     
-    console.log("Pets");
-    console.log(pets);
+    const petsInComponents = this.compilePetsIntoComponents(pets);
     
     return(
-      React.createElement("div", {className: "Playground__frame__pets"}
-        
+      React.createElement("div", {className: "Playground__frame__pets"}, 
+         petsInComponents 
       )
     );
   }
@@ -27231,11 +27245,11 @@ class Cat extends React.Component {
   }
   
   render() {
-    const { petColors } = this.props;
+    const { petColors, opacity } = this.props;
     return(
       React.createElement("div", {className: "Pets__cat"}, 
         React.createElement("svg", {width: "120pt", height: "90pt", viewBox: "0 0 120 90"}, 
-          React.createElement("g", {xmlns: "http://www.w3.org/2000/svg", id: "surface1"}, 
+          React.createElement("g", {xmlns: "http://www.w3.org/2000/svg", id: "surface1", style: { opacity: opacity}}, 
             React.createElement("path", {className: "leftCatEar", style: {fillRule:"nonzero", fill: petColors.top, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}, d: "M 104.5 53.5 L 146 179 L 217 115 Z M 104.5 53.5 ", transform: "matrix(0.1875,0,0,0.1875,0,0)"}), 
             React.createElement("path", {className: "rightCatEar", style: {fillRule:"nonzero", fill: petColors.top, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}, d: "M 395.253883 50.257376 L 436.746445 175.747539 L 507.753724 111.7492 Z M 395.253883 50.257376 ", transform: "matrix(0.0682651,0.174631,-0.174631,0.0682651,73.567918,-65.372535)"}), 
             React.createElement("path", {style: {fillRule:"nonzero", fill: petColors.center, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}, d: "M 522.166667 250.75 C 522.166667 154.9375 429.708333 77.25 315.666667 77.25 C 201.625 77.25 109.166667 154.9375 109.166667 250.75 C 109.166667 346.5625 201.625 424.25 315.666667 424.25 C 429.708333 424.25 522.166667 346.5625 522.166667 250.75 Z M 522.166667 250.75 ", transform: "matrix(0.1875,0,0,0.1875,0,0)"}), 

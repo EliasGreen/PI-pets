@@ -3,6 +3,8 @@ const app = express();
 app.use(express.static("public"));
 
 const mongoDB__utils = require("./server/utils/mongoDB");
+const checkerOfPets = require("./server/utils/checkerOfPets");
+checkerOfPets.start();
 const loginCheck = require("./server/middlewares/loginCheck");
 
 const cookieParser = require("cookie-parser");
