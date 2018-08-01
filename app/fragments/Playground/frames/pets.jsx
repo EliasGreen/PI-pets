@@ -12,6 +12,21 @@ class Pets extends React.Component {
       pets: []
     }
     this.getDataFromUserPets = this.getDataFromUserPets.bind(this);
+    this.compilePetsIntoComponents = this.compilePetsIntoComponents.bind(this);
+  }
+  
+  compilePetsIntoComponents(pets) {
+       
+    const petComponents = {
+      "Cat": Cat,
+      "Dog": "DOG-TODO"
+    }
+    
+    return pets.map( pet => {
+      const PetComponent = petComponents[pet.type];
+      const opacity = pet.alive === true ? 1 : 0.4;
+      return <PetComponent petColors={pet.petColors} opacity={opacity} key={pet._id}/>
+    });
   }
   
    async getDataFromUserPets() {
@@ -43,12 +58,11 @@ class Pets extends React.Component {
   render() {
     const { pets } = this.state;
     
-    console.log("Pets");
-    console.log(pets);
+    const petsInComponents = this.compilePetsIntoComponents(pets);
     
     return(
       <div className="Playground__frame__pets">
-        {  }
+        { petsInComponents }
       </div>
     );
   }

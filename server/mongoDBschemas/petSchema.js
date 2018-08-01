@@ -23,7 +23,10 @@ const petSchema = new Schema({
   hitPoints:  { type: Number, min: 0, max: 100, default: 100},
   happinessPoints: { type: Number, min: 0, max: 20, default: 20},
   attack: { type: Number, min: 0, max: 100, default: 5},
-  defense: { type: Number, min: 0, max: 20, default: 1}
+  defense: { type: Number, min: 0, max: 20, default: 1},
+  lastTimeofGettingFood: { type: Date, default: Date.now },
+  lastTimeofGettingWater: { type: Date, default: Date.now },
+  alive: { type: Boolean, default: true }
 });
 
 module.exports = petSchema;
