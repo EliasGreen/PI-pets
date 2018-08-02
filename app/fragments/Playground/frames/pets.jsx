@@ -1,14 +1,17 @@
 const React = require("react");
 const styles = require("../../../styles/pets/cat");
 
+const LoadingCircleSpinner = require("../../../utils/loadingCircleSpinner");
+
 const Cat = require("../../../pets/cat");
+const Dog = require("../../../pets/dog");
 
 class Pets extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
-      loadingError: false,
+      loadingError: null,
       pets: []
     }
     this.getDataFromUserPets = this.getDataFromUserPets.bind(this);
@@ -16,10 +19,14 @@ class Pets extends React.Component {
   }
   
   compilePetsIntoComponents(pets) {
+    
+    if (pets.length === 0) {
+     return <div className="emptyPetsFrame"> Looks like you don't have any PI pets - open PI box to get one of them!</div>;
+    }
        
     const petComponents = {
       "Cat": Cat,
-      "Dog": "DOG-TODO"
+      "Dog": Dog
     }
     
     return pets.map( pet => {
@@ -56,9 +63,27 @@ class Pets extends React.Component {
   }
   
   render() {
-    const { pets } = this.state;
+    const { pets, loading, loadingError } = this.state;
     
     const petsInComponents = this.compilePetsIntoComponents(pets);
+    
+    if (loadingError) {
+      return(
+        <div className="Playground__frame__pets">
+          <div className="loadingErrorBox">
+            { "Error: loading has failed - please, try again." }
+          </div>
+        </div>
+      );  
+    }
+    
+    if (loading) {
+      return(
+        <div className="Playground__frame__pets">
+          <LoadingCircleSpinner />
+        </div>
+      );  
+    }
     
     return(
       <div className="Playground__frame__pets">

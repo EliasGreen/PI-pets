@@ -22,6 +22,12 @@ class UserInformationBlock extends React.Component {
     
     this.getInformationAboutUser = this.getInformationAboutUser.bind(this);
     this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive = this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive.bind(this);
+    this.updateUserInformation = this.updateUserInformation.bind(this);
+  }
+  
+  async updateUserInformation(typeOfInformation) {
+    switch (typeOfInformation) {
+    }
   }
   
   setPressedButtonToAnActiveClassAndOthersButtonsToInactive(targetButtonStringName) {

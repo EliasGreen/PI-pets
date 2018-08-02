@@ -4,6 +4,9 @@ const styles = require("../../../styles/Playground");
 const BoxPI = require("../../../boxes/PI");
 const generateNewPet = require("../../../functions/generateNewPet");
 
+const Cat = require("../../../pets/cat");
+const Dog = require("../../../pets/dog");
+
 class BoxOpenModal extends React.Component {
   constructor(props) {
     super(props);
@@ -33,6 +36,9 @@ class BoxOpenModal extends React.Component {
       case "BoxPI":
         const newPetNickname = document.getElementById("petNameInput").value || "PetName";
         data.drop = generateNewPet(newPetNickname);
+        this.setState({
+          dropFromBox: data.drop
+        });
         break;
       default:
         throw new Error("Unknown currentPickedBoxName property");
@@ -83,7 +89,30 @@ class BoxOpenModal extends React.Component {
   
   render() {
     const { toggleShowBoxOpenModal } = this.props;
-    const { currentPickedBox } = this.state;
+    const { currentPickedBox, dropFromBox } = this.state;
+    
+    if (dropFromBox) {
+      let constructedDropFromBox = null;
+      if (dropFromBox.petColors) {
+        const petComponents = {
+          "Cat": Cat,
+          "Dog": Dog
+        };
+        
+        const PetComponent = petComponents[dropFromBox.type];
+        constructedDropFromBox = <PetComponent petColors={dropFromBox.petColors} opacity={1} inModal={true}/>
+      }
+      
+      return(
+        <div className="Playground__frames__BoxOpenModal">
+          <div className="Playground__frames__BoxOpenModal__innerContent">
+             <h1> From this box you got this! </h1>
+             <div className="constructedDropFromBoxContainer"> { constructedDropFromBox } </div>
+            <button onClick={ toggleShowBoxOpenModal }> Back </button> 
+          </div>
+        </div>
+      );
+    }
     
     return(
       <div className="Playground__frames__BoxOpenModal">
