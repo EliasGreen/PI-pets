@@ -12,9 +12,15 @@ class Cat extends React.Component {
   }
   
   render() {
-    const { petColors, opacity } = this.props;
+    const { petColors, opacity, inModal } = this.props;
+    
+    let petClassName = "Pets__cat";
+    if (inModal) {
+     petClassName = "petInModal"
+    }
+    
     return(
-      <div className="Pets__cat">
+      <div className={ petClassName }>
         <svg width="120pt" height="90pt" viewBox="0 0 120 90">
           <g xmlns="http://www.w3.org/2000/svg" id="surface1" style={{ opacity: opacity }}>
             <path className="leftCatEar" style={{fillRule:"nonzero", fill: petColors.top, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 104.5 53.5 L 146 179 L 217 115 Z M 104.5 53.5 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>

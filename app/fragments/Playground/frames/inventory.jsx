@@ -1,6 +1,8 @@
 const React = require("react");
 const styles = require("../../../styles/Playground");
 
+const LoadingCircleSpinner = require("../../../utils/loadingCircleSpinner");
+
 const KeyPI = require("../../../keys/PI");
 const BoxPI = require("../../../boxes/PI");
 
@@ -101,7 +103,9 @@ class Inventory extends React.Component {
     if (loadingError) {
       return(
         <div className="Playground__frame__inventory">
-          loadingError
+          <div className="loadingErrorBox">
+            { "Error: loading has failed - please, try again." }
+          </div>
         </div>
       );
     }
@@ -109,7 +113,7 @@ class Inventory extends React.Component {
      if (loading) {
       return(
         <div className="Playground__frame__inventory">
-          loading...
+          <LoadingCircleSpinner />
         </div>
       );
     }
