@@ -62,6 +62,25 @@ router.get("/inventory", loginCheck, (req, res) => {
 
 /*
 *  @information GET
+*  @dest: send the requested user's property
+*  @security: private
+*/
+router.get("/properties/:property", loginCheck, urlencodedParser, jsonParser, (req, res) => {
+  userModel.findById(req.session.passport.user,  req.params.property, (err, user) => {
+    if(!err) {
+      res.status(200).json({
+        property: user[req.params.property]
+      });
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+
+/*
+*  @information GET
 *  @dest: send the requested user pets
 *  @security: private
 */

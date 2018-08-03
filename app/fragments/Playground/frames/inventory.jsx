@@ -98,6 +98,7 @@ class Inventory extends React.Component {
   
   render() {
     const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox, currentPickedKey} = this.state;
+    const { updateInformationAboutUser } = this.props;
     let error = null;
     
     if (loadingError) {
@@ -170,7 +171,8 @@ class Inventory extends React.Component {
             currentPickedBoxName={ currentPickedBox.name } 
             deleteUsedKeyAndBoxFromInventory={ this.deleteUsedKeyAndBoxFromInventory } 
             currentPickedKeyPosition={ currentPickedKey.position } 
-            currentPickedBoxPosition={ currentPickedBox.position }/> }
+            currentPickedBoxPosition={ currentPickedBox.position }
+            updateInformationAboutUser = { updateInformationAboutUser }/> }
       </div>
     );
   }

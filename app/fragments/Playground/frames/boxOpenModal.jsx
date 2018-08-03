@@ -27,7 +27,7 @@ class BoxOpenModal extends React.Component {
         loading: false
       });
     
-    const { currentPickedBoxName, deleteUsedKeyAndBoxFromInventory, currentPickedKeyPosition, currentPickedBoxPosition} = this.props;
+    const { currentPickedBoxName, deleteUsedKeyAndBoxFromInventory, currentPickedKeyPosition, currentPickedBoxPosition, updateInformationAboutUser} = this.props;
     let data = {
       currentPickedKeyPosition: currentPickedKeyPosition,
       currentPickedBoxPosition: currentPickedBoxPosition
@@ -48,6 +48,8 @@ class BoxOpenModal extends React.Component {
     
     try {
       const postRequest = await fetch("/user/open-box", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify(data) });
+      
+      updateInformationAboutUser();
       
       this.setState({
         loading: false,

@@ -2,6 +2,8 @@
 const React = require("react");
 const styles = require("../../styles/Playground");
 
+const LoadingCircleSpinner = require("../../utils/loadingCircleSpinner");
+
 class UserInformationBlock extends React.Component {
   constructor(props) {
     super(props); 
@@ -20,14 +22,7 @@ class UserInformationBlock extends React.Component {
       buttonUsersTopAdditionClass: ""
     }
     
-    this.getInformationAboutUser = this.getInformationAboutUser.bind(this);
     this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive = this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive.bind(this);
-    this.updateUserInformation = this.updateUserInformation.bind(this);
-  }
-  
-  async updateUserInformation(typeOfInformation) {
-    switch (typeOfInformation) {
-    }
   }
   
   setPressedButtonToAnActiveClassAndOthersButtonsToInactive(targetButtonStringName) {
@@ -41,62 +36,37 @@ class UserInformationBlock extends React.Component {
     });
   }
   
-  async getInformationAboutUser() {
-    this.setState({
-      loading: true 
-    });
-   
-    try {
-      const response = await fetch("/user/information", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
-      const result = await response.json();
-      
-      this.setState({
-        username: result.username,
-        coins: result.coins,
-        petsAmount: result.petsAmount,
-        loading: false
-      });
-    } 
-    catch(loadingError) {
-      this.setState({
-        loadingError,
-        loading: false
-      });
-    }
-  }
-  
-  componentDidMount() {
-    this.getInformationAboutUser();
-  }
   
   render() {
     const { avatarImgSrc,
-           username,
-           coins,
-           petsAmount,
-           loadingError,
-           loading,
            buttonPlaygroundFrameAdditionClass,
            buttonInventoryAdditionClass,
            buttonIngameShopAdditionClass,
            buttonWorldMarketAdditionClass,
-           buttonUsersTopAdditionClass} = this.state;
-    const { changeCurrentFrameFunction } = this.props;
+           buttonUsersTopAdditionClass } = this.state;
+    const { changeCurrentFrameFunction,
+            username,
+            coins,
+            petsAmount,
+            loadingError,
+            loading } = this.props;
     
-    if(loadingError) {
+    if (loadingError) {
       return(
         <div className="Playground__userInformationBlock">
-          <div className="errorBox">ERROR</div>
+          <div className="loadingErrorBox">
+            { "Error: loading has failed - please, try again." }
+          </div>
         </div>
-      );
+      );  
     }
     
-    if(loading) {
+    if (loading) {
       return(
         <div className="Playground__userInformationBlock">
-          <div className="loadingSpinner">loading...</div>
+          <LoadingCircleSpinner />
         </div>
-      );
+      );  
     }
     
     return(

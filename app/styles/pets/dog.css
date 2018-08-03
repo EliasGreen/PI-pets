@@ -1,3 +1,123 @@
 .Pets__dog {
   float: left;
 }
+
+.leftDogPaw {
+  animation-name: leftDogPawMoving;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes leftDogPawMoving {
+  0% {
+    transform:translate(0px, 0px);
+  }
+  
+  45% {
+    transform:translate(2px, 3px);
+  }
+  
+  70% {
+    transform:translate(4px, -1px);
+  }
+  
+  100% {
+    transform:translate(0px, 0px);
+  }
+}
+
+.rightDogPaw {
+  animation-name: rightDogPawMoving;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rightDogPawMoving {
+  0% {
+    transform:translate(0px, 0px);
+  }
+  
+  25% {
+    transform:translate(4px, -2px);
+  }
+  
+  55% {
+    transform:translate(2px, 2px);
+  }
+  
+  100% {
+    transform:translate(0px, 0px);
+  }
+}
+
+.leftDogEar {
+  animation-name: leftDogEarMoving;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes leftDogEarMoving {
+  0% {
+    transform: matrix(1.26055, 0, 0, 1.26055, -233.322, -63.0822);
+  }
+  
+  40% {
+    transform: matrix(1.26055, 0, 0, 1.26055, -232.322, -65.0822);
+  }
+  
+  90% {
+    transform: matrix(1.26055, 0, 0, 1.26055, -235.322, -62.0822);
+  }
+  
+  100% {
+    transform: matrix(1.26055, 0, 0, 1.26055, -233.322, -63.0822);
+  }
+}
+
+.rightDogEar {
+  animation-name: rightDogEarMoving;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rightDogEarMoving {
+  0% {
+    transform: matrix(1.69327, 0, 0, 1.69327, -496.944, -191.769)
+  }
+  
+  55% {
+    transform: matrix(1.69327, 0, 0, 1.69327, -499.944, -189.769)
+  }
+  
+  70% {
+    transform: matrix(1.69327, 0, 0, 1.69327, -495.944, -192.769)
+  }
+  
+  100% {
+    transform: matrix(1.69327, 0, 0, 1.69327, -496.944, -191.769)
+  }
+}
+
+.dogEye {
+  animation-name: dogEyeMoving;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes dogEyeMoving {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  
+  55% {
+    transform: translate(-2px, -2px);
+  }
+  
+  70% {
+    transform: translate(-4px, -4px);
+  }
+  
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
