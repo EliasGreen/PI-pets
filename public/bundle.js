@@ -3590,7 +3590,7 @@ module.exports = DOMLazyTree;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LocationUtils__ = __webpack_require__(45);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PathUtils__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PathUtils__ = __webpack_require__(35);
 /* unused harmony reexport parsePath */
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_4__PathUtils__["b"]; });
 
@@ -3638,6 +3638,26 @@ if(false) {
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
+const React = __webpack_require__(3);
+const styles = __webpack_require__(251);
+
+const loadingCircleSpinner = () => (
+React.createElement("center", {id: "loadingbox"}, 
+  React.createElement("h2", null, "Loading"), 
+  React.createElement("div", {id: "out", className: "circle"}, 
+    React.createElement("div", {id: "quarterbox"}, 
+      React.createElement("div", {id: "quarter", className: "circle"})
+    ), 
+    React.createElement("div", {id: "in", className: "circle"})
+  )
+));
+
+module.exports = loadingCircleSpinner;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -3649,7 +3669,7 @@ if(false) {
 
 
 
-var EventPluginHub = __webpack_require__(30);
+var EventPluginHub = __webpack_require__(31);
 var EventPluginUtils = __webpack_require__(48);
 
 var accumulateInto = __webpack_require__(76);
@@ -3773,7 +3793,7 @@ module.exports = EventPropagators;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4051,7 +4071,7 @@ module.exports = EventPluginHub;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4113,7 +4133,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4162,7 +4182,7 @@ var ReactInstanceMap = {
 module.exports = ReactInstanceMap;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4225,7 +4245,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4294,26 +4314,6 @@ var createPath = function createPath(location) {
 
   return path;
 };
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const React = __webpack_require__(3);
-const styles = __webpack_require__(251);
-
-const loadingCircleSpinner = () => (
-React.createElement("center", {id: "loadingbox"}, 
-  React.createElement("h2", null, "Loading"), 
-  React.createElement("div", {id: "out", className: "circle"}, 
-    React.createElement("div", {id: "quarterbox"}, 
-      React.createElement("div", {id: "quarter", className: "circle"})
-    ), 
-    React.createElement("div", {id: "in", className: "circle"})
-  )
-));
-
-module.exports = loadingCircleSpinner;
 
 /***/ }),
 /* 36 */
@@ -4873,7 +4873,7 @@ module.exports = TransactionImpl;
 
 
 
-var SyntheticUIEvent = __webpack_require__(31);
+var SyntheticUIEvent = __webpack_require__(32);
 var ViewportMetrics = __webpack_require__(83);
 
 var getEventModifierState = __webpack_require__(52);
@@ -5563,7 +5563,7 @@ module.exports = warning;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return locationsAreEqual; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resolve_pathname__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_value_equal__ = __webpack_require__(215);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(35);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -6851,7 +6851,7 @@ module.exports = KeyEscapeUtils;
 var _prodInvariant = __webpack_require__(4);
 
 var ReactCurrentOwner = __webpack_require__(12);
-var ReactInstanceMap = __webpack_require__(32);
+var ReactInstanceMap = __webpack_require__(33);
 var ReactInstrumentation = __webpack_require__(9);
 var ReactUpdates = __webpack_require__(13);
 
@@ -10907,7 +10907,7 @@ var ReactDOMComponentTree = __webpack_require__(6);
 var ReactDOMContainerInfo = __webpack_require__(201);
 var ReactDOMFeatureFlags = __webpack_require__(202);
 var ReactFeatureFlags = __webpack_require__(80);
-var ReactInstanceMap = __webpack_require__(32);
+var ReactInstanceMap = __webpack_require__(33);
 var ReactInstrumentation = __webpack_require__(9);
 var ReactMarkupChecksum = __webpack_require__(203);
 var ReactReconciler = __webpack_require__(25);
@@ -12398,15 +12398,15 @@ class Dog extends React.Component {
           React.createElement("rect", {id: "svgEditorBackground", x: "0", y: "0", width: "120", height: "90", style: {fill: "none", stroke: "none"}}), 
           React.createElement("g", {xmlns: "http://www.w3.org/2000/svg", id: "e8_group", transform: "matrix(0.581593 0 0 0.581593 -231.514 -175.437)"}, 
             React.createElement("rect", {x: "432.3530946101933", y: "328.70596378310137", style: {fill: petColors.center, stroke: "black", strokeWidth: "1px"}, id: "e1_rectangle", width: "142", height: "107", rx: "0", ry: "0"}), 
-            React.createElement("rect", {x: "531.3382568359375", y: "422.5716247558594", style: {fill: petColors.down, stroke: "black", strokeWidth: "1px"}, id: "e3_rectangle", width: "60", height: "25"}), 
-            React.createElement("rect", {x: "412.3384094238281", y: "422.5716247558594", style: {fill: petColors.down, stroke: "black", strokeWidth: "1px"}, id: "e2_rectangle", width: "60", height: "25"}), 
+            React.createElement("rect", {className: "rightDogPaw", x: "531.3382568359375", y: "422.5716247558594", style: {fill: petColors.down, stroke: "black", strokeWidth: "1px"}, id: "e3_rectangle", width: "60", height: "25"}), 
+            React.createElement("rect", {className: "leftDogPaw", x: "412.3384094238281", y: "422.5716247558594", style: {fill: petColors.down, stroke: "black", strokeWidth: "1px"}, id: "e2_rectangle", width: "60", height: "25"}), 
             React.createElement("rect", {x: "465.33838513753705", y: "374.57156436903887", style: {fill: petColors.details, stroke: "black", strokeWidth: "1px"}, id: "e4_rectangle", width: "30", height: "20", rx: "0", ry: "0"}), 
             React.createElement("rect", {x: "513.3383241023807", y: "373.57156436903887", style: {fill: petColors.details, stroke: "black", strokeWidth: "1px"}, id: "e5_rectangle", width: "30", height: "20", rx: "0", ry: "0"}), 
             React.createElement("polygon", {style: {fill: petColors.details, stroke: "black", strokeWidth: "1px"}, id: "e6_polygon", points: "501.253 402.821 502.253 418.321 513.753 427.821 524.253 418.821 525.253 402.321", transform: "matrix(0.724884 0 0 0.724884 131.613 113.56)"}), 
-            React.createElement("rect", {x: "477.83838513753705", y: "381.57156436903887", style: {fill: petColors.center, stroke: "black", strokeWidth: "1px"}, id: "e7_rectangle", width: "15", height: "10", rx: "0", ry: "0"}), 
-            React.createElement("rect", {x: "525.3383546199589", y: "381.07156436903887", style: {fill: petColors.center, stroke: "black", strokeWidth: "1px"}, id: "e6_rectangle", width: "15", height: "10", rx: "0", ry: "0"}), 
-            React.createElement("polygon", {style: {fill: petColors.top, stroke: "black", strokeWidth: "1px"}, id: "e1_polygon", points: "622.552 309.435 625.742 296.965 640.605 294.689 644.051 308.468 631.479 317.265", transform: "matrix(1.69327 0 0 1.69327 -496.944 -191.769)"}), 
-            React.createElement("polygon", {style: {fill: petColors.top, stroke: "black", strokeWidth: "1px"}, id: "e14_polygon", points: "530.016 322.855 510.993 314.352 513.163 293.829 534.856 296.502 540.529 313.629", transform: "matrix(1.26055 0 0 1.26055 -233.322 -63.0822)"})
+            React.createElement("rect", {className: "dogEye", x: "477.83838513753705", y: "381.57156436903887", style: {fill: petColors.center, stroke: "black", strokeWidth: "1px"}, id: "e7_rectangle", width: "15", height: "10", rx: "0", ry: "0"}), 
+            React.createElement("rect", {className: "dogEye", x: "525.3383546199589", y: "381.07156436903887", style: {fill: petColors.center, stroke: "black", strokeWidth: "1px"}, id: "e6_rectangle", width: "15", height: "10", rx: "0", ry: "0"}), 
+            React.createElement("polygon", {className: "rightDogEar", style: {fill: petColors.top, stroke: "black", strokeWidth: "1px"}, id: "e1_polygon", points: "622.552 309.435 625.742 296.965 640.605 294.689 644.051 308.468 631.479 317.265", transform: "matrix(1.69327 0 0 1.69327 -496.944 -191.769)"}), 
+            React.createElement("polygon", {className: "leftDogEar", style: {fill: petColors.top, stroke: "black", strokeWidth: "1px"}, id: "e14_polygon", points: "530.016 322.855 510.993 314.352 513.163 293.829 534.856 296.502 540.529 313.629", transform: "matrix(1.26055 0 0 1.26055 -233.322 -63.0822)"})
           )
         )
       )
@@ -12459,9 +12459,9 @@ module.exports = PI;
 
 const React = __webpack_require__(3);
 const { render } = __webpack_require__(125);
-const Route = __webpack_require__(33).Route;
-const BrowserRouter = __webpack_require__(33).BrowserRouter;
-const hashHistory = __webpack_require__(33).hashHistory;
+const Route = __webpack_require__(34).Route;
+const BrowserRouter = __webpack_require__(34).BrowserRouter;
+const hashHistory = __webpack_require__(34).hashHistory;
 const main_styles = __webpack_require__(236);
 
 /* Import Components */
@@ -14789,7 +14789,7 @@ module.exports = ARIADOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(29);
+var EventPropagators = __webpack_require__(30);
 var ExecutionEnvironment = __webpack_require__(7);
 var FallbackCompositionState = __webpack_require__(130);
 var SyntheticCompositionEvent = __webpack_require__(131);
@@ -15353,8 +15353,8 @@ module.exports = SyntheticInputEvent;
 
 
 
-var EventPluginHub = __webpack_require__(30);
-var EventPropagators = __webpack_require__(29);
+var EventPluginHub = __webpack_require__(31);
+var EventPropagators = __webpack_require__(30);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactUpdates = __webpack_require__(13);
@@ -16392,7 +16392,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(29);
+var EventPropagators = __webpack_require__(30);
 var ReactDOMComponentTree = __webpack_require__(6);
 var SyntheticMouseEvent = __webpack_require__(40);
 
@@ -17179,7 +17179,7 @@ var DOMLazyTree = __webpack_require__(26);
 var DOMNamespaces = __webpack_require__(54);
 var DOMProperty = __webpack_require__(16);
 var DOMPropertyOperations = __webpack_require__(87);
-var EventPluginHub = __webpack_require__(30);
+var EventPluginHub = __webpack_require__(31);
 var EventPluginRegistry = __webpack_require__(38);
 var ReactBrowserEventEmitter = __webpack_require__(43);
 var ReactDOMComponentFlags = __webpack_require__(75);
@@ -18733,7 +18733,7 @@ module.exports = quoteAttributeValueForBrowser;
 
 
 
-var EventPluginHub = __webpack_require__(30);
+var EventPluginHub = __webpack_require__(31);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -19456,7 +19456,7 @@ module.exports = ReactDOMTextarea;
 var _prodInvariant = __webpack_require__(4);
 
 var ReactComponentEnvironment = __webpack_require__(57);
-var ReactInstanceMap = __webpack_require__(32);
+var ReactInstanceMap = __webpack_require__(33);
 var ReactInstrumentation = __webpack_require__(9);
 
 var ReactCurrentOwner = __webpack_require__(12);
@@ -20067,7 +20067,7 @@ var React = __webpack_require__(23);
 var ReactComponentEnvironment = __webpack_require__(57);
 var ReactCurrentOwner = __webpack_require__(12);
 var ReactErrorUtils = __webpack_require__(49);
-var ReactInstanceMap = __webpack_require__(32);
+var ReactInstanceMap = __webpack_require__(33);
 var ReactInstrumentation = __webpack_require__(9);
 var ReactNodeTypes = __webpack_require__(91);
 var ReactReconciler = __webpack_require__(25);
@@ -22133,7 +22133,7 @@ module.exports = getUnboundedScrollPosition;
 
 
 var DOMProperty = __webpack_require__(16);
-var EventPluginHub = __webpack_require__(30);
+var EventPluginHub = __webpack_require__(31);
 var EventPluginUtils = __webpack_require__(48);
 var ReactComponentEnvironment = __webpack_require__(57);
 var ReactEmptyComponent = __webpack_require__(92);
@@ -23047,7 +23047,7 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(29);
+var EventPropagators = __webpack_require__(30);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactInputSelection = __webpack_require__(96);
@@ -23242,7 +23242,7 @@ module.exports = SelectEventPlugin;
 var _prodInvariant = __webpack_require__(4);
 
 var EventListener = __webpack_require__(95);
-var EventPropagators = __webpack_require__(29);
+var EventPropagators = __webpack_require__(30);
 var ReactDOMComponentTree = __webpack_require__(6);
 var SyntheticAnimationEvent = __webpack_require__(192);
 var SyntheticClipboardEvent = __webpack_require__(193);
@@ -23253,7 +23253,7 @@ var SyntheticMouseEvent = __webpack_require__(40);
 var SyntheticDragEvent = __webpack_require__(197);
 var SyntheticTouchEvent = __webpack_require__(198);
 var SyntheticTransitionEvent = __webpack_require__(199);
-var SyntheticUIEvent = __webpack_require__(31);
+var SyntheticUIEvent = __webpack_require__(32);
 var SyntheticWheelEvent = __webpack_require__(200);
 
 var emptyFunction = __webpack_require__(11);
@@ -23551,7 +23551,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(31);
+var SyntheticUIEvent = __webpack_require__(32);
 
 /**
  * @interface FocusEvent
@@ -23590,7 +23590,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(31);
+var SyntheticUIEvent = __webpack_require__(32);
 
 var getEventCharCode = __webpack_require__(63);
 var getEventKey = __webpack_require__(196);
@@ -23831,7 +23831,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(31);
+var SyntheticUIEvent = __webpack_require__(32);
 
 var getEventModifierState = __webpack_require__(52);
 
@@ -24155,7 +24155,7 @@ var _prodInvariant = __webpack_require__(4);
 
 var ReactCurrentOwner = __webpack_require__(12);
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactInstanceMap = __webpack_require__(32);
+var ReactInstanceMap = __webpack_require__(33);
 
 var getHostComponentFromComposite = __webpack_require__(99);
 var invariant = __webpack_require__(1);
@@ -24621,7 +24621,7 @@ module.exports = function() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(100);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -25045,7 +25045,7 @@ function valueEqual(a, b) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(100);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -25363,7 +25363,7 @@ var createHashHistory = function createHashHistory() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__createTransitionManager__ = __webpack_require__(64);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -26585,7 +26585,7 @@ module.exports = function (css) {
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
-const Link = __webpack_require__(33).Link
+const Link = __webpack_require__(34).Link
 const styles = __webpack_require__(28);
 
 const Header = __webpack_require__(241);
@@ -27165,7 +27165,7 @@ module.exports = LoginModal;
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(3);
-const Link = __webpack_require__(33).Link
+const Link = __webpack_require__(34).Link
 const styles = __webpack_require__(20);
 
 const Frame = __webpack_require__(248);
@@ -27183,10 +27183,40 @@ class Playground extends React.Component  {
   constructor(props) {
     super(props);
     this.state = {
-      currentFrame: "Pets"
+      currentFrame: "Pets",
+      username: "",
+      coins: 0,
+      petsAmount: 0,
+      loadingError: null,
+      loading: false
     }
     
     this.changeCurrentFrame = this.changeCurrentFrame.bind(this);
+    this.getInformationAboutUser = this.getInformationAboutUser.bind(this);
+  }
+  
+  async getInformationAboutUser() {
+    this.setState({
+      loading: true 
+    });
+   
+    try {
+      const response = await fetch("/user/information", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
+      const result = await response.json();
+      
+      this.setState({
+        username: result.username,
+        coins: result.coins,
+        petsAmount: result.petsAmount,
+        loading: false
+      });
+    } 
+    catch(loadingError) {
+      this.setState({
+        loadingError,
+        loading: false
+      });
+    }
   }
   
   changeCurrentFrame(newCurrentFrame) {
@@ -27195,12 +27225,22 @@ class Playground extends React.Component  {
     });
   }
   
+  componentDidMount() {
+    this.getInformationAboutUser();
+  }
+  
   render() {
-    const { currentFrame } = this.state;
+    const { currentFrame, username, coins, petsAmount, loadingError, loading } = this.state;
     return (
       React.createElement("div", {className: "Playground__body"}, 
-        React.createElement(Frame, {currentFrame:  currentFrame }), 
-        React.createElement(UserInformationBlock, {changeCurrentFrameFunction:  this.changeCurrentFrame})
+        React.createElement(Frame, {currentFrame:  currentFrame, updateInformationAboutUser:  this.getInformationAboutUser}), 
+        React.createElement(UserInformationBlock, {changeCurrentFrameFunction:  this.changeCurrentFrame, 
+          username:  username, 
+          coins:  coins, 
+          loadingError:  loadingError, 
+          loading:  loading, 
+          petsAmount:  petsAmount }
+          )
       )
     );
   }
@@ -27242,6 +27282,8 @@ class Frame extends React.Component {
   }
   
   render() {
+    const { updateInformationAboutUser } = this.props;
+    
     const frames = {
       Pets: Pets,
       Inventory: Inventory,
@@ -27254,7 +27296,7 @@ class Frame extends React.Component {
     
     return(
       React.createElement("div", {className: "Playground__frame"}, 
-        React.createElement(CurrentFrame, null)
+        React.createElement(CurrentFrame, {updateInformationAboutUser:  updateInformationAboutUser })
       )
     );
   }
@@ -27268,7 +27310,7 @@ module.exports = Frame;
 const React = __webpack_require__(3);
 const styles = __webpack_require__(106);
 
-const LoadingCircleSpinner = __webpack_require__(35);
+const LoadingCircleSpinner = __webpack_require__(29);
 
 const Cat = __webpack_require__(107);
 const Dog = __webpack_require__(108);
@@ -27461,7 +27503,7 @@ exports = module.exports = __webpack_require__(18)(false);
 
 
 // module
-exports.push([module.i, ".Pets__dog {\n  float: left;\n}", ""]);
+exports.push([module.i, ".Pets__dog {\n  float: left;\n}\n\n.leftDogPaw {\n  animation-name: leftDogPawMoving;\n  animation-duration: 4s;\n  animation-iteration-count: infinite;\n}\n\n@keyframes leftDogPawMoving {\n  0% {\n    transform:translate(0px, 0px);\n  }\n  \n  45% {\n    transform:translate(2px, 3px);\n  }\n  \n  70% {\n    transform:translate(4px, -1px);\n  }\n  \n  100% {\n    transform:translate(0px, 0px);\n  }\n}\n\n.rightDogPaw {\n  animation-name: rightDogPawMoving;\n  animation-duration: 5s;\n  animation-iteration-count: infinite;\n}\n\n@keyframes rightDogPawMoving {\n  0% {\n    transform:translate(0px, 0px);\n  }\n  \n  25% {\n    transform:translate(4px, -2px);\n  }\n  \n  55% {\n    transform:translate(2px, 2px);\n  }\n  \n  100% {\n    transform:translate(0px, 0px);\n  }\n}\n\n.leftDogEar {\n  animation-name: leftDogEarMoving;\n  animation-duration: 6s;\n  animation-iteration-count: infinite;\n}\n\n@keyframes leftDogEarMoving {\n  0% {\n    transform: matrix(1.26055, 0, 0, 1.26055, -233.322, -63.0822);\n  }\n  \n  40% {\n    transform: matrix(1.26055, 0, 0, 1.26055, -232.322, -65.0822);\n  }\n  \n  90% {\n    transform: matrix(1.26055, 0, 0, 1.26055, -235.322, -62.0822);\n  }\n  \n  100% {\n    transform: matrix(1.26055, 0, 0, 1.26055, -233.322, -63.0822);\n  }\n}\n\n.rightDogEar {\n  animation-name: rightDogEarMoving;\n  animation-duration: 10s;\n  animation-iteration-count: infinite;\n}\n\n@keyframes rightDogEarMoving {\n  0% {\n    transform: matrix(1.69327, 0, 0, 1.69327, -496.944, -191.769)\n  }\n  \n  55% {\n    transform: matrix(1.69327, 0, 0, 1.69327, -499.944, -189.769)\n  }\n  \n  70% {\n    transform: matrix(1.69327, 0, 0, 1.69327, -495.944, -192.769)\n  }\n  \n  100% {\n    transform: matrix(1.69327, 0, 0, 1.69327, -496.944, -191.769)\n  }\n}\n\n.dogEye {\n  animation-name: dogEyeMoving;\n  animation-duration: 10s;\n  animation-iteration-count: infinite;\n}\n\n@keyframes dogEyeMoving {\n  0% {\n    transform: translate(0px, 0px);\n  }\n  \n  55% {\n    transform: translate(-2px, -2px);\n  }\n  \n  70% {\n    transform: translate(-4px, -4px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}", ""]);
 
 // exports
 
@@ -27473,7 +27515,7 @@ exports.push([module.i, ".Pets__dog {\n  float: left;\n}", ""]);
 const React = __webpack_require__(3);
 const styles = __webpack_require__(20);
 
-const LoadingCircleSpinner = __webpack_require__(35);
+const LoadingCircleSpinner = __webpack_require__(29);
 
 const KeyPI = __webpack_require__(256);
 const BoxPI = __webpack_require__(109);
@@ -27570,6 +27612,7 @@ class Inventory extends React.Component {
   
   render() {
     const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox, currentPickedKey} = this.state;
+    const { updateInformationAboutUser } = this.props;
     let error = null;
     
     if (loadingError) {
@@ -27642,7 +27685,8 @@ class Inventory extends React.Component {
             currentPickedBoxName:  currentPickedBox.name, 
             deleteUsedKeyAndBoxFromInventory:  this.deleteUsedKeyAndBoxFromInventory, 
             currentPickedKeyPosition:  currentPickedKey.position, 
-            currentPickedBoxPosition:  currentPickedBox.position})
+            currentPickedBoxPosition:  currentPickedBox.position, 
+            updateInformationAboutUser:  updateInformationAboutUser })
       )
     );
   }
@@ -27834,7 +27878,7 @@ class BoxOpenModal extends React.Component {
         loading: false
       });
     
-    const { currentPickedBoxName, deleteUsedKeyAndBoxFromInventory, currentPickedKeyPosition, currentPickedBoxPosition} = this.props;
+    const { currentPickedBoxName, deleteUsedKeyAndBoxFromInventory, currentPickedKeyPosition, currentPickedBoxPosition, updateInformationAboutUser} = this.props;
     let data = {
       currentPickedKeyPosition: currentPickedKeyPosition,
       currentPickedBoxPosition: currentPickedBoxPosition
@@ -27855,6 +27899,8 @@ class BoxOpenModal extends React.Component {
     
     try {
       const postRequest = await fetch("/user/open-box", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify(data) });
+      
+      updateInformationAboutUser();
       
       this.setState({
         loading: false,
@@ -28001,7 +28047,7 @@ module.exports = generateNewPet;
 const React = __webpack_require__(3);
 const styles = __webpack_require__(20);
 
-const LoadingCircleSpinner = __webpack_require__(35);
+const LoadingCircleSpinner = __webpack_require__(29);
 
 class IngameShop extends React.Component {
   constructor(props) {
@@ -28050,7 +28096,7 @@ module.exports = IngameShop;
 const React = __webpack_require__(3);
 const styles = __webpack_require__(20);
 
-const LoadingCircleSpinner = __webpack_require__(35);
+const LoadingCircleSpinner = __webpack_require__(29);
 
 class WorldMarket extends React.Component {
   constructor(props) {
@@ -28098,7 +28144,7 @@ module.exports = WorldMarket;
 const React = __webpack_require__(3);
 const styles = __webpack_require__(20);
 
-const LoadingCircleSpinner = __webpack_require__(35);
+const LoadingCircleSpinner = __webpack_require__(29);
 
 class UsersTOP extends React.Component {
   constructor(props) {
@@ -28147,6 +28193,8 @@ module.exports = UsersTOP;
 const React = __webpack_require__(3);
 const styles = __webpack_require__(20);
 
+const LoadingCircleSpinner = __webpack_require__(29);
+
 class UserInformationBlock extends React.Component {
   constructor(props) {
     super(props); 
@@ -28165,14 +28213,7 @@ class UserInformationBlock extends React.Component {
       buttonUsersTopAdditionClass: ""
     }
     
-    this.getInformationAboutUser = this.getInformationAboutUser.bind(this);
     this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive = this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive.bind(this);
-    this.updateUserInformation = this.updateUserInformation.bind(this);
-  }
-  
-  async updateUserInformation(typeOfInformation) {
-    switch (typeOfInformation) {
-    }
   }
   
   setPressedButtonToAnActiveClassAndOthersButtonsToInactive(targetButtonStringName) {
@@ -28186,62 +28227,37 @@ class UserInformationBlock extends React.Component {
     });
   }
   
-  async getInformationAboutUser() {
-    this.setState({
-      loading: true 
-    });
-   
-    try {
-      const response = await fetch("/user/information", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
-      const result = await response.json();
-      
-      this.setState({
-        username: result.username,
-        coins: result.coins,
-        petsAmount: result.petsAmount,
-        loading: false
-      });
-    } 
-    catch(loadingError) {
-      this.setState({
-        loadingError,
-        loading: false
-      });
-    }
-  }
-  
-  componentDidMount() {
-    this.getInformationAboutUser();
-  }
   
   render() {
     const { avatarImgSrc,
-           username,
-           coins,
-           petsAmount,
-           loadingError,
-           loading,
            buttonPlaygroundFrameAdditionClass,
            buttonInventoryAdditionClass,
            buttonIngameShopAdditionClass,
            buttonWorldMarketAdditionClass,
-           buttonUsersTopAdditionClass} = this.state;
-    const { changeCurrentFrameFunction } = this.props;
+           buttonUsersTopAdditionClass } = this.state;
+    const { changeCurrentFrameFunction,
+            username,
+            coins,
+            petsAmount,
+            loadingError,
+            loading } = this.props;
     
-    if(loadingError) {
+    if (loadingError) {
       return(
         React.createElement("div", {className: "Playground__userInformationBlock"}, 
-          React.createElement("div", {className: "errorBox"}, "ERROR")
+          React.createElement("div", {className: "loadingErrorBox"}, 
+             "Error: loading has failed - please, try again." 
+          )
         )
-      );
+      );  
     }
     
-    if(loading) {
+    if (loading) {
       return(
         React.createElement("div", {className: "Playground__userInformationBlock"}, 
-          React.createElement("div", {className: "loadingSpinner"}, "loading...")
+          React.createElement(LoadingCircleSpinner, null)
         )
-      );
+      );  
     }
     
     return(

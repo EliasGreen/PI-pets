@@ -14,6 +14,8 @@ class Frame extends React.Component {
   }
   
   render() {
+    const { updateInformationAboutUser } = this.props;
+    
     const frames = {
       Pets: Pets,
       Inventory: Inventory,
@@ -26,7 +28,7 @@ class Frame extends React.Component {
     
     return(
       <div className="Playground__frame">
-        <CurrentFrame />
+        <CurrentFrame updateInformationAboutUser={ updateInformationAboutUser } />
       </div>
     );
   }
