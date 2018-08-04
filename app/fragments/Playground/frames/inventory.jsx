@@ -2,6 +2,7 @@ const React = require("react");
 const styles = require("../../../styles/Playground");
 
 const LoadingCircleSpinner = require("../../../utils/loadingCircleSpinner");
+const InventoryTooltip = require("../../../utils/inventoryTooltip");
 
 const KeyPI = require("../../../keys/PI");
 const BoxPI = require("../../../boxes/PI");
@@ -17,7 +18,15 @@ class Inventory extends React.Component {
       loadingError: null,
       currentPickedKey: { name: "", position: -1 },
       currentPickedBox: { name: "", position: -1 },
-      showBoxOpenModal: false
+      showBoxOpenModal: false,
+      tooltip: {
+        text : "",
+        coordinates: {
+          top: 0,
+          left: 0
+        },
+        show: false
+      }
     }
     this.getDataFromUserInventory = this.getDataFromUserInventory.bind(this);
     this.setCurrentPickedKeyNameAndPosition = this.setCurrentPickedKeyNameAndPosition.bind(this);
@@ -25,6 +34,7 @@ class Inventory extends React.Component {
     this.toggleShowBoxOpenModal = this.toggleShowBoxOpenModal.bind(this);
     this.checkKeyFitBox = this.checkKeyFitBox.bind(this);
     this.deleteUsedKeyAndBoxFromInventory = this.deleteUsedKeyAndBoxFromInventory.bind(this);
+    this.setTooltipPosition = this.setTooltipPosition.bind(this);
   }
   
   deleteUsedKeyAndBoxFromInventory() {
@@ -34,6 +44,27 @@ class Inventory extends React.Component {
     this.setState({
      inventory: newInventory
    });
+  }
+  
+  setTooltipPosition(mouseEvent, show) {
+    const cellCoordinates = mouseEvent.target.getBoundingClientRect();
+    
+    let text = "empty cell";
+    
+    if (mouseEvent.target.firstChild !== null) {
+      text = mouseEvent.target.firstChild.className.split(" ")[0];
+    } 
+    
+    this.setState({
+      tooltip: {
+        text: text,
+        coordinates: {
+          top: cellCoordinates.top + window.scrollY + 108,
+          left: cellCoordinates.left + window.scrollX + 5
+        },
+        show: show
+      }
+    });
   }
   
   checkKeyFitBox() {
@@ -97,7 +128,7 @@ class Inventory extends React.Component {
   }
   
   render() {
-    const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox, currentPickedKey} = this.state;
+    const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox, currentPickedKey, tooltip} = this.state;
     const { updateInformationAboutUser } = this.props;
     let error = null;
     
@@ -124,17 +155,33 @@ class Inventory extends React.Component {
       if (inventory[i]) {
         switch (inventory[i]["type"]) {
           case "PIbox":
-            inventoryCells.push(<div className="inventoryCell" key={`cell#${i}`}><BoxPI key={`box#${i}`} setCurrentPickedBoxNameAndPosition={ () => { this.setCurrentPickedBoxNameAndPosition("BoxPI", i) } } toggleShowBoxOpenModal={ this.toggleShowBoxOpenModal }/></div>);
+            inventoryCells.push(<div className="inventoryCell" 
+                                  onMouseEnter={ (e) => this.setTooltipPosition(e, true) } 
+                                  onMouseLeave={ (e) => this.setTooltipPosition(e, false) } 
+                                  key={`cell#${i}`}>
+                                  <BoxPI key={`box#${i}`} 
+                                    setCurrentPickedBoxNameAndPosition={ () => { this.setCurrentPickedBoxNameAndPosition("BoxPI", i) } } 
+                                    toggleShowBoxOpenModal={ this.toggleShowBoxOpenModal }/>
+                                </div>);
             break;
           case "PIkey":
-            inventoryCells.push(<div className="inventoryCell" key={`cell#${i}`}><KeyPI key={`key#${i}`} setCurrentPickedKeyNameAndPosition={ () => { this.setCurrentPickedKeyNameAndPosition("KeyPI", i) } }/></div>);
+            inventoryCells.push(<div className="inventoryCell" 
+                                  onMouseEnter={ (e) => this.setTooltipPosition(e, true) } 
+                                  onMouseLeave={ (e) => this.setTooltipPosition(e, false) } 
+                                  key={`cell#${i}`}>
+                                  <KeyPI key={`key#${i}`} 
+                                    setCurrentPickedKeyNameAndPosition={ () => { this.setCurrentPickedKeyNameAndPosition("KeyPI", i) } }/><
+                                /div>);
             break;
           default:
             error = "Unexpected error in switch statement";
        }   
      }
      else {
-        inventoryCells.push(<div className="inventoryCell" key={`cell#${i}`}></div>);
+        inventoryCells.push(<div className="inventoryCell" 
+                              onMouseEnter={ (e) => this.setTooltipPosition(e, true) } 
+                              onMouseLeave={ (e) => this.setTooltipPosition(e, false) } 
+                              key={`cell#${i}`}></div>);
       }
     }
     
@@ -173,6 +220,7 @@ class Inventory extends React.Component {
             currentPickedKeyPosition={ currentPickedKey.position } 
             currentPickedBoxPosition={ currentPickedBox.position }
             updateInformationAboutUser = { updateInformationAboutUser }/> }
+        <InventoryTooltip tooltip={ tooltip } />
       </div>
     );
   }

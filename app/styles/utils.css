@@ -151,3 +151,18 @@
 		background-color: #fff2f5;
 	}
 }
+
+.inventoryTooltip {
+  position: absolute;
+  z-index: 9;
+  border: 2px solid #fe6d7b;
+  border-radius: 50px;
+  width: 130.8px;
+  background: rgb(255, 64, 83);
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 5px;
+  box-sizing: border-box;
+  color: #fbbfc5;
+  font-weight: bold;
+}

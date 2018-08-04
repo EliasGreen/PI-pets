@@ -1,6 +1,7 @@
 const React = require("react");
 const styles = require("../../../styles/pets/cat");
 
+const PetInterfaceModal = require("../../../utils/petInterfaceModal");
 const LoadingCircleSpinner = require("../../../utils/loadingCircleSpinner");
 
 const Cat = require("../../../pets/cat");
@@ -12,10 +13,24 @@ class Pets extends React.Component {
     this.state = {
       loading: false,
       loadingError: null,
-      pets: []
+      pets: [],
+      petForPetInterfaceModal: "",
+      showPetInterfaceModal: false
     }
     this.getDataFromUserPets = this.getDataFromUserPets.bind(this);
     this.compilePetsIntoComponents = this.compilePetsIntoComponents.bind(this);
+    this.setPetForPetInterfaceModal = this.setPetForPetInterfaceModal.bind(this);
+    this.toggleShowPetInterfaceModal = this.toggleShowPetInterfaceModal.bind(this);
+  }
+  
+  toggleShowPetInterfaceModal() {
+   this.setState({
+     showPetInterfaceModal: !this.state.showPetInterfaceModal
+   });
+  }
+  
+  setPetForPetInterfaceModal(petForPetInterfaceModal) {
+    this.setState({ petForPetInterfaceModal });
   }
   
   compilePetsIntoComponents(pets) {
@@ -32,7 +47,13 @@ class Pets extends React.Component {
     return pets.map( pet => {
       const PetComponent = petComponents[pet.type];
       const opacity = pet.alive === true ? 1 : 0.4;
-      return <PetComponent petColors={pet.petColors} opacity={opacity} key={pet._id}/>
+      return( <PetComponent 
+                 pet={pet} 
+                 opacity={opacity} 
+                 key={pet._id} 
+                 setPetForPetInterfaceModal={ this.setPetForPetInterfaceModal }
+                 toggleShowPetInterfaceModal={ this.toggleShowPetInterfaceModal }
+               /> );
     });
   }
   
@@ -63,7 +84,7 @@ class Pets extends React.Component {
   }
   
   render() {
-    const { pets, loading, loadingError } = this.state;
+    const { pets, loading, loadingError, petForPetInterfaceModal, showPetInterfaceModal } = this.state;
     
     const petsInComponents = this.compilePetsIntoComponents(pets);
     
@@ -88,6 +109,8 @@ class Pets extends React.Component {
     return(
       <div className="Playground__frame__pets">
         { petsInComponents }
+        
+        { showPetInterfaceModal && <PetInterfaceModal pet={ petForPetInterfaceModal } toggleShowPetInterfaceModal={ this.toggleShowPetInterfaceModal } /> }
       </div>
     );
   }
