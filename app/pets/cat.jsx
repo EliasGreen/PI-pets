@@ -9,10 +9,23 @@ class Cat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}
+    
+    this.setYourselfForPetInterfaceModal = this.setYourselfForPetInterfaceModal.bind(this);
+  }
+  
+  setYourselfForPetInterfaceModal() {
+    const { toggleShowPetInterfaceModal, setPetForPetInterfaceModal, pet, showMode } = this.props;
+    
+    if (showMode) {
+      return; 
+    }
+    
+    setPetForPetInterfaceModal(pet);
+    toggleShowPetInterfaceModal();
   }
   
   render() {
-    const { petColors, opacity, inModal } = this.props;
+    const { pet, opacity, inModal } = this.props;
     
     let petClassName = "Pets__cat";
     if (inModal) {
@@ -22,12 +35,12 @@ class Cat extends React.Component {
     return(
       <div className={ petClassName }>
         <svg width="120pt" height="90pt" viewBox="0 0 120 90">
-          <g xmlns="http://www.w3.org/2000/svg" id="surface1" style={{ opacity: opacity }}>
-            <path className="leftCatEar" style={{fillRule:"nonzero", fill: petColors.top, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 104.5 53.5 L 146 179 L 217 115 Z M 104.5 53.5 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
-            <path className="rightCatEar" style={{fillRule:"nonzero", fill: petColors.top, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 395.253883 50.257376 L 436.746445 175.747539 L 507.753724 111.7492 Z M 395.253883 50.257376 " transform="matrix(0.0682651,0.174631,-0.174631,0.0682651,73.567918,-65.372535)"/>
-            <path style={{fillRule:"nonzero", fill: petColors.center, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 522.166667 250.75 C 522.166667 154.9375 429.708333 77.25 315.666667 77.25 C 201.625 77.25 109.166667 154.9375 109.166667 250.75 C 109.166667 346.5625 201.625 424.25 315.666667 424.25 C 429.708333 424.25 522.166667 346.5625 522.166667 250.75 Z M 522.166667 250.75 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
-            <path className="leftCatPaw" style={{fillRule:"nonzero", fill: petColors.down, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 285.5 392 C 285.5 372.9375 260.208333 357.5 229 357.5 C 197.791667 357.5 172.5 372.9375 172.5 392 C 172.5 411.0625 197.791667 426.5 229 426.5 C 260.208333 426.5 285.5 411.0625 285.5 392 Z M 285.5 392 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
-            <path className="rightCatPaw" style={{fillRule:"nonzero", fill: petColors.down, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 455 391 C 455 371.9375 429.708333 356.5 398.5 356.5 C 367.291667 356.5 342 371.9375 342 391 C 342 410.0625 367.291667 425.5 398.5 425.5 C 429.708333 425.5 455 410.0625 455 391 Z M 455 391 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
+          <g xmlns="http://www.w3.org/2000/svg" id="surface1" style={{ opacity: opacity }} onClick={ this.setYourselfForPetInterfaceModal }>
+            <path className="leftCatEar" style={{fillRule:"nonzero", fill: pet.petColors.top, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 104.5 53.5 L 146 179 L 217 115 Z M 104.5 53.5 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
+            <path className="rightCatEar" style={{fillRule:"nonzero", fill: pet.petColors.top, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 395.253883 50.257376 L 436.746445 175.747539 L 507.753724 111.7492 Z M 395.253883 50.257376 " transform="matrix(0.0682651,0.174631,-0.174631,0.0682651,73.567918,-65.372535)"/>
+            <path style={{fillRule:"nonzero", fill: pet.petColors.center, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 522.166667 250.75 C 522.166667 154.9375 429.708333 77.25 315.666667 77.25 C 201.625 77.25 109.166667 154.9375 109.166667 250.75 C 109.166667 346.5625 201.625 424.25 315.666667 424.25 C 429.708333 424.25 522.166667 346.5625 522.166667 250.75 Z M 522.166667 250.75 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
+            <path className="leftCatPaw" style={{fillRule:"nonzero", fill: pet.petColors.down, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 285.5 392 C 285.5 372.9375 260.208333 357.5 229 357.5 C 197.791667 357.5 172.5 372.9375 172.5 392 C 172.5 411.0625 197.791667 426.5 229 426.5 C 260.208333 426.5 285.5 411.0625 285.5 392 Z M 285.5 392 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
+            <path className="rightCatPaw" style={{fillRule:"nonzero", fill: pet.petColors.down, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 455 391 C 455 371.9375 429.708333 356.5 398.5 356.5 C 367.291667 356.5 342 371.9375 342 391 C 342 410.0625 367.291667 425.5 398.5 425.5 C 429.708333 425.5 455 410.0625 455 391 Z M 455 391 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
             <path style={{fill:"none", strokeWidth: "6", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity: "1", strokeMiterlimit: "4"}} d="M 279.5 294.5 L 304.5 294.5 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
             <path className="leftCatPaw" style={{fillRule: "nonzero", fill:"rgb(0%,0%,0%)", fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1",strokeMiterlimit:"4"}} d="M 257.0625 362.4375 L 244.5625 397.0625 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
             <path className="leftCatPaw" style={{fillRule: "nonzero", fill:"rgb(0%,0%,0%)", fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1",strokeMiterlimit:"4"}} d="M 235.9375 358.5625 L 227.8125 379.3125 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>
