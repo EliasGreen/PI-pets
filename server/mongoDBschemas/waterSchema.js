@@ -6,7 +6,8 @@ const Schema = mongoose.Schema,
 const waterSchema = new Schema({
   type: String,
   cost: Number,
-  waterValue: {type: Number, min: 0, max: 12}
+  waterValue: {type: Number, min: 0, max: 12},
+  foodValue: {type: Number, min: 0, max: 12}
 });
 
 module.exports = waterSchema;

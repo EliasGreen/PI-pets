@@ -1,0 +1,9 @@
+
+.bottle { background: #ddd; width:100px;border-radius:30px 30px 6px 6px; height:200px; padding:6px;box-shadow: 3px 3px 3px #efefef;margin-bottom:4px;}
+.cap { background: #ddd; margin:0 25px;width:60px;border-radius:8px 8px 10px  12px; height:35px;border-top:1px solid #ddd; border-bottom:2px dotted #efefef;}
+.cap-top { background:#ededed; height:6px; border-radius:10px 10px 0 0; }
+.cap-seal { margin-top:20px;background:#ccc; height:6px; border-radius: 0 0 10px 10px; }
+
+.water-full { background: lightblue ; width:100px;margin-top:10px; height:190px; z-index:1;border-radius:28px 28px 10px 10px; }
+
+.WATER__bottle { transform: scale(0.35); transform-origin: 60px 10px; }
