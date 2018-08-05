@@ -125,4 +125,27 @@ router.post("/open-box", loginCheck, urlencodedParser, jsonParser, (req, res) =>
   });
 });
 
+/*
+*  @information POST
+*  @dest: delete dead pet from user.pets in DB
+*  @security: private
+*/
+router.post("/utilize-pet", loginCheck, urlencodedParser, jsonParser, (req, res) => {
+  const { petId } = req.body;
+  
+  userModel.findById(req.session.passport.user, "pets", (err, user) => {
+    if (!err) {
+      const indexOfUtilizedPet = user.pets.findIndex(item => item._id == petId);
+      
+      user.pets.splice(indexOfUtilizedPet, 1);
+      
+      user.save();
+      res.sendStatus(200);
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
 module.exports = router;

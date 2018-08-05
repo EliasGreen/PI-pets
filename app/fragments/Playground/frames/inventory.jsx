@@ -7,6 +7,9 @@ const InventoryTooltip = require("../../../utils/inventoryTooltip");
 const KeyPI = require("../../../keys/PI");
 const BoxPI = require("../../../boxes/PI");
 
+const WATER__bottle = require("../../../water/bottle");
+const FOOD_can = require("../../../food/can");
+
 const BoxOpenModal = require("./boxOpenModal");
 
 class Inventory extends React.Component {
@@ -78,9 +81,22 @@ class Inventory extends React.Component {
   }
   
   toggleShowBoxOpenModal() {
-   this.setState({
-     showBoxOpenModal: !this.state.showBoxOpenModal
-   });
+    if (!this.state.showBoxOpenModal) {
+      this.setState({
+        tooltip: {
+          text: "",
+          coordinates: {
+            top: 0,
+            left: 0
+          },
+          show: false
+        }
+      });
+    }
+    
+    this.setState({
+      showBoxOpenModal: !this.state.showBoxOpenModal
+    });
   }
   
   setCurrentPickedKeyNameAndPosition(name, position) {
@@ -170,8 +186,18 @@ class Inventory extends React.Component {
                                   onMouseLeave={ (e) => this.setTooltipPosition(e, false) } 
                                   key={`cell#${i}`}>
                                   <KeyPI key={`key#${i}`} 
-                                    setCurrentPickedKeyNameAndPosition={ () => { this.setCurrentPickedKeyNameAndPosition("KeyPI", i) } }/><
-                                /div>);
+                                    setCurrentPickedKeyNameAndPosition={ () => { this.setCurrentPickedKeyNameAndPosition("KeyPI", i) } }/>
+                                </div>);
+            break;
+          case "FOOD__can":
+            inventoryCells.push(<div className="inventoryCell">
+                                  <FOOD_can />
+                                </div>);
+            break;
+          case "WATER__bottle":
+            inventoryCells.push(<div className="inventoryCell">
+                                  <WATER__bottle />
+                                </div>);
             break;
           default:
             error = "Unexpected error in switch statement";
@@ -219,7 +245,7 @@ class Inventory extends React.Component {
             deleteUsedKeyAndBoxFromInventory={ this.deleteUsedKeyAndBoxFromInventory } 
             currentPickedKeyPosition={ currentPickedKey.position } 
             currentPickedBoxPosition={ currentPickedBox.position }
-            updateInformationAboutUser = { updateInformationAboutUser }/> }
+            updateInformationAboutUser = { updateInformationAboutUser } /> }
         <InventoryTooltip tooltip={ tooltip } />
       </div>
     );

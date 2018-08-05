@@ -21,12 +21,22 @@ class Pets extends React.Component {
     this.compilePetsIntoComponents = this.compilePetsIntoComponents.bind(this);
     this.setPetForPetInterfaceModal = this.setPetForPetInterfaceModal.bind(this);
     this.toggleShowPetInterfaceModal = this.toggleShowPetInterfaceModal.bind(this);
+    this.deletePetFromPets = this.deletePetFromPets.bind(this);
   }
   
   toggleShowPetInterfaceModal() {
    this.setState({
      showPetInterfaceModal: !this.state.showPetInterfaceModal
    });
+  }
+  
+  deletePetFromPets(petId) {
+    let { pets } = this.state;
+    
+    const indexOfUtilizedPet = pets.findIndex(item => item._id == petId);
+    pets.splice(indexOfUtilizedPet, 1);
+    
+    this.setState({ pets });
   }
   
   setPetForPetInterfaceModal(petForPetInterfaceModal) {
@@ -85,6 +95,7 @@ class Pets extends React.Component {
   
   render() {
     const { pets, loading, loadingError, petForPetInterfaceModal, showPetInterfaceModal } = this.state;
+    const { updateInformationAboutUser } = this.props;
     
     const petsInComponents = this.compilePetsIntoComponents(pets);
     
@@ -110,7 +121,11 @@ class Pets extends React.Component {
       <div className="Playground__frame__pets">
         { petsInComponents }
         
-        { showPetInterfaceModal && <PetInterfaceModal pet={ petForPetInterfaceModal } toggleShowPetInterfaceModal={ this.toggleShowPetInterfaceModal } /> }
+        { showPetInterfaceModal && <PetInterfaceModal 
+                                     pet={ petForPetInterfaceModal } 
+                                     toggleShowPetInterfaceModal={ this.toggleShowPetInterfaceModal } 
+                                     deletePetFromPets={ this.deletePetFromPets } 
+                                     updateInformationAboutUser={ updateInformationAboutUser }/> }
       </div>
     );
   }

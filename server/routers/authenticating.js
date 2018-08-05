@@ -41,6 +41,18 @@ const createNewUserInDB = (userInformation, req, res) => {
                 openTool: "PIkey",
                 output: "Random pet",
                 cost: 5000
+              },
+              {
+                type: "FOOD__can",
+                cost: 75,
+                foodValue: 3,
+                waterValue: 1
+              },
+              {
+                type: "WATER__bottle",
+                cost: 50,
+                foodValue: 0,
+                waterValue: 4
               }
             ],
             meta: {
