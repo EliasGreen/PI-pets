@@ -1,9 +1,9 @@
 const userModel = require("../mongoDBmodels/userModel");
+const listOfUsersSockets = require("../utils/listOfUsersSockets");
 
 function CheckerOfPets() {
   this.error = null;
 }
-
 
 async function checkLastTimeofGettingWater(lastTimeofGettingWater) {
   const diff = (Date.now()).valueOf() - lastTimeofGettingWater.valueOf();
@@ -21,6 +21,7 @@ async function checkLastTimeofGettingFood(lastTimeofGettingFood) {
 
 async function configurePetProperties(pet) {
   const waterDiffInHours = await checkLastTimeofGettingWater(pet.lastTimeofGettingWater);
+  
   if (waterDiffInHours > 0) {
     pet.lastTimeofGettingWater = Date.now();
     pet.waterPoints -= waterDiffInHours;
@@ -38,6 +39,12 @@ async function configurePetProperties(pet) {
       updatedUser.pets[indexOfCurrentPet].alive = pet.alive;
 
       updatedUser.save();
+      
+      
+      if (listOfUsersSockets.getSocket(updatedUser.id)) {
+        listOfUsersSockets.getSocket(updatedUser.id).emit("userInformationUpdated");
+      }
+
     } 
     catch (e) {
       print(e);
@@ -75,7 +82,6 @@ CheckerOfPets.prototype.start = async function() {
     if (!this.error) {
       try {
         let usersWithAlivePets = await userModel.find({ "pets.alive": true }, "pets").exec();
-        
         for (let user of usersWithAlivePets) {
           for (let pet of user.pets) {
             await configurePetProperties(pet);

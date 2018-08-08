@@ -145,6 +145,7 @@
 
 .Playground__frames__BoxOpenModal, .Playground__frames__PetInterfaceModal {
   position: fixed;
+  z-index: 1000;
   background: rgba(0, 0, 0, 0.35);
   width: 100%;
   height: 100vh;

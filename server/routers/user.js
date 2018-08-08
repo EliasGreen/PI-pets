@@ -33,7 +33,8 @@ router.get("/information", loginCheck, (req, res) => {
         coins: user.coins,
         petsAmount: user.pets.length,
         food: user.meta.food,
-        xp: user.xp
+        xp: user.xp,
+        userID: req.session.passport.user
       });
     }
     else {
