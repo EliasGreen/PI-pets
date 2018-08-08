@@ -4,6 +4,15 @@ const styles = require("../styles/Playground");
 const Cat = require("../pets/cat");
 const Dog = require("../pets/dog");
 
+const foodAndWaterCells = ({ foodAndWaterItems }) => {
+  
+  return(
+    <div className="foodAndWaterCells">
+      
+    </div>
+  );  
+}
+
 class PetInterfaceModal extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +20,8 @@ class PetInterfaceModal extends React.Component {
       error: null,
       foodPetWillGet: 0,
       waterPetWillGet: 0,
-      showGetFoodAndWaterInformation: false
+      showGetFoodAndWaterInformation: false,
+      foodAndWaterItems: []
     }
     this.utilizePet = this.utilizePet.bind(this);
   }

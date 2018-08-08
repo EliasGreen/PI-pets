@@ -20,6 +20,7 @@ class Pets extends React.Component {
     this.getDataFromUserPets = this.getDataFromUserPets.bind(this);
     this.compilePetsIntoComponents = this.compilePetsIntoComponents.bind(this);
     this.setPetForPetInterfaceModal = this.setPetForPetInterfaceModal.bind(this);
+    this.resetPetForPetInterfaceModal = this.resetPetForPetInterfaceModal.bind(this);
     this.toggleShowPetInterfaceModal = this.toggleShowPetInterfaceModal.bind(this);
     this.deletePetFromPets = this.deletePetFromPets.bind(this);
   }
@@ -41,6 +42,15 @@ class Pets extends React.Component {
   
   setPetForPetInterfaceModal(petForPetInterfaceModal) {
     this.setState({ petForPetInterfaceModal });
+  }
+  
+  resetPetForPetInterfaceModal() {
+    const { pets, petForPetInterfaceModal} = this.state;
+    const updatedPetForPetInterfaceModal = pets.find(pet => pet.id === petForPetInterfaceModal.id);
+    
+    this.setState({
+      petForPetInterfaceModal: updatedPetForPetInterfaceModal
+    });
   }
   
   compilePetsIntoComponents(pets) {
@@ -67,10 +77,12 @@ class Pets extends React.Component {
     });
   }
   
-   async getDataFromUserPets() {
-    this.setState({
-      loading: true 
-    });
+  async getDataFromUserPets(updatingBehindTheScene) {
+    if (!updatingBehindTheScene) {
+      this.setState({
+        loading: true
+      });
+    }
    
     try {
       const response = await fetch("/user/pets", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
@@ -90,7 +102,14 @@ class Pets extends React.Component {
   }
   
   componentDidMount() {
+    const { socket } = this.props;
+    
     this.getDataFromUserPets();
+    
+    socket.on("userInformationUpdated", () => {
+      this.getDataFromUserPets(true);
+      this.resetPetForPetInterfaceModal();
+    });
   }
   
   render() {

@@ -27,7 +27,8 @@
     "bcrypt": "*",
     "passport": "*",
     "connect-mongodb-session": "*",
-    "cookie-parser": "*"
+    "cookie-parser": "*",
+    "socket.io": "^2.1.1"
   },
   "engines": {
     "node": "8.x"

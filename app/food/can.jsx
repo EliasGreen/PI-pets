@@ -9,9 +9,7 @@ class Can extends React.Component {
   
   render() {
     return(
-      <div className="FOOD__can">
-        FOOD__CAN
-      </div>
+      <div className="FOOD__can"></div>
     );
   }
 }

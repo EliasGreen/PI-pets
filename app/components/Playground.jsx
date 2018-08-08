@@ -2,6 +2,8 @@ const React = require("react");
 const Link = require("react-router-dom").Link
 const styles = require("../styles/Playground");
 
+const io = require("socket.io-client");
+
 const Frame = require("../fragments/Playground/frame");
 const UserInformationBlock = require("../fragments/Playground/userInformationBlock");
 
@@ -19,14 +21,25 @@ class Playground extends React.Component  {
     this.state = {
       currentFrame: "Pets",
       username: "",
+      userID: null,
       coins: 0,
       petsAmount: 0,
       loadingError: null,
       loading: false
     }
     
+    this.socket = io.connect();
+    
     this.changeCurrentFrame = this.changeCurrentFrame.bind(this);
     this.getInformationAboutUser = this.getInformationAboutUser.bind(this);
+    this.connectUserToServerWithSocket = this.connectUserToServerWithSocket.bind(this);
+    this.initializeUser = this.initializeUser.bind(this);
+  }
+  
+
+  
+  async connectUserToServerWithSocket() {
+    this.socket.emit("addNewUsersSocket", this.state.userID);
   }
   
   async getInformationAboutUser() {
@@ -40,6 +53,7 @@ class Playground extends React.Component  {
       
       this.setState({
         username: result.username,
+        userID: result.userID,
         coins: result.coins,
         petsAmount: result.petsAmount,
         loading: false
@@ -53,6 +67,11 @@ class Playground extends React.Component  {
     }
   }
   
+  async initializeUser() {
+    await this.getInformationAboutUser();
+    await this.connectUserToServerWithSocket();
+  }
+  
   changeCurrentFrame(newCurrentFrame) {
     this.setState({
       currentFrame: newCurrentFrame
@@ -60,14 +79,15 @@ class Playground extends React.Component  {
   }
   
   componentDidMount() {
-    this.getInformationAboutUser();
+    this.initializeUser();
   }
   
   render() {
     const { currentFrame, username, coins, petsAmount, loadingError, loading } = this.state;
+    
     return (
       <div className="Playground__body">
-        <Frame currentFrame={ currentFrame } updateInformationAboutUser={ this.getInformationAboutUser }/>
+        <Frame currentFrame={ currentFrame } updateInformationAboutUser={ this.getInformationAboutUser } socket={ this.socket  }/>
         <UserInformationBlock changeCurrentFrameFunction={ this.changeCurrentFrame } 
           username={ username }
           coins={ coins }

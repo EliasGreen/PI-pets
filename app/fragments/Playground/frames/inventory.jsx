@@ -42,7 +42,12 @@ class Inventory extends React.Component {
   
   deleteUsedKeyAndBoxFromInventory() {
     const { currentPickedKey, currentPickedBox, inventory } = this.state;
-    const newInventory = (inventory.splice(currentPickedKey.position, 1)).splice(currentPickedBox.position, 1);
+    
+    const newInventory = inventory.filter( (item, indexOfItem) => {
+      if (indexOfItem !== currentPickedKey.position && indexOfItem !== currentPickedBox.position) {
+        return true; 
+      }
+    });
     
     this.setState({
      inventory: newInventory
@@ -54,7 +59,7 @@ class Inventory extends React.Component {
     
     let text = "empty cell";
     
-    if (mouseEvent.target.firstChild !== null) {
+    if (mouseEvent.target.firstChild !== null && mouseEvent.target.firstChild.className) {
       text = mouseEvent.target.firstChild.className.split(" ")[0];
     } 
     
@@ -190,13 +195,19 @@ class Inventory extends React.Component {
                                 </div>);
             break;
           case "FOOD__can":
-            inventoryCells.push(<div className="inventoryCell">
-                                  <FOOD_can />
+            inventoryCells.push(<div className="inventoryCell"
+                                  key={`cell#${i}`}
+                                  onMouseEnter={ (e) => this.setTooltipPosition(e, true) } 
+                                  onMouseLeave={ (e) => this.setTooltipPosition(e, false) } >
+                                  <FOOD_can key={`food#${i}`}/>
                                 </div>);
             break;
           case "WATER__bottle":
-            inventoryCells.push(<div className="inventoryCell">
-                                  <WATER__bottle />
+            inventoryCells.push(<div className="inventoryCell"
+                                  key={`cell#${i}`}
+                                  onMouseEnter={ (e) => this.setTooltipPosition(e, true) } 
+                                  onMouseLeave={ (e) => this.setTooltipPosition(e, false) } >
+                                  <WATER__bottle key={`water#${i}`}/>
                                 </div>);
             break;
           default:
