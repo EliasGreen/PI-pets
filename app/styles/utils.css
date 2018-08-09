@@ -166,3 +166,42 @@
   color: #fbbfc5;
   font-weight: bold;
 }
+
+.foodAndWaterCells {
+  width: 499.4px;
+  height: 296px;
+  margin: 10px 0 5px 30px;
+  float: left;
+  background: rgb(177, 177, 177);
+  overflow-y: scroll;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.foodAndWaterCell {
+  box-sizing: border-box;
+  width: 140.8px;
+  background: #dcbfbf;
+  float: left;
+  height: 128px;
+  margin: 10px;
+  border: 10px solid rgba(82, 53, 72, 0.63);
+  cursor: pointer;
+}
+
+.foodAndWaterCell:hover {
+  border: 10px solid rgb(255, 12, 91);
+}
+
+.activeFoodAndWaterCell {
+  border: 10px solid rgb(255, 12, 91);
+}
+
+.feedPetBlock {
+  width: 700px;
+  height: 370px;
+}
+
+.interactiveSubBlock {
+ float: right; 
+}

@@ -1,14 +1,73 @@
 const React = require("react");
 const styles = require("../styles/Playground");
 
+const LoadingCircleSpinner = require("./loadingCircleSpinner");
+
 const Cat = require("../pets/cat");
 const Dog = require("../pets/dog");
 
-const foodAndWaterCells = ({ foodAndWaterItems }) => {
+const WATER__bottle = require("../water/bottle");
+const FOOD_can = require("../food/can");
+
+const FoodAndWaterCells = (props) => {
+  const { foodAndWaterItems, loading, loadingError, setActiveItem } = props;
+  
+  if (loading) {
+    return (
+      <div className="foodAndWaterCells">
+        <LoadingCircleSpinner target={ "foodAndWaterCells" }/>
+      </div>
+    );  
+  }
+  
+  if (loadingError) {
+    return (
+      <div className="foodAndWaterCells">
+        { "Error: loading has failed - please, try again." }
+      </div>
+    );  
+  }
+  
+  let inventoryCells = [];
+  
+  let lengthOfIteration = 6;
+  
+  if (foodAndWaterItems.length > 6) {
+    lengthOfIteration = foodAndWaterItems.length + (6 - (foodAndWaterItems.length % 6));
+  }
+  
+   for (let i = 0; i < lengthOfIteration; i++) {
+      if (foodAndWaterItems[i]) {
+        switch (foodAndWaterItems[i]["type"]) {
+          case "FOOD__can":
+            inventoryCells.push(<div className="foodAndWaterCell"
+                                  key={`cell#${i}`} 
+                                  onClick={ (event) => { setActiveItem(event, i) } }
+                                  >
+                                  <FOOD_can key={`food#${i}`} />
+                                </div>);
+            break;
+          case "WATER__bottle":
+            inventoryCells.push(<div className="foodAndWaterCell"
+                                  key={`cell#${i}`} 
+                                  onClick={ (event) => { setActiveItem(event, i) } } >
+                                  <WATER__bottle key={`water#${i}`}/>
+                                </div>);
+            break;
+          default:
+            throw new Error("Unexpected error in switch statement");
+       }   
+     }
+     else {
+        inventoryCells.push(<div className="inventoryCell"
+                              key={`cell#${i}`} >
+                            </div>);
+      }
+    }
   
   return(
     <div className="foodAndWaterCells">
-      
+      { inventoryCells }
     </div>
   );  
 }
@@ -21,9 +80,37 @@ class PetInterfaceModal extends React.Component {
       foodPetWillGet: 0,
       waterPetWillGet: 0,
       showGetFoodAndWaterInformation: false,
-      foodAndWaterItems: []
+      foodAndWaterItems: [],
+      loading: null,
+      loadingError: null,
+      activeItem: {
+        position: null,
+        domNode: null
+      }
     }
+    
     this.utilizePet = this.utilizePet.bind(this);
+    this.getFoodAndWaterItemsFromUserInventory = this.getFoodAndWaterItemsFromUserInventory.bind(this);
+    this.setActiveItem = this.setActiveItem.bind(this);
+  }
+  
+  setActiveItem(event, position) {
+    const { activeItem } = this.state;
+    
+    if (activeItem.domNode) {
+      activeItem.domNode.classList.remove("activeFoodAndWaterCell"); 
+    }
+    
+    console.log(event.target);
+    
+    event.target.classList.add("activeFoodAndWaterCell");
+    
+    this.setState({
+      activeItem: {
+        position: position,
+        domNode: event.target
+      }
+    });
   }
   
   async utilizePet() {
@@ -48,8 +135,34 @@ class PetInterfaceModal extends React.Component {
     }
   }
   
+  async getFoodAndWaterItemsFromUserInventory() {
+    this.setState({
+      loading: true 
+    });
+   
+    try {
+      const response = await fetch("/user/supplies", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
+      const result = await response.json();
+      
+      this.setState({
+        foodAndWaterItems: result.foodAndWaterItems,
+        loading: false
+      });
+    } 
+    catch(loadingError) {
+      this.setState({
+        loadingError,
+        loading: false
+      });
+    }
+  }
+  
+  componentDidMount() {
+    this.getFoodAndWaterItemsFromUserInventory();
+  }
+  
   render() {
-    const { error, foodPetWillGet, waterPetWillGet, showGetFoodAndWaterInformation } = this.state;
+    const { error, foodPetWillGet, waterPetWillGet, showGetFoodAndWaterInformation, foodAndWaterItems, loading, loadingError } = this.state;
     const { pet, toggleShowPetInterfaceModal } = this.props;
     
     if (error) {
@@ -99,12 +212,13 @@ class PetInterfaceModal extends React.Component {
           </div>
           
           <div className="feedPetBlock">
-            <h3> Feed your pet: </h3>
-            { showGetFoodAndWaterInformation && <p> Your pet will get { foodPetWillGet } food and { foodPetWillGet } water points </p> }
-            <div className="foodsPetContainer">
-              
+            <FoodAndWaterCells foodAndWaterItems={ foodAndWaterItems } loading={ loading } loadingError={ loadingError } setActiveItem={ this.setActiveItem }/>
+            
+            <div className="interactiveSubBlock">
+              <h3> Feed your pet: </h3>
+              { showGetFoodAndWaterInformation && <p> Your pet will get { foodPetWillGet } food and { foodPetWillGet } water points </p> }
+              <button> feed </button>
             </div>
-            <button> feed </button>
           </div>
           
           <button onClick={ toggleShowPetInterfaceModal }> Back </button>

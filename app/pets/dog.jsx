@@ -32,7 +32,7 @@ class Dog extends React.Component {
       <div className={ petClassName }>
         <svg width="120px" height="90px" viewBox="-0.0175644 0 120.035 90" preserveAspectRatio="none meet">
           <rect id="svgEditorBackground" x="0" y="0" width="120" height="90" style={{fill: "none", stroke: "none"}}/>
-          <g xmlns="http://www.w3.org/2000/svg" id="e8_group" transform="matrix(0.581593 0 0 0.581593 -231.514 -175.437)" onClick={ this.setYourselfForPetInterfaceModal }>
+          <g xmlns="http://www.w3.org/2000/svg" id="e8_group" style={{ opacity: opacity }} transform="matrix(0.581593 0 0 0.581593 -231.514 -175.437)" onClick={ this.setYourselfForPetInterfaceModal }>
             <rect x="432.3530946101933" y="328.70596378310137" style={{fill: pet.petColors.center, stroke: "black", strokeWidth: "1px"}} id="e1_rectangle" width="142" height="107" rx="0" ry="0"/>
             <rect className="rightDogPaw" x="531.3382568359375" y="422.5716247558594" style={{fill: pet.petColors.down, stroke: "black", strokeWidth: "1px"}} id="e3_rectangle" width="60" height="25"/>
             <rect className="leftDogPaw" x="412.3384094238281" y="422.5716247558594" style={{fill: pet.petColors.down, stroke: "black", strokeWidth: "1px"}} id="e2_rectangle" width="60" height="25"/>
