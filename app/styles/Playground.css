@@ -103,10 +103,10 @@
 
 .inventoryCell {
   box-sizing: border-box;
-  width: calc(20% - 20px);
+  width: 140.8px;
   background: #dcbfbf;
   float: left;
-  height: calc(20% - 20px);
+  height: 128px;
   margin: 10px;
   border: 10px solid rgba(82, 53, 72, 0.63);
 }

@@ -63,6 +63,28 @@ router.get("/inventory", loginCheck, (req, res) => {
 
 /*
 *  @information GET
+*  @dest: send WATER and FOOD items from USER inventory
+*  @security: private
+*/
+router.get("/supplies", loginCheck, (req, res) => {
+  userModel.findById(req.session.passport.user, "inventory", (err, user) => {
+    if(!err) {
+      const responseData = user.inventory.filter( item => {
+        return (item.type.substring(0,4) === "FOOD" || item.type.substring(0,5) === "WATER");
+      });
+      
+      res.status(200).json({
+        foodAndWaterItems: responseData
+      });
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
+*  @information GET
 *  @dest: send the requested user's property
 *  @security: private
 */
@@ -108,7 +130,11 @@ router.post("/open-box", loginCheck, urlencodedParser, jsonParser, (req, res) =>
   
   userModel.findById(req.session.passport.user, "pets inventory", (err, user) => {
     if (!err) {
-      user.inventory = (user.inventory.splice(currentPickedKeyPosition, 1)).splice(currentPickedBoxPosition, 1);
+      user.inventory = user.inventory.filter( (item, indexOfItem) => {
+        if (indexOfItem !== currentPickedKeyPosition && indexOfItem !== currentPickedBoxPosition) {
+          return true; 
+        }
+      });
       
       if (drop.petColors) {
         user.pets.push(drop);
