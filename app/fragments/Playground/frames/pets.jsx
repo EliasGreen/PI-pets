@@ -92,6 +92,10 @@ class Pets extends React.Component {
         pets: result.pets,
         loading: false
       });
+      
+      if (updatingBehindTheScene) {
+        this.resetPetForPetInterfaceModal();
+      }
     } 
     catch(loadingError) {
       this.setState({
@@ -108,7 +112,6 @@ class Pets extends React.Component {
     
     socket.on("userInformationUpdated", () => {
       this.getDataFromUserPets(true);
-      this.resetPetForPetInterfaceModal();
     });
   }
   
