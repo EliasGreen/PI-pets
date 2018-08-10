@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
 
+const listOfUsersSockets = require("../utils/listOfUsersSockets");
+
 const loginCheck = require("../middlewares/loginCheck");
 
 const mongoDB__utils = require("../utils/mongoDB");
@@ -145,6 +147,49 @@ router.post("/open-box", loginCheck, urlencodedParser, jsonParser, (req, res) =>
       
       user.save();
       res.sendStatus(200);
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
+*  @information POST
+*  @dest: delete used item for FEED from DB and add WATER AND/OR FOOD POINTS into fed up PET 
+*  @security: private
+*/
+router.post("/feed", loginCheck, urlencodedParser, jsonParser, (req, res) => {
+  const { item, pet } = req.body;
+  
+  userModel.findById(req.session.passport.user, "pets inventory", (err, user) => {
+    if (!err) { 
+      for (let i = 0; i < user.inventory.length; i++) {
+        if (user.inventory[i].type === item.type) {
+          user.inventory.splice(i, 1);
+          break;
+        }
+      }
+      
+      for (let i = 0; i < user.pets.length; i++) {
+        if (user.pets[i].id === pet._id) {
+          
+          user.pets[i].waterPoints += item.waterValue;
+          user.pets[i].foodPoints += item.foodValue;
+          
+          if (user.pets[i].waterPoints > 12) user.pets[i].waterPoints = 12;
+          if (user.pets[i].foodPoints > 12) user.pets[i].foodPoints = 12;
+          
+          break;
+        }
+      }
+      
+      user.save();
+      res.sendStatus(200);
+      
+      if (listOfUsersSockets.getSocket(user.id)) {
+        listOfUsersSockets.getSocket(user.id).emit("userInformationUpdated");
+      }
     }
     else {
       res.sendStatus(409); 

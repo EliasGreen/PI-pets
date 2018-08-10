@@ -92,24 +92,54 @@ class PetInterfaceModal extends React.Component {
     this.utilizePet = this.utilizePet.bind(this);
     this.getFoodAndWaterItemsFromUserInventory = this.getFoodAndWaterItemsFromUserInventory.bind(this);
     this.setActiveItem = this.setActiveItem.bind(this);
+    this.feed = this.feed.bind(this);
+  }
+  
+  async feed() {
+    const { foodAndWaterItems, activeItem } = this.state;
+    const { pet } = this.props;
+    
+    const item = foodAndWaterItems[activeItem.position];
+    
+    foodAndWaterItems.splice(activeItem.position, 1);
+    
+    this.setState({
+      foodAndWaterItems: foodAndWaterItems,
+      showGetFoodAndWaterInformation: false
+    });
+    
+    const data = {
+      item: item,
+      pet: pet
+    }
+    
+    try {
+      const response = await fetch("user/feed", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" }, body: JSON.stringify(data)});
+    }
+    catch(error) {
+      this.setState({
+        error
+      });
+    }
   }
   
   setActiveItem(event, position) {
-    const { activeItem } = this.state;
+    const { activeItem, foodAndWaterItems } = this.state;
     
     if (activeItem.domNode) {
       activeItem.domNode.classList.remove("activeFoodAndWaterCell"); 
     }
     
-    console.log(event.target);
-    
-    event.target.classList.add("activeFoodAndWaterCell");
+    event.currentTarget.classList.add("activeFoodAndWaterCell");
     
     this.setState({
       activeItem: {
         position: position,
-        domNode: event.target
-      }
+        domNode: event.currentTarget
+      },
+      foodPetWillGet: foodAndWaterItems[position].foodValue,
+      waterPetWillGet: foodAndWaterItems[position].waterValue,
+      showGetFoodAndWaterInformation: true
     });
   }
   
@@ -185,6 +215,20 @@ class PetInterfaceModal extends React.Component {
     
     const genderSymbol = pet.sex === "Male" ? "\u2642" : "\u2640";
     
+    let getFoodAndWaterInformation = null;
+    
+    if (showGetFoodAndWaterInformation) {
+      if (foodPetWillGet > 0 && waterPetWillGet > 0) {
+        getFoodAndWaterInformation = <p> Your pet will get { foodPetWillGet } food and { waterPetWillGet } water points </p>;
+      }
+      else if (foodPetWillGet > 0) {
+        getFoodAndWaterInformation = <p> Your pet will get { foodPetWillGet } food points </p>;
+      }
+      else {
+        getFoodAndWaterInformation = <p> Your pet will get { waterPetWillGet } water points </p>;
+      }
+    }
+    
     return(
       <div className="Playground__frames__PetInterfaceModal">
         <div className="Playground__frames__PetInterfaceModal__innerContent">
@@ -216,8 +260,8 @@ class PetInterfaceModal extends React.Component {
             
             <div className="interactiveSubBlock">
               <h3> Feed your pet: </h3>
-              { showGetFoodAndWaterInformation && <p> Your pet will get { foodPetWillGet } food and { foodPetWillGet } water points </p> }
-              <button> feed </button>
+              { getFoodAndWaterInformation }
+              <button onClick={ this.feed }> feed </button>
             </div>
           </div>
           
