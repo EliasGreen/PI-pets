@@ -11,6 +11,7 @@ class UserInformationBlock extends React.Component {
       avatarImgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNBRURE93_LfM_m1EGtHVwGczXh8iWAmpO9FqFW2wKE5H890eZ",
       username: "",
       coins: 0,
+      xp: 0,
       petsAmount: 0,
       loadingError: null,
       loading: false,
@@ -19,7 +20,8 @@ class UserInformationBlock extends React.Component {
       buttonInventoryAdditionClass: "",
       buttonIngameShopAdditionClass: "",
       buttonWorldMarketAdditionClass: "",
-      buttonUsersTopAdditionClass: ""
+      buttonUsersTopAdditionClass: "",
+      amountXpToGetOneLevel: 100
     }
     
     this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive = this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive.bind(this);
@@ -43,13 +45,15 @@ class UserInformationBlock extends React.Component {
            buttonInventoryAdditionClass,
            buttonIngameShopAdditionClass,
            buttonWorldMarketAdditionClass,
-           buttonUsersTopAdditionClass } = this.state;
+           buttonUsersTopAdditionClass,
+           amountXpToGetOneLevel } = this.state;
     const { changeCurrentFrameFunction,
             username,
             coins,
             petsAmount,
             loadingError,
-            loading } = this.props;
+            loading,
+            xp } = this.props;
     
     if (loadingError) {
       return(
@@ -69,13 +73,20 @@ class UserInformationBlock extends React.Component {
       );  
     }
     
+    const level = Math.trunc(xp/amountXpToGetOneLevel);
+    const xpLeft = xp - (level*amountXpToGetOneLevel);
+    
     return(
       <div className="Playground__userInformationBlock">
         <img src={ avatarImgSrc } alt="avatar" className="userAvatarImg"></img>
-        <h2 className="usernameHeading">{ username }</h2>
+        <h2 className="usernameHeading"> { username } </h2>
         <div className="userDataBlock">
-          <p className="coinsUserData">Coins: { coins }</p>
-          <p className="petsUserData">Pets: { petsAmount }</p>
+          <p className="coinsUserData"> Coins: { coins } </p>
+          <p className="petsUserData"> Pets: { petsAmount } </p>
+          <div className="xpUserDataContainer">
+            <div className="xpUserDataText">  Level: { level } </div>
+            <div className="xpUserDataBar" style={{ width: `${xpLeft}%` }}></div>
+          </div>
         </div>
 
         <div className="navigationButtonsBlock">

@@ -1,6 +1,12 @@
 const React = require("react");
 const styles = require("../../styles/IndexPage");
 
+const MIN_USERNAME_LENGTH = 3;
+const MAX_USERNAME_LENGTH = 8;
+
+const MIN_PASSWORD_LENGTH = 8;
+const MAX_PASSWORD_LENGTH = 16;
+
 class RegisterModal extends React.Component {
   constructor(props) {
    super(props); 
@@ -30,8 +36,8 @@ class RegisterModal extends React.Component {
   }
   
   validateUsername(username) {
-    // Minimum 3 and maximum 15 characters
-   return (username.length >= 3 && username.length <= 15) ? true : false;
+    // Minimum and maximum characters
+   return (username.length >= MIN_USERNAME_LENGTH && username.length <= MAX_USERNAME_LENGTH) ? true : false;
   }
   
   validatePassword(password) {
@@ -53,16 +59,17 @@ class RegisterModal extends React.Component {
   
   setValidationErrorText() {
     const { email, username, password } = this.state;
+    
     let texts = [];
     
     if(!this.validateEmail(email)) {
       texts.push("Invalid email");
     }
     if(!this.validateUsername(username)) {
-      texts.push("Username: minimum 3 and maximum 15 characters");
+      texts.push(`Username: minimum ${MIN_USERNAME_LENGTH} and maximum ${MAX_USERNAME_LENGTH} characters`);
     }
     if(!this.validatePassword(password)) {
-      texts.push("Password: minimum 8 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
+      texts.push(`Password: minimum ${MIN_PASSWORD_LENGTH} and maximum ${MAX_PASSWORD_LENGTH} characters, at least one uppercase letter, one lowercase letter, one number and one special character`);
     }
     this.setState({
       validationErrorTexts: texts

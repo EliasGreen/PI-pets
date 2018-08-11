@@ -147,6 +147,10 @@ router.post("/open-box", loginCheck, urlencodedParser, jsonParser, (req, res) =>
       
       user.save();
       res.sendStatus(200);
+      
+      if (listOfUsersSockets.getSocket(user.id)) {
+        listOfUsersSockets.getSocket(user.id).emit("userInformationUpdated");
+      }
     }
     else {
       res.sendStatus(409); 
@@ -188,7 +192,7 @@ router.post("/feed", loginCheck, urlencodedParser, jsonParser, (req, res) => {
       res.sendStatus(200);
       
       if (listOfUsersSockets.getSocket(user.id)) {
-        listOfUsersSockets.getSocket(user.id).emit("userInformationUpdated");
+        listOfUsersSockets.getSocket(user.id).emit("userPetsInformationUpdated");
       }
     }
     else {
@@ -213,6 +217,31 @@ router.post("/utilize-pet", loginCheck, urlencodedParser, jsonParser, (req, res)
       
       user.save();
       res.sendStatus(200);
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
+*  @information POST
+*  @dest: add xp point to user
+*  @security: private
+*/
+router.post("/xp", loginCheck, urlencodedParser, jsonParser, (req, res) => {
+  const { xp } = req.body;
+  
+  userModel.findById(req.session.passport.user, "xp", (err, user) => {
+    if (!err) {
+      user.xp += xp;
+      
+      user.save();
+      res.sendStatus(200);
+      
+      if (listOfUsersSockets.getSocket(user.id)) {
+        listOfUsersSockets.getSocket(user.id).emit("userInformationUpdated");
+      }
     }
     else {
       res.sendStatus(409); 

@@ -9,6 +9,8 @@ const Dog = require("../pets/dog");
 const WATER__bottle = require("../water/bottle");
 const FOOD_can = require("../food/can");
 
+const XP_FOR_FEEDING_PET = 3;
+
 const FoodAndWaterCells = (props) => {
   const { foodAndWaterItems, loading, loadingError, setActiveItem } = props;
   
@@ -115,6 +117,8 @@ class PetInterfaceModal extends React.Component {
     
     try {
       const response = await fetch("user/feed", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" }, body: JSON.stringify(data)});
+      
+      const nextPostRequest = await fetch("/user/xp", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify({ xp: XP_FOR_FEEDING_PET}) });
     }
     catch(error) {
       this.setState({

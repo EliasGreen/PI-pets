@@ -30319,6 +30319,12 @@ module.exports = Slider;
 const React = __webpack_require__(2);
 const styles = __webpack_require__(31);
 
+const MIN_USERNAME_LENGTH = 3;
+const MAX_USERNAME_LENGTH = 8;
+
+const MIN_PASSWORD_LENGTH = 8;
+const MAX_PASSWORD_LENGTH = 16;
+
 class RegisterModal extends React.Component {
   constructor(props) {
    super(props); 
@@ -30348,8 +30354,8 @@ class RegisterModal extends React.Component {
   }
   
   validateUsername(username) {
-    // Minimum 3 and maximum 15 characters
-   return (username.length >= 3 && username.length <= 15) ? true : false;
+    // Minimum and maximum characters
+   return (username.length >= MIN_USERNAME_LENGTH && username.length <= MAX_USERNAME_LENGTH) ? true : false;
   }
   
   validatePassword(password) {
@@ -30371,16 +30377,17 @@ class RegisterModal extends React.Component {
   
   setValidationErrorText() {
     const { email, username, password } = this.state;
+    
     let texts = [];
     
     if(!this.validateEmail(email)) {
       texts.push("Invalid email");
     }
     if(!this.validateUsername(username)) {
-      texts.push("Username: minimum 3 and maximum 15 characters");
+      texts.push(`Username: minimum ${MIN_USERNAME_LENGTH} and maximum ${MAX_USERNAME_LENGTH} characters`);
     }
     if(!this.validatePassword(password)) {
-      texts.push("Password: minimum 8 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
+      texts.push(`Password: minimum ${MIN_PASSWORD_LENGTH} and maximum ${MAX_PASSWORD_LENGTH} characters, at least one uppercase letter, one lowercase letter, one number and one special character`);
     }
     this.setState({
       validationErrorTexts: texts
@@ -30651,6 +30658,7 @@ class Playground extends React.Component  {
       username: "",
       userID: null,
       coins: 0,
+      xp: 0,
       petsAmount: 0,
       loadingError: null,
       loading: false
@@ -30670,10 +30678,12 @@ class Playground extends React.Component  {
     this.socket.emit("addNewUsersSocket", this.state.userID);
   }
   
-  async getInformationAboutUser() {
-    this.setState({
-      loading: true 
-    });
+  async getInformationAboutUser(updatingBehindTheScene) {
+    if (!updatingBehindTheScene) {
+      this.setState({
+        loading: true 
+      });
+    }
    
     try {
       const response = await fetch("/user/information", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
@@ -30684,6 +30694,7 @@ class Playground extends React.Component  {
         userID: result.userID,
         coins: result.coins,
         petsAmount: result.petsAmount,
+        xp: result.xp,
         loading: false
       });
     } 
@@ -30708,10 +30719,14 @@ class Playground extends React.Component  {
   
   componentDidMount() {
     this.initializeUser();
+    
+    this.socket.on("userInformationUpdated", () => {
+      this.getInformationAboutUser(true);
+    });
   }
   
   render() {
-    const { currentFrame, username, coins, petsAmount, loadingError, loading } = this.state;
+    const { currentFrame, username, coins, petsAmount, loadingError, loading, xp } = this.state;
     
     return (
       React.createElement("div", {className: "Playground__body"}, 
@@ -30721,7 +30736,8 @@ class Playground extends React.Component  {
           coins:  coins, 
           loadingError:  loadingError, 
           loading:  loading, 
-          petsAmount:  petsAmount }
+          petsAmount:  petsAmount, 
+          xp:  xp }
           )
       )
     );
@@ -30739,7 +30755,7 @@ exports = module.exports = __webpack_require__(15)(false);
 
 
 // module
-exports.push([module.i, ".Playground__body {\n  width: 1200px;\n  height: 740px;\n  background: #ffd9e2;\n  margin: 70px auto;\n  border: 10px solid rgb(255, 102, 93);\n  border-radius: 20px;\n  -webkit-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  -moz-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n}\n\n.Playground__frame {\n  float: left;\n  width: 67%;\n  height: 100%;\n  box-sizing: border-box;\n  background: rgb(255, 153, 125);\n  border-top-left-radius: 10px;\n  border-bottom-left-radius: 10px\n}\n\n.Playground__userInformationBlock {\n  float: right;\n  width: 33%;\n  box-sizing: border-box;\n  height: 100%;\n  background: firebrick;\n  border-top-right-radius: 10px;\n  border-bottom-right-radius: 10px;\n  border-left: 10px solid #ff665d;\n}\n\n.userAvatarImg {\n  display: block;\n  margin: 30px auto;\n  border: 5px solid #fbbfc5;\n  border-radius: 50%;\n  width: 50%;\n}\n\n.usernameHeading {\n  text-align: center;\n  display: block;\n  background: rgb(251, 191, 197);\n  color: rgb(197, 90, 158);\n  width: 50%;\n  margin: auto;\n  padding: 5px 0;\n  font-size: 2rem;\n  border-radius: 10px;\n  font-family: sans-serif;\n}\n\n.userDataBlock {\n  background: #ff4053;\n  padding: 10px;\n  width: 60%;\n  margin: 20px auto;\n  border-radius: 30%;\n  border: 5px solid rgba(251, 191, 197, 0.35);\n}\n\n.coinsUserData, .petsUserData {\n  text-align: center;\n  display: block;\n  background: rgb(140, 16, 16);\n  color: wheat;\n  width: 50%;\n  margin: 10px auto;\n  padding: 5px 0;\n  font-size: 0.8rem;\n  border-radius: 10px;\n  font-family: sans-serif;\n  font-weight: 700;\n}\n\n.buttonPlaygroundFrame, .buttonInventory, .buttonIngameShop, .buttonWorldMarket, .buttonUsersTop {\n  display: block;\n  width: 60%;\n  margin: 10px auto;\n  padding: 5px;\n  background: #69031f;\n  border: 10px solid #ff4053;\n  color: rgb(255, 23, 23);\n  font-family: monospace;\n  font-weight: bold;\n  font-size: 1.2rem;\n  cursor: pointer;\n}\n\n.buttonPlaygroundFrame {\n  border-top-left-radius: 50%;\n}\n\n.buttonUsersTop {\n  border-bottom-right-radius: 50%;\n}\n\n.Playground__frame__inventory {\n  height: 100%; \n}\n\n.inventoryCell {\n  box-sizing: border-box;\n  width: 140.8px;\n  background: #dcbfbf;\n  float: left;\n  height: 128px;\n  margin: 10px;\n  border: 10px solid rgba(82, 53, 72, 0.63);\n}\n\n.activeButton {\n  background: #fff2f5;\n  animation-name: colorIntoActiveButton;\n  animation-duration: 1s;\n}\n\n@keyframes colorIntoActiveButton {\n  0% {\n    background: #69031f;\n  }\n  \n  100% {\n    background: #fff2f5;\n  }\n}\n\n.inactiveButton {\n  background: #69031f;\n  animation-name: colorIntoinactiveButton;\n  animation-duration: 1s;\n}\n\n@keyframes colorIntoinactiveButton {\n  0% {\n    background: #fff2f5;\n  }\n  \n  100% {\n    background: #69031f;\n  }\n}\n\n.Playground__frames__BoxOpenModal, .Playground__frames__PetInterfaceModal {\n  position: fixed;\n  z-index: 1000;\n  background: rgba(0, 0, 0, 0.35);\n  width: 100%;\n  height: 100vh;\n  left: 0;\n  top: 0;\n}\n\n\n.Playground__frames__BoxOpenModal__innerContent, .Playground__frames__PetInterfaceModal__innerContent{\n  width: 900px;\n  background: #9a848e;\n  margin: 150px auto auto auto;\n  padding: 20px;\n  min-height: 500px;\n  border: 20px rgba(226, 210, 213, 0.22);\n  border-style: dotted solid;\n  border-radius: 170px;\n  box-sizing: border-box;\n}\n\n.Playground__frames__BoxOpenModal__innerContent h1 {\n  text-align: center;\n  font-size: 2rem;\n  font-weight: bold;\n  border: 5px solid #ffdead;\n  color: beige;\n  padding: 10px;\n  background: rgb(222, 43, 84);\n  width: 60%;\n  margin: auto;\n  border-radius: 10px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent .boxContainer {\n  background: rgba(220, 220, 220, 0.18);\n  padding: 10px;\n  border-radius: 10px;\n  width: 70%;\n  margin: 10px auto;\n}\n\n.Playground__frames__BoxOpenModal__innerContent p {\n    text-align: center;\n    color: beige;\n    background: rgba(82, 78, 68, 0.31);\n    width: 50%;\n    margin: auto;\n    border-radius: 10px;\n    padding: 5px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent .inputContainer {\n  background: rgba(194, 180, 183, 0.3);\n  margin: 20px auto;\n  width: 70%;\n  padding: 10px;\n  border-radius: 10px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent input {\n  width: 50%;\n  padding: 5px;\n  margin: auto;\n  display: block;\n  background: rgba(241, 73, 73, 0.35);\n  border: 1px solid white;\n  color: white; \n}\n\n.Playground__frames__BoxOpenModal__innerContent label {\n  display: block;\n  padding: 5px;\n  text-align: center;\n  color: white;\n}\n\n.Playground__frames__BoxOpenModal__innerContent button {\n  width: 40%;\n  display: block;\n  margin: 10px auto;\n  border: 1px solid #ffdead;\n  color: beige;\n  padding: 10px;\n  background: rgb(222, 43, 84);\n  cursor: pointer;\n  font-size: 1rem;\n}\n\n.loadingErrorBox {\n  margin: 300px auto;\n  text-align: center;\n  background: wheat;\n  width: 400px;\n  height: 48px;\n  padding: 10px;\n  border: 10px double lightslategray;\n  color: firebrick;\n  font-weight: bold;\n  font-size: 2rem;\n  font-family: monospace;\n}\n\n.emptyPetsFrame {\n  text-align: center;\n  background: salmon;\n  color: whitesmoke;\n  margin: 300px auto;\n  width: 500px;\n  padding: 10px;\n  border: 10px double antiquewhite;\n  font-size: 2rem;\n  font-family: fantasy;\n}\n\n.constructedDropFromBoxContainer {\n  width: 400px;\n  height: 300px;\n  margin: 10px auto;\n  background: rgba(12, 11, 11, 0.09); \n}\n\n.petInModal {\n  margin: auto;\n  padding-top: 100px;\n  width: 120px;\n}\n\n.petInterface--label {\n  text-align: center;\n  font-size: 2rem;\n  width: 300px;\n  background: rgba(74, 74, 74, 0.32);\n  margin: 5px 0 5px 100px;\n  padding: 5px;\n  border-radius: 10%;\n  color: #e2e2e2;\n  font-family: monospace; \n}\n\n.petInterface--petContainer {\n  width: 160px;\n  margin: 5px 0 5px 50px;\n}\n\n.petInterfaceROW--first, .petInterfaceROW--second, .petInterfaceROW--third {\n  display: block; \n}\n\n.petInterface--specialist, \n.petInterface--sex, \n.petInterface--rarity, \n.petInterface--defense, \n.petInterface--attack, \n.petInterface--happinessPoints, \n.petInterface--hitPoints, \n.petInterface--waterPoints,\n.petInterface--foodPoints,\n.petInterface--birthdate {\n  background: rgba(255, 29, 206, 0.08);\n  display: inline-block;\n  padding: 8px;\n  border-radius: 30%;\n  color: rgb(255, 255, 255);\n  margin-right: 10px;\n}\n", ""]);
+exports.push([module.i, ".Playground__body {\n  width: 1200px;\n  height: 790px;\n  background: #ffd9e2;\n  margin: 70px auto;\n  border: 10px solid rgb(255, 102, 93);\n  border-radius: 20px;\n  -webkit-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  -moz-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n}\n\n.Playground__frame {\n  float: left;\n  width: 67%;\n  height: 100%;\n  box-sizing: border-box;\n  background: rgb(255, 153, 125);\n  border-top-left-radius: 10px;\n  border-bottom-left-radius: 10px\n}\n\n.Playground__userInformationBlock {\n  float: right;\n  width: 33%;\n  box-sizing: border-box;\n  height: 100%;\n  background: firebrick;\n  border-top-right-radius: 10px;\n  border-bottom-right-radius: 10px;\n  border-left: 10px solid #ff665d;\n}\n\n.userAvatarImg {\n  display: block;\n  margin: 30px auto;\n  border: 5px solid #fbbfc5;\n  border-radius: 50%;\n  width: 50%;\n}\n\n.usernameHeading {\n  text-align: center;\n  display: block;\n  background: rgb(251, 191, 197);\n  color: rgb(197, 90, 158);\n  width: 50%;\n  margin: auto;\n  padding: 5px 0;\n  font-size: 2rem;\n  border-radius: 10px;\n  font-family: sans-serif;\n}\n\n.userDataBlock {\n  background: #ff4053;\n  padding: 10px;\n  width: 60%;\n  margin: 20px auto;\n  border-radius: 30%;\n  border: 5px solid rgba(251, 191, 197, 0.35);\n}\n\n.coinsUserData, .petsUserData {\n  text-align: center;\n  display: block;\n  background: rgb(140, 16, 16);\n  color: wheat;\n  width: 50%;\n  margin: 10px auto;\n  padding: 5px 0;\n  font-size: 0.8rem;\n  border-radius: 10px;\n  font-family: sans-serif;\n  font-weight: 700;\n}\n\n.xpUserDataContainer {\n  background: rgba(140, 16, 16, 0.37);\n  color: rgb(228, 222, 179);\n  width: 50%;\n  height: 22px;\n  margin: 10px auto;\n  position: relative;\n  display: block;\n  box-sizing: border-box;\n}\n\n.xpUserDataBar {\n  font-size: 0.8rem;\n  height: 100%;\n  background: firebrick;\n  position: absolute;\n}\n\n.xpUserDataText {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  padding-top: 5px;\n  font-size: 0.8rem;\n  font-weight: 700;\n  font-family: sans-serif;\n  position: absolute;\n  z-index: 1;\n}\n\n.buttonPlaygroundFrame, .buttonInventory, .buttonIngameShop, .buttonWorldMarket, .buttonUsersTop {\n  display: block;\n  width: 60%;\n  margin: 10px auto;\n  padding: 5px;\n  background: #69031f;\n  border: 10px solid #ff4053;\n  color: rgb(255, 23, 23);\n  font-family: monospace;\n  font-weight: bold;\n  font-size: 1.2rem;\n  cursor: pointer;\n}\n\n.buttonPlaygroundFrame {\n  border-top-left-radius: 50%;\n}\n\n.buttonUsersTop {\n  border-bottom-right-radius: 50%;\n}\n\n.Playground__frame__inventory {\n  height: 100%; \n}\n\n.inventoryCell {\n  box-sizing: border-box;\n  width: 140.8px;\n  background: #dcbfbf;\n  float: left;\n  height: 128px;\n  margin: 10px;\n  border: 10px solid rgba(82, 53, 72, 0.63);\n}\n\n.activeButton {\n  background: #fff2f5;\n  animation-name: colorIntoActiveButton;\n  animation-duration: 1s;\n}\n\n@keyframes colorIntoActiveButton {\n  0% {\n    background: #69031f;\n  }\n  \n  100% {\n    background: #fff2f5;\n  }\n}\n\n.inactiveButton {\n  background: #69031f;\n  animation-name: colorIntoinactiveButton;\n  animation-duration: 1s;\n}\n\n@keyframes colorIntoinactiveButton {\n  0% {\n    background: #fff2f5;\n  }\n  \n  100% {\n    background: #69031f;\n  }\n}\n\n.Playground__frames__BoxOpenModal, .Playground__frames__PetInterfaceModal {\n  position: fixed;\n  z-index: 1000;\n  background: rgba(0, 0, 0, 0.35);\n  width: 100%;\n  height: 100vh;\n  left: 0;\n  top: 0;\n}\n\n\n.Playground__frames__BoxOpenModal__innerContent, .Playground__frames__PetInterfaceModal__innerContent{\n  width: 900px;\n  background: #9a848e;\n  margin: 150px auto auto auto;\n  padding: 20px;\n  min-height: 500px;\n  border: 20px rgba(226, 210, 213, 0.22);\n  border-style: dotted solid;\n  border-radius: 170px;\n  box-sizing: border-box;\n}\n\n.Playground__frames__BoxOpenModal__innerContent h1 {\n  text-align: center;\n  font-size: 2rem;\n  font-weight: bold;\n  border: 5px solid #ffdead;\n  color: beige;\n  padding: 10px;\n  background: rgb(222, 43, 84);\n  width: 60%;\n  margin: auto;\n  border-radius: 10px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent .boxContainer {\n  background: rgba(220, 220, 220, 0.18);\n  padding: 10px;\n  border-radius: 10px;\n  width: 70%;\n  margin: 10px auto;\n}\n\n.Playground__frames__BoxOpenModal__innerContent p {\n    text-align: center;\n    color: beige;\n    background: rgba(82, 78, 68, 0.31);\n    width: 50%;\n    margin: auto;\n    border-radius: 10px;\n    padding: 5px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent .inputContainer {\n  background: rgba(194, 180, 183, 0.3);\n  margin: 20px auto;\n  width: 70%;\n  padding: 10px;\n  border-radius: 10px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent input {\n  width: 50%;\n  padding: 5px;\n  margin: auto;\n  display: block;\n  background: rgba(241, 73, 73, 0.35);\n  border: 1px solid white;\n  color: white; \n}\n\n.Playground__frames__BoxOpenModal__innerContent label {\n  display: block;\n  padding: 5px;\n  text-align: center;\n  color: white;\n}\n\n.Playground__frames__BoxOpenModal__innerContent button {\n  width: 40%;\n  display: block;\n  margin: 10px auto;\n  border: 1px solid #ffdead;\n  color: beige;\n  padding: 10px;\n  background: rgb(222, 43, 84);\n  cursor: pointer;\n  font-size: 1rem;\n}\n\n.loadingErrorBox {\n  margin: 300px auto;\n  text-align: center;\n  background: wheat;\n  width: 400px;\n  height: 48px;\n  padding: 10px;\n  border: 10px double lightslategray;\n  color: firebrick;\n  font-weight: bold;\n  font-size: 2rem;\n  font-family: monospace;\n}\n\n.emptyPetsFrame {\n  text-align: center;\n  background: salmon;\n  color: whitesmoke;\n  margin: 300px auto;\n  width: 500px;\n  padding: 10px;\n  border: 10px double antiquewhite;\n  font-size: 2rem;\n  font-family: fantasy;\n}\n\n.constructedDropFromBoxContainer {\n  width: 400px;\n  height: 300px;\n  margin: 10px auto;\n  background: rgba(12, 11, 11, 0.09); \n}\n\n.petInModal {\n  margin: auto;\n  padding-top: 100px;\n  width: 120px;\n}\n\n.petInterface--label {\n  text-align: center;\n  font-size: 2rem;\n  width: 300px;\n  background: rgba(74, 74, 74, 0.32);\n  margin: 5px 0 5px 100px;\n  padding: 5px;\n  border-radius: 10%;\n  color: #e2e2e2;\n  font-family: monospace; \n}\n\n.petInterface--petContainer {\n  width: 160px;\n  margin: 5px 0 5px 50px;\n}\n\n.petInterfaceROW--first, .petInterfaceROW--second, .petInterfaceROW--third {\n  display: block; \n}\n\n.petInterface--specialist, \n.petInterface--sex, \n.petInterface--rarity, \n.petInterface--defense, \n.petInterface--attack, \n.petInterface--happinessPoints, \n.petInterface--hitPoints, \n.petInterface--waterPoints,\n.petInterface--foodPoints,\n.petInterface--birthdate {\n  background: rgba(255, 29, 206, 0.08);\n  display: inline-block;\n  padding: 8px;\n  border-radius: 30%;\n  color: rgb(255, 255, 255);\n  margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -36090,7 +36106,7 @@ class Pets extends React.Component {
     
     this.getDataFromUserPets();
     
-    socket.on("userInformationUpdated", () => {
+    socket.on("userPetsInformationUpdated", () => {
       this.getDataFromUserPets(true);
     });
   }
@@ -36163,6 +36179,8 @@ const Dog = __webpack_require__(79);
 
 const WATER__bottle = __webpack_require__(131);
 const FOOD_can = __webpack_require__(132);
+
+const XP_FOR_FEEDING_PET = 3;
 
 const FoodAndWaterCells = (props) => {
   const { foodAndWaterItems, loading, loadingError, setActiveItem } = props;
@@ -36270,6 +36288,8 @@ class PetInterfaceModal extends React.Component {
     
     try {
       const response = await fetch("user/feed", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" }, body: JSON.stringify(data)});
+      
+      const nextPostRequest = await fetch("/user/xp", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify({ xp: XP_FOR_FEEDING_PET}) });
     }
     catch(error) {
       this.setState({
@@ -37032,6 +37052,8 @@ const generateNewPet = __webpack_require__(316);
 const Cat = __webpack_require__(78);
 const Dog = __webpack_require__(79);
 
+const XP_FOR_OPENING_BOX = 80;
+
 class BoxOpenModal extends React.Component {
   constructor(props) {
     super(props);
@@ -37074,7 +37096,9 @@ class BoxOpenModal extends React.Component {
     try {
       const postRequest = await fetch("/user/open-box", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify(data) });
       
-      updateInformationAboutUser();
+      const nextPostRequest = await fetch("/user/xp", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify({ xp: XP_FOR_OPENING_BOX}) });
+      
+      //updateInformationAboutUser();
       
       this.setState({
         loading: false,
@@ -37376,6 +37400,7 @@ class UserInformationBlock extends React.Component {
       avatarImgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNBRURE93_LfM_m1EGtHVwGczXh8iWAmpO9FqFW2wKE5H890eZ",
       username: "",
       coins: 0,
+      xp: 0,
       petsAmount: 0,
       loadingError: null,
       loading: false,
@@ -37384,7 +37409,8 @@ class UserInformationBlock extends React.Component {
       buttonInventoryAdditionClass: "",
       buttonIngameShopAdditionClass: "",
       buttonWorldMarketAdditionClass: "",
-      buttonUsersTopAdditionClass: ""
+      buttonUsersTopAdditionClass: "",
+      amountXpToGetOneLevel: 100
     }
     
     this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive = this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive.bind(this);
@@ -37408,13 +37434,15 @@ class UserInformationBlock extends React.Component {
            buttonInventoryAdditionClass,
            buttonIngameShopAdditionClass,
            buttonWorldMarketAdditionClass,
-           buttonUsersTopAdditionClass } = this.state;
+           buttonUsersTopAdditionClass,
+           amountXpToGetOneLevel } = this.state;
     const { changeCurrentFrameFunction,
             username,
             coins,
             petsAmount,
             loadingError,
-            loading } = this.props;
+            loading,
+            xp } = this.props;
     
     if (loadingError) {
       return(
@@ -37434,13 +37462,20 @@ class UserInformationBlock extends React.Component {
       );  
     }
     
+    const level = Math.trunc(xp/amountXpToGetOneLevel);
+    const xpLeft = xp - (level*amountXpToGetOneLevel);
+    
     return(
       React.createElement("div", {className: "Playground__userInformationBlock"}, 
         React.createElement("img", {src:  avatarImgSrc, alt: "avatar", className: "userAvatarImg"}), 
-        React.createElement("h2", {className: "usernameHeading"},  username ), 
+        React.createElement("h2", {className: "usernameHeading"}, " ",  username, " "), 
         React.createElement("div", {className: "userDataBlock"}, 
-          React.createElement("p", {className: "coinsUserData"}, "Coins: ",  coins ), 
-          React.createElement("p", {className: "petsUserData"}, "Pets: ",  petsAmount )
+          React.createElement("p", {className: "coinsUserData"}, " Coins: ",  coins, " "), 
+          React.createElement("p", {className: "petsUserData"}, " Pets: ",  petsAmount, " "), 
+          React.createElement("div", {className: "xpUserDataContainer"}, 
+            React.createElement("div", {className: "xpUserDataText"}, "  Level: ",  level, " "), 
+            React.createElement("div", {className: "xpUserDataBar", style: { width: `${xpLeft}%`}})
+          )
         ), 
 
         React.createElement("div", {className: "navigationButtonsBlock"}, 

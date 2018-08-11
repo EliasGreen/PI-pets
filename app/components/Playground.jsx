@@ -23,6 +23,7 @@ class Playground extends React.Component  {
       username: "",
       userID: null,
       coins: 0,
+      xp: 0,
       petsAmount: 0,
       loadingError: null,
       loading: false
@@ -42,10 +43,12 @@ class Playground extends React.Component  {
     this.socket.emit("addNewUsersSocket", this.state.userID);
   }
   
-  async getInformationAboutUser() {
-    this.setState({
-      loading: true 
-    });
+  async getInformationAboutUser(updatingBehindTheScene) {
+    if (!updatingBehindTheScene) {
+      this.setState({
+        loading: true 
+      });
+    }
    
     try {
       const response = await fetch("/user/information", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
@@ -56,6 +59,7 @@ class Playground extends React.Component  {
         userID: result.userID,
         coins: result.coins,
         petsAmount: result.petsAmount,
+        xp: result.xp,
         loading: false
       });
     } 
@@ -80,10 +84,14 @@ class Playground extends React.Component  {
   
   componentDidMount() {
     this.initializeUser();
+    
+    this.socket.on("userInformationUpdated", () => {
+      this.getInformationAboutUser(true);
+    });
   }
   
   render() {
-    const { currentFrame, username, coins, petsAmount, loadingError, loading } = this.state;
+    const { currentFrame, username, coins, petsAmount, loadingError, loading, xp } = this.state;
     
     return (
       <div className="Playground__body">
@@ -94,6 +102,7 @@ class Playground extends React.Component  {
           loadingError={ loadingError }
           loading={ loading }
           petsAmount={ petsAmount }
+          xp={ xp }
           />
       </div>
     );
