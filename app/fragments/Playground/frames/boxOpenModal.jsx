@@ -7,6 +7,8 @@ const generateNewPet = require("../../../functions/generateNewPet");
 const Cat = require("../../../pets/cat");
 const Dog = require("../../../pets/dog");
 
+const XP_FOR_OPENING_BOX = 80;
+
 class BoxOpenModal extends React.Component {
   constructor(props) {
     super(props);
@@ -49,7 +51,9 @@ class BoxOpenModal extends React.Component {
     try {
       const postRequest = await fetch("/user/open-box", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify(data) });
       
-      updateInformationAboutUser();
+      const nextPostRequest = await fetch("/user/xp", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" },  body: JSON.stringify({ xp: XP_FOR_OPENING_BOX}) });
+      
+      //updateInformationAboutUser();
       
       this.setState({
         loading: false,

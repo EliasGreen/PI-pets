@@ -110,7 +110,7 @@ class Pets extends React.Component {
     
     this.getDataFromUserPets();
     
-    socket.on("userInformationUpdated", () => {
+    socket.on("userPetsInformationUpdated", () => {
       this.getDataFromUserPets(true);
     });
   }

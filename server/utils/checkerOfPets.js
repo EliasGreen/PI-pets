@@ -42,7 +42,7 @@ async function configurePetProperties(pet) {
       
       
       if (listOfUsersSockets.getSocket(updatedUser.id)) {
-        listOfUsersSockets.getSocket(updatedUser.id).emit("userInformationUpdated");
+        listOfUsersSockets.getSocket(updatedUser.id).emit("userPetsInformationUpdated");
       }
 
     } 
