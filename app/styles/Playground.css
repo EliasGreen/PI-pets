@@ -399,6 +399,7 @@
 
 .axiomsChooser {
   display: inline-block;
+  cursor: pointer;
   background: rgb(35, 31, 34);
   border-radius: 30px;
   padding: 0 5px;
@@ -414,4 +415,45 @@
 .currentIngameShopInteractionArea {
   background: rgb(150, 35, 77);
   color: #f5f5f5;
+}
+
+.ingameShopCell {
+  width: 25%;
+  margin: 20px;
+  float: left;
+  background: rgb(255, 208, 212);
+  box-sizing: border-box;
+  border: 5px dashed #63565f; 
+}
+
+.ingameShopItem {
+  margin: 30px;
+  cursor: default;
+}
+
+p.descriptionIngameShopItem {
+  text-align: center;
+  font-weight: bold;
+  font-size: .7rem;
+  font-family: sans-serif;
+  color: rgb(99, 86, 95);
+  margin-bottom: 10px;
+}
+
+button.buyIngameShopItemButton {
+  width: 70%;
+  margin: 5px auto 10px auto;
+  display: block;
+  background: #f5f5f5;
+  color: #63565f;
+  border: 3px double #96234d;
+  font-weight: bold;
+  padding: 3px;
+  cursor: pointer;
+}
+
+button.buyIngameShopItemButton:hover {
+  background: #ff005e;
+  color: floralwhite;
+  border: 3px double ivory;
 }

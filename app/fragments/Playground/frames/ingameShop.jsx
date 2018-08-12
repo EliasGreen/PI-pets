@@ -27,19 +27,43 @@ class IngameShop extends React.Component {
     
     this.keysAndBoxes = [
       <div className="ingameShopCell" key="KeyPI">
-        <KeyPI inShop={ true } />
+        <div className="ingameShopItem">
+          <KeyPI inShop={ true } />
+        </div>
+        <p className="descriptionIngameShopItem">
+          1000 coins || 10 axioms
+        </p>
+        <button className="buyIngameShopItemButton"> buy </button>
       </div>,
       <div className="ingameShopCell" key="BoxPI">
-        <BoxPI inShop={ true } />
+        <div className="ingameShopItem">
+         <BoxPI inShop={ true } />
+        </div>
+        <p className="descriptionIngameShopItem">
+          500 coins || 8 axioms
+        </p>
+        <button className="buyIngameShopItemButton"> buy </button>
       </div>
     ];
     
     this.foodAndWater = [
-      <div className="ingameShopCell" key="WATER__bottle">
-        <WATER__bottle />
-      </div>,
       <div className="ingameShopCell" key="FOOD_can">
-        <FOOD_can />
+        <div className="ingameShopItem">
+         <FOOD_can inShop={ true } />
+        </div>
+        <p className="descriptionIngameShopItem">
+          37 coins || 1 axioms
+        </p>
+        <button className="buyIngameShopItemButton"> buy </button>
+      </div>,
+      <div className="ingameShopCell" key="WATER__bottle">
+        <div className="ingameShopItem">
+         <WATER__bottle inShop={ true } />
+        </div>
+        <p className="descriptionIngameShopItem">
+          26 coins || 1 axioms
+        </p>
+        <button className="buyIngameShopItemButton"> buy </button>
       </div>
     ];
     
