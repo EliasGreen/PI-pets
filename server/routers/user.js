@@ -28,11 +28,12 @@ passport.deserializeUser((user_id, done) => {
 *  @security: private
 */
 router.get("/information", loginCheck, (req, res) => {
-  userModel.findById(req.session.passport.user, "username coins pets meta xp", (err, user) => {
+  userModel.findById(req.session.passport.user, "username coins pets meta xp axioms", (err, user) => {
     if(!err) {
       res.status(200).json({
         username: user.username,
         coins: user.coins,
+        axioms: user.axioms,
         petsAmount: user.pets.length,
         food: user.meta.food,
         xp: user.xp,

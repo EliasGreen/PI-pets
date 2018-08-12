@@ -23,6 +23,7 @@ class Playground extends React.Component  {
       username: "",
       userID: null,
       coins: 0,
+      axioms: 0,
       xp: 0,
       petsAmount: 0,
       loadingError: null,
@@ -58,6 +59,7 @@ class Playground extends React.Component  {
         username: result.username,
         userID: result.userID,
         coins: result.coins,
+        axioms: result.axioms,
         petsAmount: result.petsAmount,
         xp: result.xp,
         loading: false
@@ -91,7 +93,7 @@ class Playground extends React.Component  {
   }
   
   render() {
-    const { currentFrame, username, coins, petsAmount, loadingError, loading, xp } = this.state;
+    const { currentFrame, username, coins, petsAmount, loadingError, loading, xp, axioms } = this.state;
     
     return (
       <div className="Playground__body">
@@ -103,6 +105,7 @@ class Playground extends React.Component  {
           loading={ loading }
           petsAmount={ petsAmount }
           xp={ xp }
+          axioms= { axioms }
           />
       </div>
     );

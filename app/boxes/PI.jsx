@@ -10,18 +10,23 @@ class PI extends React.Component {
   }
   
   allowDrop(ev) {
-    ev.preventDefault();
+    if (!this.props.inShop) {
+      ev.preventDefault();
+    }
   }
   
   dropKey(ev) {
-    const { setCurrentPickedBoxNameAndPosition, toggleShowBoxOpenModal } = this.props;
-    
-    setCurrentPickedBoxNameAndPosition();
-    toggleShowBoxOpenModal();
+    if (!this.props.inShop) {
+      const { setCurrentPickedBoxNameAndPosition, toggleShowBoxOpenModal } = this.props;
+
+      setCurrentPickedBoxNameAndPosition();
+      toggleShowBoxOpenModal();
+    }
   }
   
   render() {
-    const { dropkey } = this.props;
+    // delete???
+    //const { dropkey } = this.props;
     return(
       <div className="Boxes__PI" onDrop={ this.dropKey } onDragOver={ this.allowDrop }>
         3.14

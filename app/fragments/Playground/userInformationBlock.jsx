@@ -53,7 +53,8 @@ class UserInformationBlock extends React.Component {
             petsAmount,
             loadingError,
             loading,
-            xp } = this.props;
+            xp,
+            axioms } = this.props;
     
     if (loadingError) {
       return(
@@ -82,6 +83,7 @@ class UserInformationBlock extends React.Component {
         <h2 className="usernameHeading"> { username } </h2>
         <div className="userDataBlock">
           <p className="coinsUserData"> Coins: { coins } </p>
+          <p className="axiomsUserData"> Axioms: { axioms } </p>
           <p className="petsUserData"> Pets: { petsAmount } </p>
           <div className="xpUserDataContainer">
             <div className="xpUserDataText">  Level: { level } </div>
