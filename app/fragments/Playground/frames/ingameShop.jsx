@@ -7,7 +7,7 @@ const KeyPI = require("../../../keys/PI");
 const BoxPI = require("../../../boxes/PI");
 
 const WATER__bottle = require("../../../water/bottle");
-const FOOD_can = require("../../../food/can");
+const FOOD__can = require("../../../food/can");
 
 class IngameShop extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class IngameShop extends React.Component {
     this.state = {
       loading: false,
       loadingError: null,
+      error: null,
       payWith: {
         name: "coins",
         domNode: null
@@ -33,7 +34,7 @@ class IngameShop extends React.Component {
         <p className="descriptionIngameShopItem">
           1000 coins || 10 axioms
         </p>
-        <button className="buyIngameShopItemButton"> buy </button>
+        <button className="buyIngameShopItemButton" onClick={ (event) => { this.buy(event, "KeyPI") } }> buy </button>
       </div>,
       <div className="ingameShopCell" key="BoxPI">
         <div className="ingameShopItem">
@@ -42,19 +43,19 @@ class IngameShop extends React.Component {
         <p className="descriptionIngameShopItem">
           500 coins || 8 axioms
         </p>
-        <button className="buyIngameShopItemButton"> buy </button>
+        <button className="buyIngameShopItemButton" onClick={ (event) => { this.buy(event, "BoxPI") } }> buy </button>
       </div>
     ];
     
     this.foodAndWater = [
-      <div className="ingameShopCell" key="FOOD_can">
+      <div className="ingameShopCell" key="FOOD__can">
         <div className="ingameShopItem">
-         <FOOD_can inShop={ true } />
+         <FOOD__can inShop={ true } />
         </div>
         <p className="descriptionIngameShopItem">
           37 coins || 1 axioms
         </p>
-        <button className="buyIngameShopItemButton"> buy </button>
+        <button className="buyIngameShopItemButton" onClick={ (event) => { this.buy(event, "FOOD__can") } }> buy </button>
       </div>,
       <div className="ingameShopCell" key="WATER__bottle">
         <div className="ingameShopItem">
@@ -63,12 +64,61 @@ class IngameShop extends React.Component {
         <p className="descriptionIngameShopItem">
           26 coins || 1 axioms
         </p>
-        <button className="buyIngameShopItemButton"> buy </button>
+        <button className="buyIngameShopItemButton" onClick={ (event) => { this.buy(event, "WATER__bottle") } }> buy </button>
       </div>
     ];
     
     this.changeCurrentIngameShopInteractionArea = this.changeCurrentIngameShopInteractionArea.bind(this);
     this.changePayWith = this.changePayWith.bind(this);
+    this.buy = this.buy.bind(this);
+    this.closeErrorAlertModal = this.closeErrorAlertModal.bind(this);
+  }
+  
+  closeErrorAlertModal() {
+    this.setState({
+      error: null
+    });
+  }
+  
+  async buy(event, itemName) {
+    const { payWith } = this.state;
+    
+    const data = {
+      itemName: itemName,
+      payWith: payWith.name
+    };
+    
+    try {
+      const request = await fetch(
+        "user/buy/item",
+        { 
+          method: "post", 
+          credentials: "include", 
+          headers: { "Content-Type": "application/json", "Accept":"application/json" }, 
+          body: JSON.stringify(data)
+        });
+      
+      if(!request.ok) {
+        throw new Error(request.status);
+      }
+    }
+    catch(error) {
+      if (error.message == 498) {
+        error.message = `You don't have enough ${ payWith.name } to buy it`;
+        this.setState({
+          error
+        });
+      }
+      else if (error.message == 499) {
+        error.message = `You don't have a free inventory cell to buy it`;
+        this.setState({
+          error
+        });
+      }
+      else {
+        throw new Error(error.message);
+      }         
+    }
   }
   
   changePayWith(event, newPayWithName) {
@@ -110,7 +160,7 @@ class IngameShop extends React.Component {
   }
   
   render() {
-    const { loading, loadingError, currentIngameShopInteractionArea } = this.state;
+    const { loading, loadingError, currentIngameShopInteractionArea, error } = this.state;
     
     if (loadingError) {
       return(
@@ -145,6 +195,16 @@ class IngameShop extends React.Component {
         <div className="ingameShopInteractionArea">
           { this[currentIngameShopInteractionArea.name] }
         </div>
+        
+        { 
+          error &&
+          <div className="errorAlertModal">
+            <div>
+              { error.message }
+              <button onClick={ this.closeErrorAlertModal }> close </button>
+            </div>
+          </div>
+        }
       </div>
     );
   }

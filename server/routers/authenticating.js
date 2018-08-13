@@ -30,29 +30,41 @@ const createNewUserInDB = (userInformation, req, res) => {
             password: hash,
             inventory: [
               { 
-                type: "PIkey",
+                type: "KeyPI",
                 rarity: "Legendary",
-                for: "PIbox",
-                cost: 1000 
+                for: "BoxPI",
+                cost: {
+                  coins: 1000,
+                  axioms: 10
+                }
               },
               { 
-                type: "PIbox",
+                type: "BoxPI",
                 rarity: "Legendary",
-                openTool: "PIkey",
-                output: "Random pet",
-                cost: 5000
+                openTool: "KeyPI",
+                output: "Random PIpet",
+                cost: {
+                  coins: 500,
+                  axioms: 8
+                }
               },
               {
                 type: "FOOD__can",
-                cost: 75,
-                foodValue: 3,
-                waterValue: 1
+                cost: {
+                  coins: 37,
+                  axioms: 1
+                },
+                waterValue: 1,
+                foodValue: 3
               },
               {
                 type: "WATER__bottle",
-                cost: 50,
-                foodValue: 0,
-                waterValue: 4
+                cost: {
+                  coins: 26,
+                  axioms: 1
+                },
+                waterValue: 4,
+                foodValue: 0
               }
             ],
             meta: {

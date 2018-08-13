@@ -6,11 +6,15 @@ const listOfUsersSockets = require("../utils/listOfUsersSockets");
 
 const loginCheck = require("../middlewares/loginCheck");
 
+const getItemByItsName = require("../utils/getItemByItsNameFunction");
+
 const mongoDB__utils = require("../utils/mongoDB");
 const userModel = require("../mongoDBmodels/userModel");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
+
+const MAX_CELLS_INVENTORY = 25;
 
 const passport = require("passport");
 router.use(passport.initialize());
@@ -242,6 +246,44 @@ router.post("/xp", loginCheck, urlencodedParser, jsonParser, (req, res) => {
       
       if (listOfUsersSockets.getSocket(user.id)) {
         listOfUsersSockets.getSocket(user.id).emit("userInformationUpdated");
+      }
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
+*  @information POST
+*  @dest: add BOUGHT item into user's inventory in DB
+*  @security: private
+*/
+router.post("/buy/item", loginCheck, urlencodedParser, jsonParser, (req, res) => {
+  const { itemName, payWith } = req.body;
+  
+  userModel.findById(req.session.passport.user, "inventory coins axioms", (err, user) => {
+    if (!err) {
+      const item = getItemByItsName(itemName);
+      
+      if (( user[payWith] - item.cost[payWith] ) >= 0) {
+        if (user.inventory.length < MAX_CELLS_INVENTORY) {
+          user[payWith] = user[payWith] - item.cost[payWith];
+          user.inventory.push(item);
+          user.save();
+
+          res.sendStatus(200);
+
+          if (listOfUsersSockets.getSocket(user.id)) {
+            listOfUsersSockets.getSocket(user.id).emit("userInformationUpdated");
+          }
+        }
+        else {
+          res.sendStatus(499);
+        }
+      }
+      else {
+        res.sendStatus(498);
       }
     }
     else {

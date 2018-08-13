@@ -5,7 +5,10 @@ const Schema = mongoose.Schema,
 
 const foodSchema = new Schema({
   type: String,
-  cost: Number,
+  cost: {
+    coins: Number,
+    axioms: Number
+  },
   foodValue: {type: Number, min: 0, max: 12},
   waterValue: {type: Number, min: 0, max: 12}
 });
