@@ -7,7 +7,10 @@ const openToolSchema = new Schema({
   type: String,
   rarity: String,
   for: String,
-  cost: Number
+  cost: {
+    coins: Number,
+    axioms: Number
+  }
 });
 
 module.exports = openToolSchema;

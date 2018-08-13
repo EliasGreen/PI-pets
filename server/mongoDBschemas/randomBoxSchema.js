@@ -8,7 +8,10 @@ const randomBoxSchema = new Schema({
   rarity: String,
   openTool: String,
   output: String,
-  cost: Number
+  cost: {
+    coins: Number,
+    axioms: Number
+  }
 });
 
 module.exports = randomBoxSchema;

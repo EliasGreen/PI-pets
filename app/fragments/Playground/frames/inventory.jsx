@@ -12,6 +12,8 @@ const FOOD_can = require("../../../food/can");
 
 const BoxOpenModal = require("./boxOpenModal");
 
+const MAX_CELLS_INVENTORY = 25;
+
 class Inventory extends React.Component {
   constructor(props) {
     super(props);
@@ -172,10 +174,10 @@ class Inventory extends React.Component {
     }
     
     let inventoryCells = [];
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < MAX_CELLS_INVENTORY; i++) {
       if (inventory[i]) {
         switch (inventory[i]["type"]) {
-          case "PIbox":
+          case "BoxPI":
             inventoryCells.push(<div className="inventoryCell" 
                                   onMouseEnter={ (e) => this.setTooltipPosition(e, true) } 
                                   onMouseLeave={ (e) => this.setTooltipPosition(e, false) } 
@@ -185,7 +187,7 @@ class Inventory extends React.Component {
                                     toggleShowBoxOpenModal={ this.toggleShowBoxOpenModal }/>
                                 </div>);
             break;
-          case "PIkey":
+          case "KeyPI":
             inventoryCells.push(<div className="inventoryCell" 
                                   onMouseEnter={ (e) => this.setTooltipPosition(e, true) } 
                                   onMouseLeave={ (e) => this.setTooltipPosition(e, false) } 

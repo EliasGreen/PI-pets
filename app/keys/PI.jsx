@@ -51,8 +51,19 @@ class PI extends React.Component {
   render() {
     // should I delete this???
     //const { ondragstart } = this.props;
+    
+    const { inShop } = this.props;
+    
+    let inlineStyle= {};
+    
+    if (inShop) {
+      inlineStyle = { 
+        cursor: "default"
+      }
+    }
+    
     return(
-      <div className="Keys__PI" onClick={ this.selectKey } onMouseLeave={ this.unselectKey } >
+      <div className="Keys__PI" onClick={ this.selectKey } onMouseLeave={ this.unselectKey } style={ inlineStyle }>
         3.14
       </div>
     );

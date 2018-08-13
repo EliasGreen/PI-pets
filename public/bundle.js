@@ -9661,8 +9661,20 @@ class Bottle extends React.Component {
   }
   
   render() {
+    const { inShop } = this.props;
+    
+    let inlineStyle= {};
+    
+    if (inShop) {
+      inlineStyle = { 
+        transform: "scale(0.35)",
+        transformOrigin: "215px 130px",
+        margin: "-95px"
+      }
+    }
+    
     return(
-      React.createElement("div", {className: "WATER__bottle"}, 
+      React.createElement("div", {className: "WATER__bottle", style: inlineStyle}, 
           React.createElement("div", {className: "cap"}, 
               React.createElement("div", {className: "cap-top"}
               ), 
@@ -15977,8 +15989,19 @@ class PI extends React.Component {
   render() {
     // should I delete this???
     //const { ondragstart } = this.props;
+    
+    const { inShop } = this.props;
+    
+    let inlineStyle= {};
+    
+    if (inShop) {
+      inlineStyle = { 
+        cursor: "default"
+      }
+    }
+    
     return(
-      React.createElement("div", {className: "Keys__PI", onClick:  this.selectKey, onMouseLeave:  this.unselectKey}, 
+      React.createElement("div", {className: "Keys__PI", onClick:  this.selectKey, onMouseLeave:  this.unselectKey, style:  inlineStyle }, 
         "3.14"
       )
     );
@@ -30829,7 +30852,7 @@ exports = module.exports = __webpack_require__(15)(false);
 
 
 // module
-exports.push([module.i, ".Playground__body {\n  width: 1200px;\n  height: 800px;\n  background: #ffd9e2;\n  margin: 70px auto;\n  border: 10px solid rgb(255, 102, 93);\n  border-radius: 20px;\n  -webkit-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  -moz-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n}\n\n.Playground__frame {\n  float: left;\n  width: 67%;\n  height: 100%;\n  box-sizing: border-box;\n  background: rgb(255, 153, 125);\n  border-top-left-radius: 10px;\n  border-bottom-left-radius: 10px\n}\n\n.Playground__userInformationBlock {\n  float: right;\n  width: 33%;\n  box-sizing: border-box;\n  height: 100%;\n  background: firebrick;\n  border-top-right-radius: 10px;\n  border-bottom-right-radius: 10px;\n  border-left: 10px solid #ff665d;\n}\n\n.userAvatarImg {\n  display: block;\n  margin: 30px auto;\n  border: 5px solid #fbbfc5;\n  border-radius: 50%;\n  width: 50%;\n}\n\n.usernameHeading {\n  text-align: center;\n  display: block;\n  background: rgb(251, 191, 197);\n  color: rgb(197, 90, 158);\n  width: 50%;\n  margin: auto;\n  padding: 5px 0;\n  font-size: 2rem;\n  border-radius: 10px;\n  font-family: sans-serif;\n}\n\n.userDataBlock {\n  background: #ff4053;\n  padding: 10px;\n  width: 60%;\n  margin: 20px auto;\n  border-radius: 30%;\n  border: 5px solid rgba(251, 191, 197, 0.35);\n}\n\n.coinsUserData, .petsUserData, .axiomsUserData {\n  text-align: center;\n  display: block;\n  background: rgb(140, 16, 16);\n  color: wheat;\n  width: 50%;\n  margin: 10px auto;\n  padding: 5px 0;\n  font-size: 0.8rem;\n  border-radius: 10px;\n  font-family: sans-serif;\n  font-weight: 700;\n}\n\n.xpUserDataContainer {\n  background: rgba(140, 16, 16, 0.37);\n  color: rgb(228, 222, 179);\n  width: 50%;\n  height: 22px;\n  margin: 10px auto;\n  position: relative;\n  display: block;\n  box-sizing: border-box;\n}\n\n.xpUserDataBar {\n  font-size: 0.8rem;\n  height: 100%;\n  background: firebrick;\n  position: absolute;\n}\n\n.xpUserDataText {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  padding-top: 5px;\n  font-size: 0.8rem;\n  font-weight: 700;\n  font-family: sans-serif;\n  position: absolute;\n  z-index: 1;\n}\n\n.buttonPlaygroundFrame, .buttonInventory, .buttonIngameShop, .buttonWorldMarket, .buttonUsersTop {\n  display: block;\n  width: 60%;\n  margin: 10px auto;\n  padding: 5px;\n  background: #69031f;\n  border: 10px solid #ff4053;\n  color: rgb(255, 23, 23);\n  font-family: monospace;\n  font-weight: bold;\n  font-size: 1.2rem;\n  cursor: pointer;\n}\n\n.buttonPlaygroundFrame {\n  border-top-left-radius: 50%;\n}\n\n.buttonUsersTop {\n  border-bottom-right-radius: 50%;\n}\n\n.Playground__frame__inventory {\n  height: 100%; \n}\n\n.inventoryCell {\n  box-sizing: border-box;\n  width: 140.8px;\n  background: #dcbfbf;\n  float: left;\n  height: 128px;\n  margin: 10px;\n  border: 10px solid rgba(82, 53, 72, 0.63);\n}\n\n.activeButton {\n  background: #fff2f5;\n  animation-name: colorIntoActiveButton;\n  animation-duration: 1s;\n}\n\n@keyframes colorIntoActiveButton {\n  0% {\n    background: #69031f;\n  }\n  \n  100% {\n    background: #fff2f5;\n  }\n}\n\n.inactiveButton {\n  background: #69031f;\n  animation-name: colorIntoinactiveButton;\n  animation-duration: 1s;\n}\n\n@keyframes colorIntoinactiveButton {\n  0% {\n    background: #fff2f5;\n  }\n  \n  100% {\n    background: #69031f;\n  }\n}\n\n.Playground__frames__BoxOpenModal, .Playground__frames__PetInterfaceModal {\n  position: fixed;\n  z-index: 1000;\n  background: rgba(0, 0, 0, 0.35);\n  width: 100%;\n  height: 100vh;\n  left: 0;\n  top: 0;\n}\n\n\n.Playground__frames__BoxOpenModal__innerContent, .Playground__frames__PetInterfaceModal__innerContent{\n  width: 900px;\n  background: #9a848e;\n  margin: 150px auto auto auto;\n  padding: 20px;\n  min-height: 500px;\n  border: 20px rgba(226, 210, 213, 0.22);\n  border-style: dotted solid;\n  border-radius: 170px;\n  box-sizing: border-box;\n}\n\n.Playground__frames__BoxOpenModal__innerContent h1 {\n  text-align: center;\n  font-size: 2rem;\n  font-weight: bold;\n  border: 5px solid #ffdead;\n  color: beige;\n  padding: 10px;\n  background: rgb(222, 43, 84);\n  width: 60%;\n  margin: auto;\n  border-radius: 10px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent .boxContainer {\n  background: rgba(220, 220, 220, 0.18);\n  padding: 10px;\n  border-radius: 10px;\n  width: 70%;\n  margin: 10px auto;\n}\n\n.Playground__frames__BoxOpenModal__innerContent p {\n    text-align: center;\n    color: beige;\n    background: rgba(82, 78, 68, 0.31);\n    width: 50%;\n    margin: auto;\n    border-radius: 10px;\n    padding: 5px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent .inputContainer {\n  background: rgba(194, 180, 183, 0.3);\n  margin: 20px auto;\n  width: 70%;\n  padding: 10px;\n  border-radius: 10px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent input {\n  width: 50%;\n  padding: 5px;\n  margin: auto;\n  display: block;\n  background: rgba(241, 73, 73, 0.35);\n  border: 1px solid white;\n  color: white; \n}\n\n.Playground__frames__BoxOpenModal__innerContent label {\n  display: block;\n  padding: 5px;\n  text-align: center;\n  color: white;\n}\n\n.Playground__frames__BoxOpenModal__innerContent button {\n  width: 40%;\n  display: block;\n  margin: 10px auto;\n  border: 1px solid #ffdead;\n  color: beige;\n  padding: 10px;\n  background: rgb(222, 43, 84);\n  cursor: pointer;\n  font-size: 1rem;\n}\n\n.loadingErrorBox {\n  margin: 300px auto;\n  text-align: center;\n  background: wheat;\n  width: 400px;\n  height: 48px;\n  padding: 10px;\n  border: 10px double lightslategray;\n  color: firebrick;\n  font-weight: bold;\n  font-size: 2rem;\n  font-family: monospace;\n}\n\n.emptyPetsFrame {\n  text-align: center;\n  background: salmon;\n  color: whitesmoke;\n  margin: 300px auto;\n  width: 500px;\n  padding: 10px;\n  border: 10px double antiquewhite;\n  font-size: 2rem;\n  font-family: fantasy;\n}\n\n.constructedDropFromBoxContainer {\n  width: 400px;\n  height: 300px;\n  margin: 10px auto;\n  background: rgba(12, 11, 11, 0.09); \n}\n\n.petInModal {\n  margin: auto;\n  padding-top: 100px;\n  width: 120px;\n}\n\n.petInterface--label {\n  text-align: center;\n  font-size: 2rem;\n  width: 300px;\n  background: rgba(74, 74, 74, 0.32);\n  margin: 5px 0 5px 100px;\n  padding: 5px;\n  border-radius: 10%;\n  color: #e2e2e2;\n  font-family: monospace; \n}\n\n.petInterface--petContainer {\n  width: 160px;\n  margin: 5px 0 5px 50px;\n}\n\n.petInterfaceROW--first, .petInterfaceROW--second, .petInterfaceROW--third {\n  display: block; \n}\n\n.petInterface--specialist, \n.petInterface--sex, \n.petInterface--rarity, \n.petInterface--defense, \n.petInterface--attack, \n.petInterface--happinessPoints, \n.petInterface--hitPoints, \n.petInterface--waterPoints,\n.petInterface--foodPoints,\n.petInterface--birthdate {\n  background: rgba(255, 29, 206, 0.08);\n  display: inline-block;\n  padding: 8px;\n  border-radius: 30%;\n  color: rgb(255, 255, 255);\n  margin-right: 10px;\n}\n\n.Playground__frame__ingameShop {\n  height: 100%;\n}\n\n.TAB--keysAndBoxes, .TAB--foodAndWater {\n  width: 20%;\n  height: 5%;\n  padding: 12px;\n  background: #63565f;\n  color: #ffd1d1;\n  float: left;\n  text-align: center;\n  box-sizing: border-box;\n  font-weight: bold;\n  font-family: sans-serif;\n  cursor: pointer;\n  border-right: 10px solid #c1c1c1; \n}\n\n.TAB--keysAndBoxes {\n border-top-left-radius: 9px; \n}\n\n.ingameShopInteractionArea {\n  width: 100%;\n  height: 95%;\n  background: rgb(99, 86, 95);\n  float: left;\n  border-bottom-left-radius: 9px;\n  box-sizing: border-box;\n  border-top: 10px solid #c1c1c1; \n}\n\n.axiomsOrCoinsChooser {\n  float: left;\n  width: 60%;\n  height: 5%;\n  background: #63565f;\n  box-sizing: border-box;\n  color: #ffd1d1;\n  font-size: 1.5rem;\n  text-align: right;\n  padding: 8px 50px;\n}\n\n.coinsChooser {\n  display: inline;\n  cursor: pointer;\n  background: rgb(35, 31, 34);\n  border-radius: 30px;\n  margin-left: 5px;\n  padding-right: 5px;\n  color: #c1c1c1;\n}\n\n.axiomsChooser {\n  display: inline-block;\n  background: rgb(35, 31, 34);\n  border-radius: 30px;\n  padding: 0 5px;\n  margin: 0 5px 0 10px;\n  color: #c1c1c1;\n}\n\n.activeChoser {\n  background: #ff005e;\n  color: #ffebbb;\n}\n\n.currentIngameShopInteractionArea {\n  background: rgb(150, 35, 77);\n  color: #f5f5f5;\n}", ""]);
+exports.push([module.i, ".Playground__body {\n  width: 1200px;\n  height: 800px;\n  background: #ffd9e2;\n  margin: 70px auto;\n  border: 10px solid rgb(255, 102, 93);\n  border-radius: 20px;\n  -webkit-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  -moz-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n  box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);\n}\n\n.Playground__frame {\n  float: left;\n  width: 67%;\n  height: 100%;\n  box-sizing: border-box;\n  background: rgb(255, 153, 125);\n  border-top-left-radius: 10px;\n  border-bottom-left-radius: 10px\n}\n\n.Playground__userInformationBlock {\n  float: right;\n  width: 33%;\n  box-sizing: border-box;\n  height: 100%;\n  background: firebrick;\n  border-top-right-radius: 10px;\n  border-bottom-right-radius: 10px;\n  border-left: 10px solid #ff665d;\n}\n\n.userAvatarImg {\n  display: block;\n  margin: 30px auto;\n  border: 5px solid #fbbfc5;\n  border-radius: 50%;\n  width: 50%;\n}\n\n.usernameHeading {\n  text-align: center;\n  display: block;\n  background: rgb(251, 191, 197);\n  color: rgb(197, 90, 158);\n  width: 50%;\n  margin: auto;\n  padding: 5px 0;\n  font-size: 2rem;\n  border-radius: 10px;\n  font-family: sans-serif;\n}\n\n.userDataBlock {\n  background: #ff4053;\n  padding: 10px;\n  width: 60%;\n  margin: 20px auto;\n  border-radius: 30%;\n  border: 5px solid rgba(251, 191, 197, 0.35);\n}\n\n.coinsUserData, .petsUserData, .axiomsUserData {\n  text-align: center;\n  display: block;\n  background: rgb(140, 16, 16);\n  color: wheat;\n  width: 50%;\n  margin: 10px auto;\n  padding: 5px 0;\n  font-size: 0.8rem;\n  border-radius: 10px;\n  font-family: sans-serif;\n  font-weight: 700;\n}\n\n.xpUserDataContainer {\n  background: rgba(140, 16, 16, 0.37);\n  color: rgb(228, 222, 179);\n  width: 50%;\n  height: 22px;\n  margin: 10px auto;\n  position: relative;\n  display: block;\n  box-sizing: border-box;\n}\n\n.xpUserDataBar {\n  font-size: 0.8rem;\n  height: 100%;\n  background: firebrick;\n  position: absolute;\n}\n\n.xpUserDataText {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  padding-top: 5px;\n  font-size: 0.8rem;\n  font-weight: 700;\n  font-family: sans-serif;\n  position: absolute;\n  z-index: 1;\n}\n\n.buttonPlaygroundFrame, .buttonInventory, .buttonIngameShop, .buttonWorldMarket, .buttonUsersTop {\n  display: block;\n  width: 60%;\n  margin: 10px auto;\n  padding: 5px;\n  background: #69031f;\n  border: 10px solid #ff4053;\n  color: rgb(255, 23, 23);\n  font-family: monospace;\n  font-weight: bold;\n  font-size: 1.2rem;\n  cursor: pointer;\n}\n\n.buttonPlaygroundFrame {\n  border-top-left-radius: 50%;\n}\n\n.buttonUsersTop {\n  border-bottom-right-radius: 50%;\n}\n\n.Playground__frame__inventory {\n  height: 100%; \n}\n\n.inventoryCell {\n  box-sizing: border-box;\n  width: 140.8px;\n  background: #dcbfbf;\n  float: left;\n  height: 128px;\n  margin: 10px;\n  border: 10px solid rgba(82, 53, 72, 0.63);\n}\n\n.activeButton {\n  background: #fff2f5;\n  animation-name: colorIntoActiveButton;\n  animation-duration: 1s;\n}\n\n@keyframes colorIntoActiveButton {\n  0% {\n    background: #69031f;\n  }\n  \n  100% {\n    background: #fff2f5;\n  }\n}\n\n.inactiveButton {\n  background: #69031f;\n  animation-name: colorIntoinactiveButton;\n  animation-duration: 1s;\n}\n\n@keyframes colorIntoinactiveButton {\n  0% {\n    background: #fff2f5;\n  }\n  \n  100% {\n    background: #69031f;\n  }\n}\n\n.Playground__frames__BoxOpenModal, .Playground__frames__PetInterfaceModal {\n  position: fixed;\n  z-index: 1000;\n  background: rgba(0, 0, 0, 0.35);\n  width: 100%;\n  height: 100vh;\n  left: 0;\n  top: 0;\n}\n\n\n.Playground__frames__BoxOpenModal__innerContent, .Playground__frames__PetInterfaceModal__innerContent{\n  width: 900px;\n  background: #9a848e;\n  margin: 150px auto auto auto;\n  padding: 20px;\n  min-height: 500px;\n  border: 20px rgba(226, 210, 213, 0.22);\n  border-style: dotted solid;\n  border-radius: 170px;\n  box-sizing: border-box;\n}\n\n.Playground__frames__BoxOpenModal__innerContent h1 {\n  text-align: center;\n  font-size: 2rem;\n  font-weight: bold;\n  border: 5px solid #ffdead;\n  color: beige;\n  padding: 10px;\n  background: rgb(222, 43, 84);\n  width: 60%;\n  margin: auto;\n  border-radius: 10px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent .boxContainer {\n  background: rgba(220, 220, 220, 0.18);\n  padding: 10px;\n  border-radius: 10px;\n  width: 70%;\n  margin: 10px auto;\n}\n\n.Playground__frames__BoxOpenModal__innerContent p {\n    text-align: center;\n    color: beige;\n    background: rgba(82, 78, 68, 0.31);\n    width: 50%;\n    margin: auto;\n    border-radius: 10px;\n    padding: 5px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent .inputContainer {\n  background: rgba(194, 180, 183, 0.3);\n  margin: 20px auto;\n  width: 70%;\n  padding: 10px;\n  border-radius: 10px;\n}\n\n.Playground__frames__BoxOpenModal__innerContent input {\n  width: 50%;\n  padding: 5px;\n  margin: auto;\n  display: block;\n  background: rgba(241, 73, 73, 0.35);\n  border: 1px solid white;\n  color: white; \n}\n\n.Playground__frames__BoxOpenModal__innerContent label {\n  display: block;\n  padding: 5px;\n  text-align: center;\n  color: white;\n}\n\n.Playground__frames__BoxOpenModal__innerContent button {\n  width: 40%;\n  display: block;\n  margin: 10px auto;\n  border: 1px solid #ffdead;\n  color: beige;\n  padding: 10px;\n  background: rgb(222, 43, 84);\n  cursor: pointer;\n  font-size: 1rem;\n}\n\n.loadingErrorBox {\n  margin: 300px auto;\n  text-align: center;\n  background: wheat;\n  width: 400px;\n  height: 48px;\n  padding: 10px;\n  border: 10px double lightslategray;\n  color: firebrick;\n  font-weight: bold;\n  font-size: 2rem;\n  font-family: monospace;\n}\n\n.emptyPetsFrame {\n  text-align: center;\n  background: salmon;\n  color: whitesmoke;\n  margin: 300px auto;\n  width: 500px;\n  padding: 10px;\n  border: 10px double antiquewhite;\n  font-size: 2rem;\n  font-family: fantasy;\n}\n\n.constructedDropFromBoxContainer {\n  width: 400px;\n  height: 300px;\n  margin: 10px auto;\n  background: rgba(12, 11, 11, 0.09); \n}\n\n.petInModal {\n  margin: auto;\n  padding-top: 100px;\n  width: 120px;\n}\n\n.petInterface--label {\n  text-align: center;\n  font-size: 2rem;\n  width: 300px;\n  background: rgba(74, 74, 74, 0.32);\n  margin: 5px 0 5px 100px;\n  padding: 5px;\n  border-radius: 10%;\n  color: #e2e2e2;\n  font-family: monospace; \n}\n\n.petInterface--petContainer {\n  width: 160px;\n  margin: 5px 0 5px 50px;\n}\n\n.petInterfaceROW--first, .petInterfaceROW--second, .petInterfaceROW--third {\n  display: block; \n}\n\n.petInterface--specialist, \n.petInterface--sex, \n.petInterface--rarity, \n.petInterface--defense, \n.petInterface--attack, \n.petInterface--happinessPoints, \n.petInterface--hitPoints, \n.petInterface--waterPoints,\n.petInterface--foodPoints,\n.petInterface--birthdate {\n  background: rgba(255, 29, 206, 0.08);\n  display: inline-block;\n  padding: 8px;\n  border-radius: 30%;\n  color: rgb(255, 255, 255);\n  margin-right: 10px;\n}\n\n.Playground__frame__ingameShop {\n  height: 100%;\n}\n\n.TAB--keysAndBoxes, .TAB--foodAndWater {\n  width: 20%;\n  height: 5%;\n  padding: 12px;\n  background: #63565f;\n  color: #ffd1d1;\n  float: left;\n  text-align: center;\n  box-sizing: border-box;\n  font-weight: bold;\n  font-family: sans-serif;\n  cursor: pointer;\n  border-right: 10px solid #c1c1c1; \n}\n\n.TAB--keysAndBoxes {\n border-top-left-radius: 9px; \n}\n\n.ingameShopInteractionArea {\n  width: 100%;\n  height: 95%;\n  background: rgb(99, 86, 95);\n  float: left;\n  border-bottom-left-radius: 9px;\n  box-sizing: border-box;\n  border-top: 10px solid #c1c1c1; \n}\n\n.axiomsOrCoinsChooser {\n  float: left;\n  width: 60%;\n  height: 5%;\n  background: #63565f;\n  box-sizing: border-box;\n  color: #ffd1d1;\n  font-size: 1.5rem;\n  text-align: right;\n  padding: 8px 50px;\n}\n\n.coinsChooser {\n  display: inline;\n  cursor: pointer;\n  background: rgb(35, 31, 34);\n  border-radius: 30px;\n  margin-left: 5px;\n  padding-right: 5px;\n  color: #c1c1c1;\n}\n\n.axiomsChooser {\n  display: inline-block;\n  cursor: pointer;\n  background: rgb(35, 31, 34);\n  border-radius: 30px;\n  padding: 0 5px;\n  margin: 0 5px 0 10px;\n  color: #c1c1c1;\n}\n\n.activeChoser {\n  background: #ff005e;\n  color: #ffebbb;\n}\n\n.currentIngameShopInteractionArea {\n  background: rgb(150, 35, 77);\n  color: #f5f5f5;\n}\n\n.ingameShopCell {\n  width: 25%;\n  margin: 20px;\n  float: left;\n  background: rgb(255, 208, 212);\n  box-sizing: border-box;\n  border: 5px dashed #63565f; \n}\n\n.ingameShopItem {\n  margin: 30px;\n  cursor: default;\n}\n\np.descriptionIngameShopItem {\n  text-align: center;\n  font-weight: bold;\n  font-size: .7rem;\n  font-family: sans-serif;\n  color: rgb(99, 86, 95);\n  margin-bottom: 10px;\n}\n\nbutton.buyIngameShopItemButton {\n  width: 70%;\n  margin: 5px auto 10px auto;\n  display: block;\n  background: #f5f5f5;\n  color: #63565f;\n  border: 3px double #96234d;\n  font-weight: bold;\n  padding: 3px;\n  cursor: pointer;\n}\n\nbutton.buyIngameShopItemButton:hover {\n  background: #ff005e;\n  color: floralwhite;\n  border: 3px double ivory;\n}\n\n.errorAlertModal {\n  position: fixed;\n  width: 100%;\n  height: 100vh;\n  left: 0;\n  top: 0;\n  z-index: 2;\n  background: rgba(255, 0, 0, 0.34);\n}\n\n.errorAlertModal div {\n  width: 400px;\n  height: 100px;\n  margin-top: 300px;\n  margin-left: 570px;\n  background: white;\n  border: 10px double #98393f;\n  text-align: center;\n  padding-top: 20px;\n  box-sizing: border-box;\n  color: firebrick;\n  font-size: 1.2rem;\n  font-weight: bold;\n}\n\n.errorAlertModal button {\n  cursor: pointer;\n  display: block;\n  margin: 5px auto;\n  background: firebrick;\n  color: white;\n  padding: 4px 10px;\n  border: 1px solid #98393f;\n}", ""]);
 
 // exports
 
@@ -36690,6 +36713,8 @@ const FOOD_can = __webpack_require__(81);
 
 const BoxOpenModal = __webpack_require__(315);
 
+const MAX_CELLS_INVENTORY = 25;
+
 class Inventory extends React.Component {
   constructor(props) {
     super(props);
@@ -36850,10 +36875,10 @@ class Inventory extends React.Component {
     }
     
     let inventoryCells = [];
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < MAX_CELLS_INVENTORY; i++) {
       if (inventory[i]) {
         switch (inventory[i]["type"]) {
-          case "PIbox":
+          case "BoxPI":
             inventoryCells.push(React.createElement("div", {className: "inventoryCell", 
                                   onMouseEnter:  (e) => this.setTooltipPosition(e, true), 
                                   onMouseLeave:  (e) => this.setTooltipPosition(e, false), 
@@ -36863,7 +36888,7 @@ class Inventory extends React.Component {
                                     toggleShowBoxOpenModal:  this.toggleShowBoxOpenModal})
                                 ));
             break;
-          case "PIkey":
+          case "KeyPI":
             inventoryCells.push(React.createElement("div", {className: "inventoryCell", 
                                   onMouseEnter:  (e) => this.setTooltipPosition(e, true), 
                                   onMouseLeave:  (e) => this.setTooltipPosition(e, false), 
@@ -37264,7 +37289,7 @@ const KeyPI = __webpack_require__(134);
 const BoxPI = __webpack_require__(82);
 
 const WATER__bottle = __webpack_require__(80);
-const FOOD_can = __webpack_require__(81);
+const FOOD__can = __webpack_require__(81);
 
 class IngameShop extends React.Component {
   constructor(props) {
@@ -37272,6 +37297,7 @@ class IngameShop extends React.Component {
     this.state = {
       loading: false,
       loadingError: null,
+      error: null,
       payWith: {
         name: "coins",
         domNode: null
@@ -37284,24 +37310,97 @@ class IngameShop extends React.Component {
     
     this.keysAndBoxes = [
       React.createElement("div", {className: "ingameShopCell", key: "KeyPI"}, 
-        React.createElement(KeyPI, {inShop:  true })
+        React.createElement("div", {className: "ingameShopItem"}, 
+          React.createElement(KeyPI, {inShop:  true })
+        ), 
+        React.createElement("p", {className: "descriptionIngameShopItem"}, 
+          "1000 coins || 10 axioms"
+        ), 
+        React.createElement("button", {className: "buyIngameShopItemButton", onClick:  (event) => { this.buy(event, "KeyPI") }}, " buy ")
       ),
       React.createElement("div", {className: "ingameShopCell", key: "BoxPI"}, 
-        React.createElement(BoxPI, {inShop:  true })
+        React.createElement("div", {className: "ingameShopItem"}, 
+         React.createElement(BoxPI, {inShop:  true })
+        ), 
+        React.createElement("p", {className: "descriptionIngameShopItem"}, 
+          "500 coins || 8 axioms"
+        ), 
+        React.createElement("button", {className: "buyIngameShopItemButton", onClick:  (event) => { this.buy(event, "BoxPI") }}, " buy ")
       )
     ];
     
     this.foodAndWater = [
-      React.createElement("div", {className: "ingameShopCell", key: "WATER__bottle"}, 
-        React.createElement(WATER__bottle, null)
+      React.createElement("div", {className: "ingameShopCell", key: "FOOD__can"}, 
+        React.createElement("div", {className: "ingameShopItem"}, 
+         React.createElement(FOOD__can, {inShop:  true })
+        ), 
+        React.createElement("p", {className: "descriptionIngameShopItem"}, 
+          "37 coins || 1 axioms"
+        ), 
+        React.createElement("button", {className: "buyIngameShopItemButton", onClick:  (event) => { this.buy(event, "FOOD__can") }}, " buy ")
       ),
-      React.createElement("div", {className: "ingameShopCell", key: "FOOD_can"}, 
-        React.createElement(FOOD_can, null)
+      React.createElement("div", {className: "ingameShopCell", key: "WATER__bottle"}, 
+        React.createElement("div", {className: "ingameShopItem"}, 
+         React.createElement(WATER__bottle, {inShop:  true })
+        ), 
+        React.createElement("p", {className: "descriptionIngameShopItem"}, 
+          "26 coins || 1 axioms"
+        ), 
+        React.createElement("button", {className: "buyIngameShopItemButton", onClick:  (event) => { this.buy(event, "WATER__bottle") }}, " buy ")
       )
     ];
     
     this.changeCurrentIngameShopInteractionArea = this.changeCurrentIngameShopInteractionArea.bind(this);
     this.changePayWith = this.changePayWith.bind(this);
+    this.buy = this.buy.bind(this);
+    this.closeErrorAlertModal = this.closeErrorAlertModal.bind(this);
+  }
+  
+  closeErrorAlertModal() {
+    this.setState({
+      error: null
+    });
+  }
+  
+  async buy(event, itemName) {
+    const { payWith } = this.state;
+    
+    const data = {
+      itemName: itemName,
+      payWith: payWith.name
+    };
+    
+    try {
+      const request = await fetch(
+        "user/buy/item",
+        { 
+          method: "post", 
+          credentials: "include", 
+          headers: { "Content-Type": "application/json", "Accept":"application/json" }, 
+          body: JSON.stringify(data)
+        });
+      
+      if(!request.ok) {
+        throw new Error(request.status);
+      }
+    }
+    catch(error) {
+      if (error.message == 498) {
+        error.message = `You don't have enough ${ payWith.name } to buy it`;
+        this.setState({
+          error
+        });
+      }
+      else if (error.message == 499) {
+        error.message = `You don't have a free inventory cell to buy it`;
+        this.setState({
+          error
+        });
+      }
+      else {
+        throw new Error(error.message);
+      }         
+    }
   }
   
   changePayWith(event, newPayWithName) {
@@ -37343,7 +37442,7 @@ class IngameShop extends React.Component {
   }
   
   render() {
-    const { loading, loadingError, currentIngameShopInteractionArea } = this.state;
+    const { loading, loadingError, currentIngameShopInteractionArea, error } = this.state;
     
     if (loadingError) {
       return(
@@ -37377,7 +37476,17 @@ class IngameShop extends React.Component {
         
         React.createElement("div", {className: "ingameShopInteractionArea"}, 
            this[currentIngameShopInteractionArea.name] 
-        )
+        ), 
+        
+         
+          error &&
+          React.createElement("div", {className: "errorAlertModal"}, 
+            React.createElement("div", null, 
+               error.message, 
+              React.createElement("button", {onClick:  this.closeErrorAlertModal}, " close ")
+            )
+          )
+        
       )
     );
   }
