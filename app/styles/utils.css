@@ -223,6 +223,14 @@
   background: #b32d48;
   border: 5px solid gainsboro;
   cursor: pointer;
+  transition: 1s;
+}
+
+.interactiveSubBlock button:hover {
+  background: #ff0033;
+  box-shadow: 1px 3px 40px -6px rgb(0, 0, 0);
+  border: 5px solid #fffdfd;
+  color: #ffffff;
 }
 
 .interactiveSubBlock h3 {
@@ -252,6 +260,14 @@
   font-weight: bold;
   color: gainsboro;
   cursor: pointer;
+  transition: 1.5s;
+}
+
+.backButton:hover {
+  background: rgb(45, 45, 45);
+  border: 4px solid rgb(212, 212, 212);
+  color: rgb(212, 212, 212);
+  box-shadow: 4px 2px 40px 17px rgba(0,0,0,0.75);
 }
 
 .specialisationSpan {
@@ -340,7 +356,6 @@
 .happinessSpan div {
   position: absolute;
   height: 20px;
-  width: 54px;
   background: darkorange;
 }
 
@@ -355,16 +370,94 @@
 
 .hitPointsSpan {
   font-weight: bold;
+  display: block;
+  float: right;
+  margin: -6px 10px 0px 10px;
+  width: 100px;
+  height: 20px;
+  background: rgba(182, 255, 4, 0.29);
+  border: 5px solid rgb(134, 233, 135);
+  position: relative;
+}
+
+.hitPointsSpan p {
+  text-align: center;
+  color: black;
+  padding-top: 3px;
+  position: absolute;
+  width: 100px;
+  z-index: 1;
+}
+
+.hitPointsSpan div {
+  background: #b6ff04;
+  position: absolute;
+  height: 20px;
 }
 
 .water-barSpan {
   font-weight: bold;
+  width: 50px;
+  height: 50px;
+  background: cornflowerblue;
+  display: block;
+  position: relative;
+  font-size: 1.2rem;
+  box-sizing: border-box;
+  padding-top: 15px;
+  text-align: center;
+  float: right;
+  margin: -20px 5px 0px 10px;
+  border: 2px dashed blue;
+}
+
+.water-barSpan p {
+  z-index: 1;
+  position: absolute;
+}
+
+.water-barSpan div {
+  position: absolute;
+  width: 46px;
+  background: darkblue;
+  bottom: 0;
+  box-sizing: border-box;
 }
 
 .food-barSpan {
   font-weight: bold;
+  width: 50px;
+  height: 50px;
+  background: rgba(249, 220, 5, 0.32);
+  display: block;
+  position: relative;
+  font-size: 1.2rem;
+  box-sizing: border-box;
+  padding-top: 15px;
+  text-align: center;
+  float: right;
+  margin: -20px 5px 0px 10px;
+  border: 2px dashed rgb(99, 86, 95);
+  color: rgb(99, 86, 95);
+}
+
+.food-barSpan p {
+  position: absolute;
+  z-index: 1;
+}
+  
+.food-barSpan div {
+  width: 46px;
+  position: absolute;
+  background: #f9dc05;
+  bottom: 0;
 }
 
 .birthdateSpan {
   font-weight: bold;
+  background: bisque;
+  padding: 5px;
+  border-radius: 30px;
+  border: 5px solid #6d5858;
+  color: darkslategrey;
 }

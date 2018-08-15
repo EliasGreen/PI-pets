@@ -317,12 +317,18 @@
 }
 
 .petInterface--petContainer {
-  width: 160px;
+  width: 150px;
+  float: left;
+  height: 100px;
   margin: 5px 0 5px 50px;
 }
 
 .petInterfaceROW--first, .petInterfaceROW--second, .petInterfaceROW--third {
   display: block; 
+}
+
+.petInterfaceROW--third {
+  margin-left: 50px;
 }
 
 .petInterface--specialist, 
@@ -342,6 +348,10 @@
   color: rgb(255, 255, 255);
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+.petInterface--waterPoints, .petInterface--foodPoints {
+  padding-top: 30px;
 }
 
 .Playground__frame__ingameShop {
