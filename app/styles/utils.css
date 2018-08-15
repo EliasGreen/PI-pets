@@ -198,10 +198,173 @@
 }
 
 .feedPetBlock {
-  width: 700px;
+  width: 790px;
   height: 370px;
+  float: left;
 }
 
 .interactiveSubBlock {
- float: right; 
+  background: rgb(177, 177, 177);
+  float: right;
+  width: 230px;
+  height: 296px;
+  margin: 10px 0 5px 30px;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.interactiveSubBlock button {
+  width: 90%;
+  margin: 137px auto;
+  display: block;
+  font-size: 1.5rem;
+  padding: 5px;
+  color: #dcdcdc;
+  background: #b32d48;
+  border: 5px solid gainsboro;
+  cursor: pointer;
+}
+
+.interactiveSubBlock h3 {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: gainsboro;
+  background: #b32d48;
+}
+
+.interactiveSubBlock p {
+  text-align: center;
+  margin: 15px;
+  background: floralwhite;
+  padding: 5px;
+}
+
+.backButton {
+  display: block;
+  margin: auto;
+  width: 40%;
+  padding: 10px;
+  border: 4px solid rgb(177, 177, 177);
+  border-radius: 30px;
+  background: rgb(146, 146, 146);
+  font-weight: bold;
+  color: gainsboro;
+  cursor: pointer;
+}
+
+.specialisationSpan {
+  font-weight: bold;
+  background: #fdc320;
+  padding: 5px;
+  border: 2px solid floralwhite;
+  border-radius: 20px;
+  color: black;
+}
+
+.genderSpan {
+  background: rgb(255, 255, 255);
+  color: #000000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 4px;
+  border: 2px solid #e9d9ff;
+  border-radius: 20px;
+}
+
+.raritySpan {
+  font-weight: bold;
+  background: #e4ff08;
+  padding: 5px;
+  border: 3px solid black;
+  border-radius: 20px;
+  color: rgb(0, 0, 0);
+}
+
+.defenseSpan {
+  font-size: 1.7rem;
+  padding-top: 5px;
+  text-align: center;
+  width: 37px;
+  height: 34px;
+  background-color: #4e3b48;
+  border-radius: 0 0 140px 140px;
+  display: inline-block;
+}
+
+.attackSpan {
+  display: inline-block;
+  background: #73074e;
+  width: 40px;
+  z-index: 1;
+  height: 40px;
+  position: relative;
+  text-align: center;
+  padding-top: 9px;
+  margin: 5px;
+  border: 2px solid lemonchiffon;
+  color: #000000;
+  font-size: 1.3rem;
+  box-sizing: border-box;
+}
+
+.attackSpan:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 35px;
+  width: 35px;
+  background: #fffdb5;
+  border: 2px solid #fdc320;
+  z-index: -1;
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+}
+
+.happinessSpan {
+  display: block;
+  float: right;
+  background: rgba(255, 140, 0, 0.29);
+  width: 100px;
+  height: 20px;
+  margin: -6px 10px 0px 10px;
+  text-align: center;
+  position: relative;
+  border: 5px double;
+}
+
+.happinessSpan div {
+  position: absolute;
+  height: 20px;
+  width: 54px;
+  background: darkorange;
+}
+
+.happinessSpan p {
+  font-weight: bold;
+  position: absolute;
+  width: 100px;
+  z-index: 1;
+  padding-top: 2px;
+  color: #ffffff;
+}
+
+.hitPointsSpan {
+  font-weight: bold;
+}
+
+.water-barSpan {
+  font-weight: bold;
+}
+
+.food-barSpan {
+  font-weight: bold;
+}
+
+.birthdateSpan {
+  font-weight: bold;
 }

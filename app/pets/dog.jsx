@@ -14,7 +14,11 @@ class Dog extends React.Component {
   }
   
   setYourselfForPetInterfaceModal() {
-    const { toggleShowPetInterfaceModal, setPetForPetInterfaceModal, pet } = this.props;
+    const { toggleShowPetInterfaceModal, setPetForPetInterfaceModal, pet, showMode } = this.props;
+    
+    if (showMode) {
+      return;
+    }
 
     setPetForPetInterfaceModal(pet);
     toggleShowPetInterfaceModal();

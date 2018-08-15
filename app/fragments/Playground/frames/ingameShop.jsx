@@ -34,7 +34,7 @@ class IngameShop extends React.Component {
         <p className="descriptionIngameShopItem">
           1000 coins || 10 axioms
         </p>
-        <button className="buyIngameShopItemButton" onClick={ (event) => { this.buy(event, "KeyPI") } }> buy </button>
+        <button className="buyIngameShopItemButton" onClick={ () => { this.buy("KeyPI") } }> buy </button>
       </div>,
       <div className="ingameShopCell" key="BoxPI">
         <div className="ingameShopItem">
@@ -43,7 +43,7 @@ class IngameShop extends React.Component {
         <p className="descriptionIngameShopItem">
           500 coins || 8 axioms
         </p>
-        <button className="buyIngameShopItemButton" onClick={ (event) => { this.buy(event, "BoxPI") } }> buy </button>
+        <button className="buyIngameShopItemButton" onClick={ () => { this.buy("BoxPI") } }> buy </button>
       </div>
     ];
     
@@ -55,7 +55,7 @@ class IngameShop extends React.Component {
         <p className="descriptionIngameShopItem">
           37 coins || 1 axioms
         </p>
-        <button className="buyIngameShopItemButton" onClick={ (event) => { this.buy(event, "FOOD__can") } }> buy </button>
+        <button className="buyIngameShopItemButton" onClick={ () => { this.buy("FOOD__can") } }> buy </button>
       </div>,
       <div className="ingameShopCell" key="WATER__bottle">
         <div className="ingameShopItem">
@@ -64,13 +64,15 @@ class IngameShop extends React.Component {
         <p className="descriptionIngameShopItem">
           26 coins || 1 axioms
         </p>
-        <button className="buyIngameShopItemButton" onClick={ (event) => { this.buy(event, "WATER__bottle") } }> buy </button>
+        <button className="buyIngameShopItemButton" onClick={ () => { this.buy("WATER__bottle") } }> buy </button>
       </div>
     ];
     
     this.changeCurrentIngameShopInteractionArea = this.changeCurrentIngameShopInteractionArea.bind(this);
     this.changePayWith = this.changePayWith.bind(this);
     this.buy = this.buy.bind(this);
+    this.disableBuyButtons = this.disableBuyButtons.bind(this);
+    this.activateBuyButtons = this.activateBuyButtons.bind(this);
     this.closeErrorAlertModal = this.closeErrorAlertModal.bind(this);
   }
   
@@ -80,8 +82,26 @@ class IngameShop extends React.Component {
     });
   }
   
-  async buy(event, itemName) {
+  disableBuyButtons(buyButtons) {
+    document.body.style.cursor = "progress";
+    for (let i = 0; i < buyButtons.length; i++) {
+      buyButtons[i].disabled = true;
+      buyButtons[i].classList.add("disabledBuyButton");
+    }
+  }
+  
+  activateBuyButtons(buyButtons) {
+    document.body.style.cursor = "default";
+    for (let i = 0; i < buyButtons.length; i++) {
+        buyButtons[i].disabled = false;
+        buyButtons[i].classList.remove("disabledBuyButton");
+      }
+  }
+  
+  async buy(itemName) {
     const { payWith } = this.state;
+    const buyButtons = document.getElementsByClassName("buyIngameShopItemButton");
+    this.disableBuyButtons(buyButtons);
     
     const data = {
       itemName: itemName,
@@ -101,6 +121,8 @@ class IngameShop extends React.Component {
       if(!request.ok) {
         throw new Error(request.status);
       }
+      
+      this.activateBuyButtons(buyButtons);
     }
     catch(error) {
       if (error.message == 498) {
@@ -117,7 +139,9 @@ class IngameShop extends React.Component {
       }
       else {
         throw new Error(error.message);
-      }         
+      } 
+      
+      this.activateBuyButtons(buyButtons);
     }
   }
   

@@ -79,6 +79,7 @@ class PetInterfaceModal extends React.Component {
     super(props);
     this.state = {
       error: null,
+      feedBtnError: null,
       foodPetWillGet: 0,
       waterPetWillGet: 0,
       showGetFoodAndWaterInformation: false,
@@ -101,13 +102,25 @@ class PetInterfaceModal extends React.Component {
     const { foodAndWaterItems, activeItem } = this.state;
     const { pet } = this.props;
     
+    if (!activeItem.position) {
+      const feedBtnError = new Error("You didn't select a food");
+      this.setState({ feedBtnError });
+      return;
+    }
+    
+    activeItem.domNode.classList.remove("activeFoodAndWaterCell");
+    
     const item = foodAndWaterItems[activeItem.position];
     
     foodAndWaterItems.splice(activeItem.position, 1);
     
     this.setState({
       foodAndWaterItems: foodAndWaterItems,
-      showGetFoodAndWaterInformation: false
+      showGetFoodAndWaterInformation: false,
+      activeItem: {
+        position: null,
+        domNode: null
+      }
     });
     
     const data = {
@@ -129,6 +142,10 @@ class PetInterfaceModal extends React.Component {
   
   setActiveItem(event, position) {
     const { activeItem, foodAndWaterItems } = this.state;
+    
+    this.setState({ 
+      feedBtnError: null
+    });
     
     if (activeItem.domNode) {
       activeItem.domNode.classList.remove("activeFoodAndWaterCell"); 
@@ -196,7 +213,7 @@ class PetInterfaceModal extends React.Component {
   }
   
   render() {
-    const { error, foodPetWillGet, waterPetWillGet, showGetFoodAndWaterInformation, foodAndWaterItems, loading, loadingError } = this.state;
+    const { error, foodPetWillGet, waterPetWillGet, showGetFoodAndWaterInformation, foodAndWaterItems, loading, loadingError, feedBtnError } = this.state;
     const { pet, toggleShowPetInterfaceModal } = this.props;
     
     if (error) {
@@ -240,15 +257,15 @@ class PetInterfaceModal extends React.Component {
           <div className="petInterface--petContainer"> <PetComponent pet={pet} opacity={petOpacity} showMode={ true }/> </div>
           
           <div className="petInterfaceROW--first">
-            <div className="petInterface--specialist"> { `Specialisation: ${pet.specialist}` } </div>
-            <div className="petInterface--sex"> { `Gender :${genderSymbol}` } </div>
-            <div className="petInterface--rarity"> { `Rarity :${pet.rarity.label}` } </div>
+            <div className="petInterface--specialist"> Specialisation <span className="specialisationSpan">{ pet.specialist }</span> </div>
+            <div className="petInterface--sex"> Gender <span className="genderSpan">{ genderSymbol }</span> </div>
+            <div className="petInterface--rarity"> Rarity <span className="raritySpan">{ pet.rarity.label }</span> </div>
           </div>
           
           <div className="petInterfaceROW--second"> 
-            <div className="petInterface--defense"> { `Defense :${pet.defense}` } </div>
-            <div className="petInterface--attack"> { `Attack :${pet.attack}` } </div>
-            <div className="petInterface--happinessPoints"> { `Happiness :${pet.happinessPoints}` } </div>
+            <div className="petInterface--defense"> Defense <span className="defenseSpan">{ pet.defense }</span> </div>
+            <div className="petInterface--attack"> Attack <span className="attackSpan">{ pet.attack }</span>  </div>
+            <div className="petInterface--happinessPoints"> Happiness <span className="happinessSpan"> <p>{`${pet.happinessPoints}/20`}</p> <div style={{ width: (pet.happinessPoints/20)*100+"px" }}></div> </span> </div>
           </div>
           
           <div className="petInterfaceROW--third"> 
@@ -265,11 +282,12 @@ class PetInterfaceModal extends React.Component {
             <div className="interactiveSubBlock">
               <h3> Feed your pet: </h3>
               { getFoodAndWaterInformation }
+              { feedBtnError && <p> { feedBtnError.message } </p> }
               <button onClick={ this.feed }> feed </button>
             </div>
           </div>
           
-          <button onClick={ toggleShowPetInterfaceModal }> Back </button>
+          <button onClick={ toggleShowPetInterfaceModal } className="backButton" > Back </button>
         </div>
       </div>
     );
