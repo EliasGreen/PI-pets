@@ -102,7 +102,7 @@ class PetInterfaceModal extends React.Component {
     const { foodAndWaterItems, activeItem } = this.state;
     const { pet } = this.props;
     
-    if (!activeItem.position) {
+    if (activeItem.position === null) {
       const feedBtnError = new Error("You didn't select a food");
       this.setState({ feedBtnError });
       return;
@@ -265,14 +265,14 @@ class PetInterfaceModal extends React.Component {
           <div className="petInterfaceROW--second"> 
             <div className="petInterface--defense"> Defense <span className="defenseSpan">{ pet.defense }</span> </div>
             <div className="petInterface--attack"> Attack <span className="attackSpan">{ pet.attack }</span>  </div>
-            <div className="petInterface--happinessPoints"> Happiness <span className="happinessSpan"> <p>{`${pet.happinessPoints}/20`}</p> <div style={{ width: (pet.happinessPoints/20)*100+"px" }}></div> </span> </div>
+            <div className="petInterface--birthdate"> Birthdate <span className="birthdateSpan">{ `${(new Date(pet.birthdate)).toDateString()}` }</span> </div>
           </div>
           
           <div className="petInterfaceROW--third"> 
-            <div className="petInterface--hitPoints"> { `HitPoints :${pet.hitPoints}` } </div>
-            <div className="petInterface--waterPoints"> { `Water-bar :${pet.waterPoints}` } </div>
-            <div className="petInterface--foodPoints"> { `Food-bar :${pet.foodPoints}` } </div>
-            <div className="petInterface--birthdate"> { `Birthdate :${(new Date(pet.birthdate)).toDateString()}` } </div>
+            <div className="petInterface--hitPoints"> HitPoints <span className="hitPointsSpan"> <p>{ `${pet.hitPoints}/100` }</p> <div style={{ width: pet.hitPoints+"px" }}></div> </span> </div>
+            <div className="petInterface--waterPoints"> Water <span className="water-barSpan"> <p>{ `${pet.waterPoints}/12` }</p> <div style={{ height: (pet.waterPoints/12)*46+"px" }}></div> </span> </div>
+            <div className="petInterface--foodPoints"> Food <span className="food-barSpan"> <p>{ `${pet.foodPoints}/12` }</p> <div style={{ height: (pet.foodPoints/12)*46+"px" }}></div> </span> </div>
+            <div className="petInterface--happinessPoints"> Happiness <span className="happinessSpan"> <p>{ `${pet.happinessPoints}/20` }</p> <div style={{ width: (pet.happinessPoints/20)*100+"px" }}></div> </span> </div>
             { !pet.alive && <div className="petInterface--dead"> Pet is dead: <button onClick={ this.utilizePet }> utilize </button> </div> }
           </div>
           
