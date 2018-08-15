@@ -106,7 +106,7 @@ class BoxOpenModal extends React.Component {
         };
         
         const PetComponent = petComponents[dropFromBox.type];
-        constructedDropFromBox = <PetComponent pet={dropFromBox} opacity={1} inModal={true}/>
+        constructedDropFromBox = <PetComponent pet={dropFromBox} opacity={1} inModal={true} showMode={true}/>
       }
       
       return(

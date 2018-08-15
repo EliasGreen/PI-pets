@@ -1,6 +1,6 @@
 .Playground__body {
   width: 1200px;
-  height: 800px;
+  height: 810px;
   background: #ffd9e2;
   margin: 70px auto;
   border: 10px solid rgb(255, 102, 93);
@@ -128,7 +128,8 @@
 }
 
 .Playground__frame__inventory {
-  height: 100%; 
+  height: calc(100% - 20px);
+  margin-top: 20px; 
 }
 
 .inventoryCell {
@@ -334,12 +335,13 @@
 .petInterface--waterPoints,
 .petInterface--foodPoints,
 .petInterface--birthdate {
-  background: rgba(255, 29, 206, 0.08);
+  background: rgba(222, 43, 84, 0.62);
   display: inline-block;
-  padding: 8px;
+  padding: 15px;
   border-radius: 30%;
   color: rgb(255, 255, 255);
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .Playground__frame__ingameShop {
@@ -491,4 +493,8 @@ button.buyIngameShopItemButton:hover {
   color: white;
   padding: 4px 10px;
   border: 1px solid #98393f;
+}
+
+.disabledBuyButton {
+ background: black !important;
 }
