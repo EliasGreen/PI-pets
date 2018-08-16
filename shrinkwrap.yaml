@@ -11,6 +11,7 @@ dependencies:
   mongodb: 3.1.0
   mongoose: 4.13.14
   passport: 0.4.0
+  random-math-question: 1.0.3
   react: 15.6.2
   react-dom: 15.6.2
   react-router-dom: 4.3.1
@@ -726,6 +727,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-NPw2cs0kOT6LtH5wyqApOBH08sU=
+  /complex.js/2.0.4:
+    dev: false
+    resolution:
+      integrity: sha512-Syl95HpxUTS0QjwNxencZsKukgh1zdS9uXeXX2Us0pHaqBR6kiZZi0AkZ9VpZFwHJyVIUVzI4EumjWdXP3fy6w==
   /component-bind/1.0.0:
     dev: false
     resolution:
@@ -980,6 +985,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
+  /decimal.js/9.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-2h0iKbJwnImBk4TGk7CG1xadoA0g3LDPlQhQzbZ221zvG0p2YVUedbKIPsOZXKZGx6YmZMJKYOalpCMxSdDqTQ==
   /decode-uri-component/0.2.0:
     dev: false
     engines:
@@ -1226,6 +1235,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
+  /escape-latex/1.1.0:
+    dev: false
+    resolution:
+      integrity: sha512-7k372jNDrL8uW7P/Sw8IkF+QcaeGoyjzrLx4pJj/CSIe02CvxL1wUJ+qMVVHsna/jNZ6PD6aCo7iEeRnXTzvdw==
   /escape-string-regexp/1.0.5:
     dev: false
     engines:
@@ -1500,6 +1513,10 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-mMI9qxF1ZXuMBXPozszZGw/xjIQ=
+  /fraction.js/4.0.4:
+    dev: false
+    resolution:
+      integrity: sha512-aK/oGatyYLTtXRHjfEsytX5fieeR5H4s8sLorzcT12taFS+dbMZejnvm9gRa8mZAPwci24ucjq9epDyaq5u8Iw==
   /fragment-cache/0.2.1:
     dependencies:
       map-cache: 0.2.2
@@ -2010,6 +2027,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-YRrhrPFPXoH3KVB0coGf6XM1WKk=
+  /javascript-natural-sort/0.7.1:
+    dev: false
+    resolution:
+      integrity: sha1-+eIwPUUH9tdDVac2ZNFED7Wg71k=
   /js-base64/2.4.5:
     dev: false
     resolution:
@@ -2221,6 +2242,22 @@ packages:
     dev: false
     resolution:
       integrity: sha1-3oGf282E3M2PrlnGrreWFbnSZqw=
+  /mathjs/3.20.2:
+    dependencies:
+      complex.js: 2.0.4
+      decimal.js: 9.0.1
+      escape-latex: 1.1.0
+      fraction.js: 4.0.4
+      javascript-natural-sort: 0.7.1
+      seed-random: 2.2.0
+      tiny-emitter: 2.0.2
+      typed-function: 0.10.7
+    dev: false
+    engines:
+      node: '>= 0.1'
+    hasBin: true
+    resolution:
+      integrity: sha512-3f6/+uf1cUtIz1rYFz775wekl/UEDSQ3mU6xdxW7qzpvvhc2v28i3UtLsGTRB+u8OqDWoSX6Dz8gehaGFs6tCA==
   /md5.js/1.3.4:
     dependencies:
       hash-base: 3.0.4
@@ -3175,6 +3212,17 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-T2ih3Arli9P7lYSMMDJNt11kNgs=
+  /random-math-question/1.0.3:
+    dependencies:
+      mathjs: 3.20.2
+      random-number: 0.0.9
+    dev: false
+    resolution:
+      integrity: sha1-S4/DcrZ7DtM7mfS/W64pCkH4E5Q=
+  /random-number/0.0.9:
+    dev: false
+    resolution:
+      integrity: sha512-ipG3kRCREi/YQpi2A5QGcvDz1KemohovWmH6qGfboVyyGdR2t/7zQz0vFxrfxpbHQgPPdtVlUDaks3aikD1Ljw==
   /randombytes/2.0.6:
     dependencies:
       safe-buffer: 5.1.2
@@ -3486,6 +3534,10 @@ packages:
       node: '>= 4.3 < 5.0.0 || >= 5.10'
     resolution:
       integrity: sha1-9YdyIs4+kx7a4DnxfrNxbnE3+M8=
+  /seed-random/2.2.0:
+    dev: false
+    resolution:
+      integrity: sha1-KpsZ4lCoFwmSMaW5mk2vgLf77VQ=
   /semver/5.5.0:
     dev: false
     hasBin: true
@@ -3926,6 +3978,10 @@ packages:
       node: '>=0.6.0'
     resolution:
       integrity: sha512-YvC1SV1XdOUaL6gx5CoGroT3Gu49pK9+TZ38ErPldOWW4j49GI1HKs9DV+KGq/w6y+LZ72W1c8cKz2vzY+qpzg==
+  /tiny-emitter/2.0.2:
+    dev: false
+    resolution:
+      integrity: sha512-2NM0auVBGft5tee/OxP4PI3d8WItkDM+fPnaRAVo6xTDI2knbz9eC5ArWGqtGlYqiH3RU5yMpdyTTO7MguC4ow==
   /to-array/0.1.4:
     dev: false
     resolution:
@@ -3975,6 +4031,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-HRkVv/5qY2G6I8iab9cI7v1bOIdhm94dVjQCPFElW9W+3GeDOSHmy2EBYe4VTApuzolPcmgFTN3ftVJRKR2J9Q==
+  /typed-function/0.10.7:
+    dev: false
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha512-3mlZ5AwRMbLvUKkc8a1TI4RUJUS2H27pmD5q0lHRObgsoWzhDAX01yg82kwSP1FUw922/4Y9ZliIEh0qJZcz+g==
   /ua-parser-js/0.7.18:
     dev: false
     resolution:
@@ -4319,6 +4381,7 @@ specifiers:
   mongodb: '*'
   mongoose: ^4.13.8
   passport: '*'
+  random-math-question: ^1.0.3
   react: ^15.6.1
   react-dom: ^15.6.1
   react-router-dom: ^4.2.2

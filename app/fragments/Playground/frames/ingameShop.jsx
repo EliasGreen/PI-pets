@@ -68,6 +68,8 @@ class IngameShop extends React.Component {
       </div>
     ];
     
+    this.buySound = new Audio("https://cdn.glitch.com/9baded2b-bdfd-45e5-891f-0dfd4e93b84e%2Fcoin_1.wav?1534432746619");
+    
     this.changeCurrentIngameShopInteractionArea = this.changeCurrentIngameShopInteractionArea.bind(this);
     this.changePayWith = this.changePayWith.bind(this);
     this.buy = this.buy.bind(this);
@@ -122,6 +124,9 @@ class IngameShop extends React.Component {
         throw new Error(request.status);
       }
       
+      this.buySound.currentTime = 0;
+      this.buySound.play();
+      
       this.activateBuyButtons(buyButtons);
     }
     catch(error) {
@@ -147,6 +152,9 @@ class IngameShop extends React.Component {
   
   changePayWith(event, newPayWithName) {
     const { payWith }  = this.state;
+    const { switchButtonSound } = this.props;
+    switchButtonSound.currentTime = 0;
+    switchButtonSound.play();
     
     if (payWith.domNode) {
       payWith.domNode.classList.remove("activeChoser");
@@ -166,6 +174,9 @@ class IngameShop extends React.Component {
   
   changeCurrentIngameShopInteractionArea(event, newIngameShopInteractionAreaName) {
     const { currentIngameShopInteractionArea }  = this.state;
+    const { switchButtonSound } = this.props;
+    switchButtonSound.currentTime = 0;
+    switchButtonSound.play();
     
     if (currentIngameShopInteractionArea.domNode) {
       currentIngameShopInteractionArea.domNode.classList.remove("currentIngameShopInteractionArea");

@@ -26,10 +26,14 @@ class BoxOpenModal extends React.Component {
   
   async openBox() {
     this.setState({
-        loading: false
-      });
+      loading: false
+    });
     
-    const { currentPickedBoxName, deleteUsedKeyAndBoxFromInventory, currentPickedKeyPosition, currentPickedBoxPosition, updateInformationAboutUser} = this.props;
+    const { currentPickedBoxName, deleteUsedKeyAndBoxFromInventory, currentPickedKeyPosition, currentPickedBoxPosition, updateInformationAboutUser, buttonClickSound} = this.props;
+    
+    buttonClickSound.currentTime = 0;
+    buttonClickSound.play();
+    
     let data = {
       currentPickedKeyPosition: currentPickedKeyPosition,
       currentPickedBoxPosition: currentPickedBoxPosition

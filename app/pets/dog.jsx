@@ -10,11 +10,16 @@ class Dog extends React.Component {
     super(props);
     this.state = {}
     
+    this.dogSound = new Audio("https://cdn.glitch.com/9baded2b-bdfd-45e5-891f-0dfd4e93b84e%2Fpup2.mp3?1534432035982");
+    this.dogSound.volume = 0.2;
+    
     this.setYourselfForPetInterfaceModal = this.setYourselfForPetInterfaceModal.bind(this);
   }
   
   setYourselfForPetInterfaceModal() {
     const { toggleShowPetInterfaceModal, setPetForPetInterfaceModal, pet, showMode } = this.props;
+    
+    this.dogSound.play();
     
     if (showMode) {
       return;

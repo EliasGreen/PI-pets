@@ -117,6 +117,11 @@
   font-weight: bold;
   font-size: 1.2rem;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.buttonPlaygroundFrame:hover, .buttonInventory:hover, .buttonIngameShop:hover, .buttonWorldMarket:hover, .buttonUsersTop:hover {
+  box-shadow: inset 2px 0px 70px -13px rgba(255,255,255,1);
 }
 
 .buttonPlaygroundFrame {
@@ -370,7 +375,12 @@
   font-weight: bold;
   font-family: sans-serif;
   cursor: pointer;
-  border-right: 10px solid #c1c1c1; 
+  border-right: 10px solid #c1c1c1;
+  transition: 1s;
+}
+
+.TAB--keysAndBoxes:hover, .TAB--foodAndWater:hover {
+  box-shadow: inset -2px -2px 27px 7px rgba(242,8,101,1);
 }
 
 .TAB--keysAndBoxes {
@@ -407,6 +417,7 @@
   margin-left: 5px;
   padding-right: 5px;
   color: #c1c1c1;
+  transition: 1s;
 }
 
 .axiomsChooser {
@@ -417,7 +428,13 @@
   padding: 0 5px;
   margin: 0 5px 0 10px;
   color: #c1c1c1;
+  transition: 1s;
 }
+
+.coinsChooser:hover, .axiomsChooser:hover {
+  box-shadow: inset -2px -2px 64px -13px rgba(242,8,101,1);
+}
+
 
 .activeChoser {
   background: #ff005e;
@@ -462,6 +479,7 @@ button.buyIngameShopItemButton {
   font-weight: bold;
   padding: 3px;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 button.buyIngameShopItemButton:hover {
