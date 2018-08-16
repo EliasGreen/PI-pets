@@ -101,8 +101,16 @@ class Inventory extends React.Component {
       });
     }
     
+    const { showBoxOpenModal } = this.state;
+    
+    if (showBoxOpenModal) {
+      const { buttonClickSound } = this.props;
+      buttonClickSound.currentTime = 0;
+      buttonClickSound.play();
+    }
+    
     this.setState({
-      showBoxOpenModal: !this.state.showBoxOpenModal
+      showBoxOpenModal: !showBoxOpenModal
     });
   }
   
@@ -152,7 +160,7 @@ class Inventory extends React.Component {
   
   render() {
     const { inventory, loading, loadingError, showBoxOpenModal, currentPickedBox, currentPickedKey, tooltip} = this.state;
-    const { updateInformationAboutUser } = this.props;
+    const { updateInformationAboutUser, buttonClickSound } = this.props;
     let error = null;
     
     if (loadingError) {
@@ -258,7 +266,8 @@ class Inventory extends React.Component {
             deleteUsedKeyAndBoxFromInventory={ this.deleteUsedKeyAndBoxFromInventory } 
             currentPickedKeyPosition={ currentPickedKey.position } 
             currentPickedBoxPosition={ currentPickedBox.position }
-            updateInformationAboutUser = { updateInformationAboutUser } /> }
+            updateInformationAboutUser={ updateInformationAboutUser } 
+            buttonClickSound={ buttonClickSound }/> }
         <InventoryTooltip tooltip={ tooltip } />
       </div>
     );

@@ -5,6 +5,10 @@ class PI extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    
+    this.grabKeySound = new Audio("https://cdn.glitch.com/9baded2b-bdfd-45e5-891f-0dfd4e93b84e%2Fgrabkey.mp3?1534433021122");
+    this.grabKeySound.volume = 0.3;
+    
     this.selectKey = this.selectKey.bind(this);
     this.unselectKey = this.unselectKey.bind(this);
   }
@@ -22,6 +26,9 @@ class PI extends React.Component {
   selectKey(event) {
     if (!this.props.inShop) {
       this.props.setCurrentPickedKeyNameAndPosition();
+      
+      this.grabKeySound.currentTime = 0;
+      this.grabKeySound.play();
 
       let sel;
       let range;

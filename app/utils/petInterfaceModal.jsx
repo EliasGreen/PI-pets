@@ -92,6 +92,8 @@ class PetInterfaceModal extends React.Component {
       }
     }
     
+    this.openingSound = new Audio("https://cdn.glitch.com/9baded2b-bdfd-45e5-891f-0dfd4e93b84e%2Fcan_opening.mp3?1534431055980");
+    
     this.utilizePet = this.utilizePet.bind(this);
     this.getFoodAndWaterItemsFromUserInventory = this.getFoodAndWaterItemsFromUserInventory.bind(this);
     this.setActiveItem = this.setActiveItem.bind(this);
@@ -107,6 +109,9 @@ class PetInterfaceModal extends React.Component {
       this.setState({ feedBtnError });
       return;
     }
+    
+    this.openingSound.currentTime = 0;
+    this.openingSound.play();
     
     activeItem.domNode.classList.remove("activeFoodAndWaterCell");
     

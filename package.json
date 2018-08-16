@@ -28,7 +28,8 @@
     "passport": "*",
     "connect-mongodb-session": "*",
     "cookie-parser": "*",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "random-math-question": "^1.0.3"
   },
   "engines": {
     "node": "8.x"

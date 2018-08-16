@@ -10,11 +10,16 @@ class Cat extends React.Component {
     super(props);
     this.state = {}
     
+    this.catSound = new Audio("https://cdn.glitch.com/9baded2b-bdfd-45e5-891f-0dfd4e93b84e%2Fkitten3.mp3?1534431952884");
+    this.catSound.volume = 0.2;
+    
     this.setYourselfForPetInterfaceModal = this.setYourselfForPetInterfaceModal.bind(this);
   }
   
   setYourselfForPetInterfaceModal() {
     const { toggleShowPetInterfaceModal, setPetForPetInterfaceModal, pet, showMode } = this.props;
+    
+    this.catSound.play();
     
     if (showMode) {
       return; 
@@ -28,12 +33,14 @@ class Cat extends React.Component {
     const { pet, opacity, inModal } = this.props;
     
     let petClassName = "Pets__cat";
+    let additionalStyle = {};
     if (inModal) {
      petClassName = "petInModal"
+     additionalStyle = { paddingRight: "40px" };
     }
     
     return(
-      <div className={ petClassName }>
+      <div className={ petClassName } style={ additionalStyle }>
         <svg width="120pt" height="90pt" viewBox="0 0 120 90">
           <g xmlns="http://www.w3.org/2000/svg" id="surface1" style={{ opacity: opacity }} onClick={ this.setYourselfForPetInterfaceModal }>
             <path className="leftCatEar" style={{fillRule:"nonzero", fill: pet.petColors.top, fillOpacity:"1", strokeWidth:"1", strokeLinecap:"butt", strokeLinejoin:"miter", stroke:"rgb(33.72549%,32.941176%,33.72549%)", strokeOpacity:"1", strokeMiterlimit:"4"}} d="M 104.5 53.5 L 146 179 L 217 115 Z M 104.5 53.5 " transform="matrix(0.1875,0,0,0.1875,0,0)"/>

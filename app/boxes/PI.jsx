@@ -5,6 +5,10 @@ class PI extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    
+    this.dropKeyOnBoxSound = new Audio("https://cdn.glitch.com/9baded2b-bdfd-45e5-891f-0dfd4e93b84e%2Fboxopen.wav?1534433845486");
+    this.dropKeyOnBoxSound.volume = 0.3;
+    
     this.allowDrop = this.allowDrop.bind(this);
     this.dropKey = this.dropKey.bind(this);
   }
@@ -18,6 +22,9 @@ class PI extends React.Component {
   dropKey(ev) {
     if (!this.props.inShop) {
       const { setCurrentPickedBoxNameAndPosition, toggleShowBoxOpenModal } = this.props;
+      
+      this.dropKeyOnBoxSound.currentTime = 0;
+      this.dropKeyOnBoxSound.play();
 
       setCurrentPickedBoxNameAndPosition();
       toggleShowBoxOpenModal();

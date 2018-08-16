@@ -26,8 +26,16 @@ class Pets extends React.Component {
   }
   
   toggleShowPetInterfaceModal() {
+    const { showPetInterfaceModal } = this.state;
+    
+    if (showPetInterfaceModal) {
+        const { buttonClickSound } = this.props;
+        buttonClickSound.currentTime = 0;
+        buttonClickSound.play();
+    }
+    
    this.setState({
-     showPetInterfaceModal: !this.state.showPetInterfaceModal
+     showPetInterfaceModal: !showPetInterfaceModal
    });
   }
   
@@ -147,7 +155,7 @@ class Pets extends React.Component {
                                      pet={ petForPetInterfaceModal } 
                                      toggleShowPetInterfaceModal={ this.toggleShowPetInterfaceModal } 
                                      deletePetFromPets={ this.deletePetFromPets } 
-                                     updateInformationAboutUser={ updateInformationAboutUser }/> }
+                                     updateInformationAboutUser={ updateInformationAboutUser } /> }
       </div>
     );
   }

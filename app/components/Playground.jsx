@@ -30,6 +30,14 @@ class Playground extends React.Component  {
       loading: false
     }
     
+    this.switchButtonSound = new Audio("https://cdn.glitch.com/9baded2b-bdfd-45e5-891f-0dfd4e93b84e%2Ftoggle%20switch.mp3?1534431700846");
+    this.switchButtonSound.volume = 0.3;
+    this.buttonClickSound = new Audio("https://cdn.glitch.com/9baded2b-bdfd-45e5-891f-0dfd4e93b84e%2Fbuttonclick.mp3?1534432950718");
+    this.buttonClickSound.volume = 0.3;
+    this.mainGameTheme = new Audio("https://cdn.glitch.com/9baded2b-bdfd-45e5-891f-0dfd4e93b84e%2FFeelin%20Good.mp3?1534430536613");
+    this.mainGameTheme.loop = true;
+    this.mainGameTheme.volume = 0.1;
+    
     this.socket = io.connect();
     
     this.changeCurrentFrame = this.changeCurrentFrame.bind(this);
@@ -79,6 +87,9 @@ class Playground extends React.Component  {
   }
   
   changeCurrentFrame(newCurrentFrame) {
+    this.switchButtonSound.currentTime = 0;
+    this.switchButtonSound.play();
+    
     this.setState({
       currentFrame: newCurrentFrame
     });
@@ -86,6 +97,8 @@ class Playground extends React.Component  {
   
   componentDidMount() {
     this.initializeUser();
+
+    this.mainGameTheme.play();
     
     this.socket.on("userInformationUpdated", () => {
       this.getInformationAboutUser(true);
@@ -97,8 +110,15 @@ class Playground extends React.Component  {
     
     return (
       <div className="Playground__body">
-        <Frame currentFrame={ currentFrame } updateInformationAboutUser={ this.getInformationAboutUser } socket={ this.socket  }/>
-        <UserInformationBlock changeCurrentFrameFunction={ this.changeCurrentFrame } 
+        <Frame 
+          currentFrame={ currentFrame } 
+          updateInformationAboutUser={ this.getInformationAboutUser } 
+          socket={ this.socket  } 
+          switchButtonSound={ this.switchButtonSound } 
+          buttonClickSound={ this.buttonClickSound }
+          />
+        <UserInformationBlock 
+          changeCurrentFrameFunction={ this.changeCurrentFrame } 
           username={ username }
           coins={ coins }
           loadingError={ loadingError }
