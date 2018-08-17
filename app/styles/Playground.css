@@ -1,8 +1,8 @@
 .Playground__body {
   width: 1200px;
-  height: 810px;
+  height: 867px;
   background: #ffd9e2;
-  margin: 70px auto;
+  margin: 40px auto;
   border: 10px solid rgb(255, 102, 93);
   border-radius: 20px;
   -webkit-box-shadow: -1px 14px 48px 54px rgba(212, 72, 140, 0.38);
@@ -105,7 +105,7 @@
   z-index: 1;
 }
 
-.buttonPlaygroundFrame, .buttonInventory, .buttonIngameShop, .buttonWorldMarket, .buttonUsersTop {
+.buttonPlaygroundFrame, .buttonInventory, .buttonIngameShop, .buttonWorldMarket, .buttonArena, .buttonUsersTop {
   display: block;
   width: 60%;
   margin: 10px auto;
@@ -120,7 +120,7 @@
   transition: 0.3s;
 }
 
-.buttonPlaygroundFrame:hover, .buttonInventory:hover, .buttonIngameShop:hover, .buttonWorldMarket:hover, .buttonUsersTop:hover {
+.buttonPlaygroundFrame:hover, .buttonInventory:hover, .buttonIngameShop:hover, .buttonWorldMarket:hover, .buttonArena:hover, .buttonUsersTop:hover {
   box-shadow: inset 2px 0px 70px -13px rgba(255,255,255,1);
 }
 
@@ -193,7 +193,7 @@
 .Playground__frames__BoxOpenModal__innerContent, .Playground__frames__PetInterfaceModal__innerContent{
   width: 900px;
   background: #9a848e;
-  margin: 150px auto auto auto;
+  margin: 90px auto auto auto;
   padding: 20px;
   min-height: 500px;
   border: 20px rgba(226, 210, 213, 0.22);
@@ -353,6 +353,24 @@
   color: rgb(255, 255, 255);
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+.petInterface--dead {
+  background: rgba(0, 0, 0, 0.58);
+  color: floralwhite;
+  font-size: 1.3rem;
+  width: 200px;
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+  border: 10px double;
+}
+
+.petInterface--dead button {
+  border: 1px solid floralwhite;
+  background: whitesmoke;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .petInterface--waterPoints, .petInterface--foodPoints {
@@ -525,4 +543,117 @@ button.buyIngameShopItemButton:hover {
 
 .disabledBuyButton {
  background: black !important;
+}
+
+.Playground__frame__arena {
+  height: 100%;
+  width: 100%;
+}
+
+.Playground__frame__arena .topContainer {
+  width: 100%;
+  height: 30%;
+  box-sizing: border-box;
+}
+
+.Playground__frame__arena .topContainer p { 
+  text-align: center;
+  padding: 10px;
+  color: #674f51;
+}
+
+.Playground__frame__arena .bottomContainer {
+  width: 100%;
+  height: 70%;
+  box-sizing: border-box;
+}
+
+.Playground__frame__arena .topContainer .buttonPVP, .buttonPVE {
+  width: 200px;
+  height: 50px;
+  box-sizing: content-box;
+  border: 0;
+  border-bottom: 10px solid rgba(82, 60, 60, 0.57);
+  font-size: 2rem;
+  color: white;
+  background: firebrick;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.9s;
+}
+
+.Playground__frame__arena .topContainer .buttonPVP {
+  border-right: 5px solid #dedede;
+  border-top: 5px solid rgb(178, 34, 34);
+  border-left: 5px solid rgb(178, 34, 34);
+  margin-left: calc(50% - 222px);
+  margin-top: 60px;
+}
+
+.Playground__frame__arena .topContainer .buttonPVP:hover {
+  border-bottom: 10px solid rgb(204, 164, 164);
+  border-top: 5px solid rgb(193, 177, 177);
+  border-left: 5px solid rgb(193, 177, 177);
+  background: #ea1d1d;
+  color: #523b42;
+}
+
+.Playground__frame__arena .topContainer .buttonPVE {
+  border-left: 5px solid #dedede;
+  border-top: 5px solid rgb(178, 34, 34);
+  border-right: 5px solid rgb(178, 34, 34);
+}
+
+.Playground__frame__arena .topContainer .buttonPVE:hover {
+  border-bottom: 10px solid rgb(204, 164, 164);
+  border-top: 5px solid rgb(193, 177, 177);
+  border-right: 5px solid rgb(193, 177, 177);
+  background: #ea1d1d;
+  color: #523b42;
+}
+
+.Playground__frame__arena .bottomContainer .lastArenaBattlesLogsContainer, .chooserOfPetForArenaBattleContainer {
+  width: 90%;
+  box-sizing: border-box;
+  background: #ddd;
+  height: calc(100% - 70px);
+  margin: 20px 30px;
+  overflow-y: scroll;
+}
+
+.Playground__frame__arena .bottomContainer .lastArenaBattlesLogsContainer {
+  border-left: 20px dotted;
+  float: left;
+}
+
+.Playground__frame__arena .bottomContainer .chooserOfPetForArenaBattleContainer {
+  border-right: 20px double;
+  float: right;
+  direction: rtl;
+}
+
+.floatLeftContainter {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.floatRightContainter {
+  float: right;
+  width: 50%;
+  height: 100%;
+}
+
+.lastArenaBattlesLogsHeader, .chooserOfPetForArenaBattleHeader {
+  text-align: center;
+  font-size: 2rem;
+  color: #63565f;
+}
+
+.lastArenaBattlesLogsHeader {
+  text-shadow: 2px 2px 25px #22b25c;
+}
+
+.chooserOfPetForArenaBattleHeader {
+  text-shadow: 2px 2px 25px #ff4053;
 }

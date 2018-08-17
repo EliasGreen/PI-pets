@@ -18,6 +18,20 @@ const loadingCircleSpinner = (props) => {
     );  
   }
   
+  if (target === "arenaAlivePetsCards" || target === "arenaReports") {
+    return (
+      <center id="loadingbox" style={{ paddingTop: "140px" }}>
+        <h2>Loading</h2>
+        <div id="out">
+          <div id="quarterbox">
+            <div id="quarter"></div>
+          </div>
+          <div id="in" className="circle"></div>
+        </div>
+      </center>
+    );  
+  }
+  
   
   return (
     <center id="loadingbox">
