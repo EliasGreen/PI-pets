@@ -5,6 +5,7 @@ const Pets = require("./frames/pets");
 const Inventory = require("./frames/inventory");
 const IngameShop = require("./frames/ingameShop");
 const WorldMarket = require("./frames/worldMarket");
+const Arena = require("./frames/arena");
 const UsersTOP = require("./frames/usersTOP");
 
 class Frame extends React.Component {
@@ -21,6 +22,7 @@ class Frame extends React.Component {
       Inventory: Inventory,
       IngameShop: IngameShop,
       WorldMarket: WorldMarket,
+      Arena: Arena,
       UsersTOP: UsersTOP
     };
     

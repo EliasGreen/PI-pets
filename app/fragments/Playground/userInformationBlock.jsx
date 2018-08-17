@@ -20,6 +20,7 @@ class UserInformationBlock extends React.Component {
       buttonInventoryAdditionClass: "",
       buttonIngameShopAdditionClass: "",
       buttonWorldMarketAdditionClass: "",
+      buttonArenaAdditionClass: "",
       buttonUsersTopAdditionClass: "",
       amountXpToGetOneLevel: 100
     }
@@ -45,6 +46,7 @@ class UserInformationBlock extends React.Component {
            buttonInventoryAdditionClass,
            buttonIngameShopAdditionClass,
            buttonWorldMarketAdditionClass,
+           buttonArenaAdditionClass,
            buttonUsersTopAdditionClass,
            amountXpToGetOneLevel } = this.state;
     const { changeCurrentFrameFunction,
@@ -96,6 +98,7 @@ class UserInformationBlock extends React.Component {
           <button className={`buttonInventory ${buttonInventoryAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("Inventory"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonInventory") } }>Inventory</button>
           <button className={`buttonIngameShop ${buttonIngameShopAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("IngameShop"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonIngameShop") } }>Ingame Shop</button>
           <button className={`buttonWorldMarket ${buttonWorldMarketAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("WorldMarket"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonWorldMarket") } }>World Market</button>
+          <button className={`buttonArena ${buttonArenaAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("Arena"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonArena") } }>Arena</button>
           <button className={`buttonUsersTop ${buttonUsersTopAdditionClass}`} onClick={ () => { changeCurrentFrameFunction("UsersTOP"); this.setPressedButtonToAnActiveClassAndOthersButtonsToInactive("buttonUsersTop") } }>Users TOP</button>
         </div>
       </div>
