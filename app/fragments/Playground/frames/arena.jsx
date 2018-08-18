@@ -7,6 +7,41 @@ const Cat = require("../../../pets/cat");
 const Dog = require("../../../pets/dog");
 
 
+const PetArenaCard = ({ pet, choosePetForBattle, rechoosePetForBattle }) => {
+  const petComponents = {
+    "Cat": Cat,
+    "Dog": Dog
+  }
+  
+  let containerForPetPropsStyle = {
+    width: "120px",
+    height: "90px"
+  }
+  
+  if (pet.type === "Cat") {
+    containerForPetPropsStyle = {
+      width: "120pt",
+      height: "90pt"
+    }
+  }
+  
+  const PetComponent = petComponents[pet.type];
+  
+  return(
+    <div className="petArenaCard">
+      <div className="containerForPet" style={ containerForPetPropsStyle }>
+         <PetComponent 
+           pet={pet}
+           showMode={true}
+         />
+      </div>
+      <h3 className="petName" onClick={ (event) => choosePetForBattle(event, pet._id) }>{ pet.nickname }</h3>
+      <button className="chooseAnotherPetButton" onClick={ (event) => rechoosePetForBattle(event) }>choose another pet</button>
+    </div>
+ );    
+}
+
+
 class Arena extends React.Component {
   constructor(props) {
     super(props);
@@ -14,12 +49,59 @@ class Arena extends React.Component {
       loading: false,
       loadingError: null,
       chosenPetForBattleID: null,
+      chosenPetCardDOMElement: null,
+      activePetNameDOMelement: null,
       reportsAboutLastBattles: <LoadingCircleSpinner target={ "arenaReports" }/>,
       aliveUserPets: null
     }
     
+    this.choosePetForBattle = this.choosePetForBattle.bind(this);
+    this.rechoosePetForBattle = this.rechoosePetForBattle.bind(this);
     this.loadAliveUserPets = this.loadAliveUserPets.bind(this);
     this.compilePetsIntoPetArenaCardsForChoosing = this.compilePetsIntoPetArenaCardsForChoosing.bind(this);
+  }
+  
+  rechoosePetForBattle(event) {
+    const { activePetNameDOMelement, chosenPetCardDOMElement } = this.state;
+    
+    activePetNameDOMelement.classList.remove("activePetName");
+    chosenPetCardDOMElement.classList.remove("chosenPetCard");
+    
+    const rechooseButton = event.currentTarget;
+    rechooseButton.style.display = "none";
+    const chooserOfPetForArenaBattleContainer = event.currentTarget.parentElement.parentElement;
+    chooserOfPetForArenaBattleContainer.style.overflowY = "scroll";
+    
+    this.setState({
+      chosenPetForBattleID: null
+    });
+  }
+  
+  choosePetForBattle(event, petID) {
+    const { activePetNameDOMelement, chosenPetCardDOMElement } = this.state;
+    
+    const newActivePetNameDOMelement =  event.currentTarget;
+    const newChosenPetCard = newActivePetNameDOMelement.parentElement;
+    const chosenPetCardContainer = newChosenPetCard.parentElement;
+    const chooseAnotherPetButton = newActivePetNameDOMelement.nextElementSibling;
+    setTimeout(() => {
+      chooseAnotherPetButton.style.display = "block";
+    }, 1000);
+
+    newActivePetNameDOMelement.classList.add("activePetName");
+    newChosenPetCard.classList.add("chosenPetCard");
+    chosenPetCardContainer.style.overflow = "hidden";
+
+    this.setState({
+      chosenPetForBattleID: petID,
+      activePetNameDOMelement: newActivePetNameDOMelement,
+      chosenPetCardDOMElement: newChosenPetCard
+    });
+    
+    for (let i = 0; i < 2; i++) { 
+      newChosenPetCard.style.top = (chosenPetCardContainer.scrollTop + 150) + "px"; 
+    }
+    
   }
   
   compilePetsIntoPetArenaCardsForChoosing(alivePets) {
@@ -27,23 +109,9 @@ class Arena extends React.Component {
      return <LoadingCircleSpinner target={ "arenaAlivePetsCards" }/>;
     }
     
-    const petComponents = {
-      "Cat": Cat,
-      "Dog": Dog
-    }
-    
-   return alivePets.map(pet => {
-     const PetComponent = petComponents[pet.type];
-     
+   return alivePets.map(pet => {   
      return(
-       <div className="petArenaCard" key={pet._id}>
-         <div className="containerForPet">
-            <PetComponent 
-                 pet={pet} 
-            />
-         </div>
-         <h3 className="petName">{ pet.nickname }</h3>
-       </div>
+       <PetArenaCard pet={ pet } choosePetForBattle={ this.choosePetForBattle } key={ pet._id } rechoosePetForBattle={ this.rechoosePetForBattle }/>
      );  
    });; 
   }

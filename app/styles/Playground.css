@@ -615,19 +615,20 @@ button.buyIngameShopItemButton:hover {
 .Playground__frame__arena .bottomContainer .lastArenaBattlesLogsContainer, .chooserOfPetForArenaBattleContainer {
   width: 90%;
   box-sizing: border-box;
-  background: #ddd;
+  background: rgb(111, 101, 101);
   height: calc(100% - 70px);
   margin: 20px 30px;
   overflow-y: scroll;
+  position: relative;
 }
 
 .Playground__frame__arena .bottomContainer .lastArenaBattlesLogsContainer {
-  border-left: 20px dotted;
+  border-left: 20px dotted whitesmoke;
   float: left;
 }
 
 .Playground__frame__arena .bottomContainer .chooserOfPetForArenaBattleContainer {
-  border-right: 20px double;
+  border-right: 20px double whitesmoke;
   float: right;
   direction: rtl;
 }
@@ -656,4 +657,55 @@ button.buyIngameShopItemButton:hover {
 
 .chooserOfPetForArenaBattleHeader {
   text-shadow: 2px 2px 25px #ff4053;
+}
+
+.chooserOfPetForArenaBattleContainer .petArenaCard {
+  width: 100%;
+  height: 35%;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: 1s;
+}
+
+.chooserOfPetForArenaBattleContainer .containerForPet {
+  margin: auto;
+}
+
+.chooserOfPetForArenaBattleContainer .activePetName {
+  color: #f50368 !important;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #fdfdfd, 0 0 15px rgb(0, 0, 0), 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 55px #000000, 0 0 75px #000000 !important;
+}
+
+.chooserOfPetForArenaBattleContainer h3.petName {
+  text-align: center;
+  width: 150px;
+  margin: auto;
+  font-size: 2rem;
+  font-family: fantasy;
+  color: #2b2a2a;
+  margin-top: 15px;
+  text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #ff4053, 0 0 30px #ff4053, 0 0 40px #ff4053, 0 0 55px #ff4053, 0 0 75px #ff4053;
+  cursor: pointer;
+  transition: 0.8s;
+}
+
+.chooserOfPetForArenaBattleContainer h3.petName:hover {
+  color: #f50368;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #fdfdfd, 0 0 15px rgb(0, 0, 0), 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 55px #000000, 0 0 75px #000000;
+}
+
+.chooserOfPetForArenaBattleContainer .chosenPetCard {
+  transform: scale(2);
+  background: firebrick;
+  height: 320px;
+  position: absolute;
+  left: 0;
+}
+
+button.chooseAnotherPetButton {
+  display: none;
+  margin: auto;
+  width: 80px;
+  font-size: 0.5rem;
+  margin-top: 15px;
 }
