@@ -1,5 +1,5 @@
 .Pets__dog {
-  float: left;
+  display: inline;
 }
 
 .leftDogPaw {

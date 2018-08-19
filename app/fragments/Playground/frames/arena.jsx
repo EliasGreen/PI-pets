@@ -3,44 +3,13 @@ const styles = require("../../../styles/Playground");
 
 const LoadingCircleSpinner = require("../../../utils/loadingCircleSpinner");
 
-const Cat = require("../../../pets/cat");
-const Dog = require("../../../pets/dog");
+const PetArenaCard = require("./arena/petArenaCard");
 
+const ArenaPVE = require("./arena/pve");
+const ArenaPVP = require("./arena/pvp");
 
-const PetArenaCard = ({ pet, choosePetForBattle, rechoosePetForBattle }) => {
-  const petComponents = {
-    "Cat": Cat,
-    "Dog": Dog
-  }
-  
-  let containerForPetPropsStyle = {
-    width: "120px",
-    height: "90px"
-  }
-  
-  if (pet.type === "Cat") {
-    containerForPetPropsStyle = {
-      width: "120pt",
-      height: "90pt"
-    }
-  }
-  
-  const PetComponent = petComponents[pet.type];
-  
-  return(
-    <div className="petArenaCard">
-      <div className="containerForPet" style={ containerForPetPropsStyle }>
-         <PetComponent 
-           pet={pet}
-           showMode={true}
-         />
-      </div>
-      <h3 className="petName" onClick={ (event) => choosePetForBattle(event, pet._id) }>{ pet.nickname }</h3>
-      <button className="chooseAnotherPetButton" onClick={ (event) => rechoosePetForBattle(event) }>choose another pet</button>
-    </div>
- );    
-}
-
+const TopContainer = require("./arena/topContainer");
+const BottomContainer = require("./arena/bottomContainer");
 
 class Arena extends React.Component {
   constructor(props) {
@@ -48,17 +17,70 @@ class Arena extends React.Component {
     this.state = {
       loading: false,
       loadingError: null,
+      choosingError: null,
       chosenPetForBattleID: null,
       chosenPetCardDOMElement: null,
       activePetNameDOMelement: null,
       reportsAboutLastBattles: <LoadingCircleSpinner target={ "arenaReports" }/>,
-      aliveUserPets: null
+      aliveUserPets: null,
+      currentArenaFRAME: "DEFAULT"
     }
     
     this.choosePetForBattle = this.choosePetForBattle.bind(this);
     this.rechoosePetForBattle = this.rechoosePetForBattle.bind(this);
     this.loadAliveUserPets = this.loadAliveUserPets.bind(this);
     this.compilePetsIntoPetArenaCardsForChoosing = this.compilePetsIntoPetArenaCardsForChoosing.bind(this);
+    this.changeCurrentArenaFRAME = this.changeCurrentArenaFRAME.bind(this);
+  }
+  
+  async changeCurrentArenaFRAME(frameNAME) {
+    const { chosenPetForBattleID } = this.state;
+    
+    if (chosenPetForBattleID) {
+      const data = { petID: chosenPetForBattleID };
+      try {
+        const response = await fetch(
+          "user/check/pet/alive",
+          { method: "post",
+            credentials: "include",
+            headers: { "Content-Type": "application/json", "Accept":"application/json" }, 
+          body: JSON.stringify(data)});
+      
+        if(response.ok) {
+          this.setState((prevState, props) => {
+            return {
+              currentArenaFRAME: frameNAME
+            }
+          });
+        }
+        else {
+          throw new Error(response.status);
+        }
+      }
+      catch(error) {
+        if(error.message === "421") {
+            this.setState((prevState, props) => {
+              return {
+                choosingError: "chosen pet is dead!"
+              }
+            });
+          }
+        else {
+          this.setState((prevState, props) => {
+            return {
+              choosingError: "connection problem - try later again"
+            }
+          });
+        }
+      }
+    }
+    else {
+      this.setState((prevState, props) => {
+        return {
+          choosingError: "you didn't choose a pet for battle!"
+        }
+      });
+    }
   }
   
   rechoosePetForBattle(event) {
@@ -92,10 +114,13 @@ class Arena extends React.Component {
     newChosenPetCard.classList.add("chosenPetCard");
     chosenPetCardContainer.style.overflow = "hidden";
 
-    this.setState({
-      chosenPetForBattleID: petID,
-      activePetNameDOMelement: newActivePetNameDOMelement,
-      chosenPetCardDOMElement: newChosenPetCard
+    this.setState((prevState, props) => {
+      return {
+        chosenPetForBattleID: petID,
+        activePetNameDOMelement: newActivePetNameDOMelement,
+        chosenPetCardDOMElement: newChosenPetCard,
+        choosingError: null
+      }
     });
     
     for (let i = 0; i < 2; i++) { 
@@ -143,7 +168,7 @@ class Arena extends React.Component {
   }
   
   render() {
-    const { loading, loadingError, aliveUserPets } = this.state;
+    const { loading, loadingError, aliveUserPets, currentArenaFRAME, chosenPetForBattleID, choosingError } = this.state;
     
     const petArenaCards = this.compilePetsIntoPetArenaCardsForChoosing(aliveUserPets);
     
@@ -165,31 +190,33 @@ class Arena extends React.Component {
       );  
     }
     
-    return(
-      <div className="Playground__frame__arena">
-        <div className="topContainer">
-          <button className="buttonPVP"> PVP </button>
-          <button className="buttonPVE"> PVE </button>
-          <p> Prepare for battle! </p>
+    if (currentArenaFRAME === "DEFAULT") {
+      return(
+        <div className="Playground__frame__arena">
+          <TopContainer 
+            choosingError={ choosingError }
+            changeCurrentArenaFRAME={ this.changeCurrentArenaFRAME }/>
+          <BottomContainer 
+            petArenaCards= { petArenaCards } />
         </div>
-        
-        <div className="bottomContainer">
-          
-          <div className="floatLeftContainter">
-            <h1 className="lastArenaBattlesLogsHeader">Last 10 battles' logs:</h1>
-            <div className="lastArenaBattlesLogsContainer"></div>
-          </div>
-          
-          
-          <div className="floatRightContainter">
-            <h1 className="chooserOfPetForArenaBattleHeader">Choose a pet for battle:</h1>
-            <div className="chooserOfPetForArenaBattleContainer">
-              { petArenaCards }
-            </div>
-          </div>
+      );      
+    }
+    
+    if (currentArenaFRAME === "PVE") {
+      return(
+        <div className="Playground__frame__arena">
+          <ArenaPVE chosenPetForBattleID={ chosenPetForBattleID }/>
         </div>
-      </div>
-    );
+      );      
+    }
+    
+    if (currentArenaFRAME === "PVP") {
+      return(
+        <div className="Playground__frame__arena">
+          <ArenaPVP />
+        </div>
+      );      
+    }    
   }
 }
 

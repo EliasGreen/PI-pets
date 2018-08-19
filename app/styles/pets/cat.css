@@ -1,5 +1,5 @@
 .Pets__cat {
-  float: left;
+  display: inline;
 }
 
 .leftCatEar {

@@ -414,6 +414,7 @@
 .water-barSpan p {
   z-index: 1;
   position: absolute;
+  width: 46px;
 }
 
 .water-barSpan div {
@@ -444,6 +445,7 @@
 .food-barSpan p {
   position: absolute;
   z-index: 1;
+  width: 46px;
 }
   
 .food-barSpan div {

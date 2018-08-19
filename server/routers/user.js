@@ -256,6 +256,33 @@ router.post("/xp", loginCheck, urlencodedParser, jsonParser, (req, res) => {
 
 /*
 *  @information POST
+*  @dest: check the given pet's ID if that pet is alive
+*  @security: private
+*/
+router.post("/check/pet/alive", loginCheck, urlencodedParser, jsonParser, (req, res) => {
+  const { petID } = req.body;
+  
+  userModel.findById(req.session.passport.user, "pets", (err, user) => {
+    if (!err) {
+      let isAlive = false;
+      
+      for (let i = 0; i < user.pets.length; i++) {
+        if ( (user.pets[i]._id.toString() === petID) && 
+             (user.pets[i].alive === true) ) {
+          isAlive = true;
+        }
+      }
+      
+     isAlive === true ? res.sendStatus(200) : res.sendStatus(421);
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
+*  @information POST
 *  @dest: add BOUGHT item into user's inventory in DB
 *  @security: private
 */
