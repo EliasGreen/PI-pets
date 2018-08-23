@@ -709,3 +709,18 @@ button.chooseAnotherPetButton {
   font-size: 0.5rem;
   margin-top: 15px;
 }
+
+div.arenaDisbeingContainer {
+  text-align: center;
+  padding: 10px;
+  background: floralwhite;
+  margin: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: fantasy;
+}
+
+button.disabledPVPorPVEButton {
+  color: #904e4e;
+  background: rgba(178, 34, 34, 0.45);
+}
