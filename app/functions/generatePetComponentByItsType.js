@@ -7,7 +7,7 @@ const petComponents = {
 }
 
 const generatePetComponentByItsType = (petType) => {
-    return petComponents[petType];
+  return petComponents[petType];
 }
 
 module.exports = generatePetComponentByItsType;

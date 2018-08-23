@@ -1,12 +1,14 @@
 const React = require("react");
 const styles = require("../../../../styles/Playground");
 
-const BottomContainer = ({ petArenaCards }) => {
+const BottomContainer = ({ petArenaCards, battleLogCards }) => {
   return(
     <div className="bottomContainer">
       <div className="floatLeftContainter">
         <h1 className="lastArenaBattlesLogsHeader">Last 10 battles' logs:</h1>
-        <div className="lastArenaBattlesLogsContainer"></div>
+        <div className="lastArenaBattlesLogsContainer">
+          { battleLogCards }
+        </div>
       </div>
 
 

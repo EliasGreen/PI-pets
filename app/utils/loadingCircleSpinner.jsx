@@ -18,7 +18,7 @@ const loadingCircleSpinner = (props) => {
     );  
   }
   
-  if (target === "arenaAlivePetsCards" || target === "arenaReports") {
+  if (target === "arenaAlivePetsCards" || target === "arenaBattleLogs") {
     return (
       <center id="loadingbox" style={{ paddingTop: "140px" }}>
         <h2>Loading</h2>

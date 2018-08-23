@@ -56,25 +56,3 @@ app.use("/user", user_router);
 app.get("*", loginCheck, (request, response) => {
   response.sendFile(__dirname + "/app/index.html");
 });
-
-
-// var randomMathQuestion = require('random-math-question');
-
-// var mathQuestion1 = randomMathQuestion.get({
-// numberRange: '1-20',
-// amountOfNumber: '3-4',
-// operations: ['/', '*', '+', '-'],
-// nagative: {
-//     containsNagatives: true,
-//     negativeChance: '10%'
-// },
-// exponent: {
-//     containsExponents: false,
-//     exponentChance: '10%',
-//     exponentRange: '1-10'
-// }
-// });
-
-
-// console.log("Question 1: " + mathQuestion1.question);
-// console.log("Answer: " + mathQuestion1.answer);

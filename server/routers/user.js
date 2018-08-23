@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+
+const battles_router = require("./user/battles");
+router.use("/battles", battles_router);
+
 const bodyParser = require("body-parser");
 
 const listOfUsersSockets = require("../utils/listOfUsersSockets");
@@ -42,6 +46,26 @@ router.get("/information", loginCheck, (req, res) => {
         food: user.meta.food,
         xp: user.xp,
         userID: req.session.passport.user
+      });
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
+*  @information GET
+*  @dest: get pet by ID
+*  @security: private
+*/
+router.get("/pet/:id", loginCheck, (req, res) => {
+  userModel.findById(req.session.passport.user, "pets", (err, user) => {
+    if(!err) {
+      const pet =  user.pets.find( (pet) => pet._id == req.params.id);
+      
+      res.status(200).json({
+        pet: pet
       });
     }
     else {

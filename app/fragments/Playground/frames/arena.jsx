@@ -11,6 +11,8 @@ const ArenaPVP = require("./arena/pvp");
 const TopContainer = require("./arena/topContainer");
 const BottomContainer = require("./arena/bottomContainer");
 
+const BattleLogCard = require("./arena/bottomContainer/battleLogCard");
+
 class Arena extends React.Component {
   constructor(props) {
     super(props);
@@ -21,8 +23,8 @@ class Arena extends React.Component {
       chosenPetForBattleID: null,
       chosenPetCardDOMElement: null,
       activePetNameDOMelement: null,
-      reportsAboutLastBattles: <LoadingCircleSpinner target={ "arenaReports" }/>,
       aliveUserPets: null,
+      battleLogs: null,
       currentArenaFRAME: "DEFAULT"
     }
     
@@ -31,13 +33,21 @@ class Arena extends React.Component {
     this.loadAliveUserPets = this.loadAliveUserPets.bind(this);
     this.compilePetsIntoPetArenaCardsForChoosing = this.compilePetsIntoPetArenaCardsForChoosing.bind(this);
     this.changeCurrentArenaFRAME = this.changeCurrentArenaFRAME.bind(this);
+    this.loadBattleLogs = this.loadBattleLogs.bind(this);
+    this.compileBattleLogsIntoCards = this.compileBattleLogsIntoCards.bind(this);
   }
   
-  async changeCurrentArenaFRAME(frameNAME) {
+  async changeCurrentArenaFRAME(event, frameNAME) {
     const { chosenPetForBattleID } = this.state;
     
     if (chosenPetForBattleID) {
       const data = { petID: chosenPetForBattleID };
+      
+      const button = event.currentTarget;
+      button.disabled = true;
+      button.classList.add("disabledPVPorPVEButton");
+      document.body.style.cursor = "progress";
+      
       try {
         const response = await fetch(
           "user/check/pet/alive",
@@ -72,13 +82,34 @@ class Arena extends React.Component {
             }
           });
         }
+        
+        button.disabled = false;
+        button.classList.remove("disabledPVPorPVEButton");
       }
+      
+      document.body.style.cursor = "default";
     }
     else {
       this.setState((prevState, props) => {
         return {
           choosingError: "you didn't choose a pet for battle!"
         }
+      });
+    }
+  }
+  
+  async loadBattleLogs() {
+    try {
+      const response = await fetch("/user/battles/logs", { method: "get", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" } });
+      const result = await response.json();
+
+      this.setState({
+        battleLogs: result.battleLogs,
+      });
+    } 
+    catch(loadingError) {
+      this.setState({
+        loadingError
       });
     }
   }
@@ -131,7 +162,15 @@ class Arena extends React.Component {
   
   compilePetsIntoPetArenaCardsForChoosing(alivePets) {
     if (alivePets === null) {
-     return <LoadingCircleSpinner target={ "arenaAlivePetsCards" }/>;
+     return(
+       <LoadingCircleSpinner target={ "arenaAlivePetsCards" }/>
+     );
+    }
+    
+    if (alivePets.length === 0) {
+      return(
+        <div className="arenaDisbeingContainer"> You haven't got alive pets </div>
+      );
     }
     
    return alivePets.map(pet => {   
@@ -139,6 +178,26 @@ class Arena extends React.Component {
        <PetArenaCard pet={ pet } choosePetForBattle={ this.choosePetForBattle } key={ pet._id } rechoosePetForBattle={ this.rechoosePetForBattle }/>
      );  
    });; 
+  }
+  
+  compileBattleLogsIntoCards(battleLogs) {
+    if (battleLogs === null) {
+      return(
+        <LoadingCircleSpinner target={ "arenaBattleLogs" }/>
+      );
+    }
+    
+    if (battleLogs.length === 0) {
+      return(
+        <div className="arenaDisbeingContainer"> You haven't yet done battles </div>
+      );
+    }
+ 
+    return battleLogs.map(battleLog => {   
+      return(
+        <BattleLogCard battleLog={ battleLog } key={ battleLog._id } />
+      );  
+    });; 
   }
   
   async loadAliveUserPets() {
@@ -160,6 +219,7 @@ class Arena extends React.Component {
   
   componentDidMount() {
     this.loadAliveUserPets();
+    this.loadBattleLogs();
     
     const { socket } = this.props;
     socket.on("userPetsInformationUpdated", () => {
@@ -168,9 +228,11 @@ class Arena extends React.Component {
   }
   
   render() {
-    const { loading, loadingError, aliveUserPets, currentArenaFRAME, chosenPetForBattleID, choosingError } = this.state;
+    const { loading, loadingError, aliveUserPets, currentArenaFRAME, chosenPetForBattleID, choosingError, battleLogs } = this.state;
+    const { xp, username } = this.props;
     
     const petArenaCards = this.compilePetsIntoPetArenaCardsForChoosing(aliveUserPets);
+    const battleLogCards = this.compileBattleLogsIntoCards(battleLogs);
     
     if (loadingError) {
       return(
@@ -196,8 +258,9 @@ class Arena extends React.Component {
           <TopContainer 
             choosingError={ choosingError }
             changeCurrentArenaFRAME={ this.changeCurrentArenaFRAME }/>
-          <BottomContainer 
-            petArenaCards= { petArenaCards } />
+          <BottomContainer
+            battleLogCards={ battleLogCards }
+            petArenaCards={ petArenaCards } />
         </div>
       );      
     }
@@ -205,7 +268,10 @@ class Arena extends React.Component {
     if (currentArenaFRAME === "PVE") {
       return(
         <div className="Playground__frame__arena">
-          <ArenaPVE chosenPetForBattleID={ chosenPetForBattleID }/>
+          <ArenaPVE 
+            chosenPetForBattleID={ chosenPetForBattleID }
+            userLVL={ Math.trunc(xp/100) }
+            username={ username } />
         </div>
       );      
     }
@@ -213,7 +279,8 @@ class Arena extends React.Component {
     if (currentArenaFRAME === "PVP") {
       return(
         <div className="Playground__frame__arena">
-          <ArenaPVP />
+          <ArenaPVP 
+            username={ username } />
         </div>
       );      
     }    

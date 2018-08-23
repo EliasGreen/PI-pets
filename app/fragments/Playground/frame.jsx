@@ -15,7 +15,7 @@ class Frame extends React.Component {
   }
   
   render() {
-    const { updateInformationAboutUser, socket, switchButtonSound, buttonClickSound } = this.props;
+    const { updateInformationAboutUser, socket, switchButtonSound, buttonClickSound, xp, username } = this.props;
     
     const frames = {
       Pets: Pets,
@@ -30,7 +30,12 @@ class Frame extends React.Component {
     
     return(
       <div className="Playground__frame">
-        <CurrentFrame updateInformationAboutUser={ updateInformationAboutUser } socket={ socket } switchButtonSound={ switchButtonSound } buttonClickSound={ buttonClickSound }/>
+        <CurrentFrame 
+          updateInformationAboutUser={ updateInformationAboutUser } 
+          socket={ socket } switchButtonSound={ switchButtonSound } 
+          buttonClickSound={ buttonClickSound }
+          xp={ xp }
+          username={ username } />
       </div>
     );
   }

@@ -116,6 +116,8 @@ class Playground extends React.Component  {
           socket={ this.socket  } 
           switchButtonSound={ this.switchButtonSound } 
           buttonClickSound={ this.buttonClickSound }
+          xp={ xp }
+          username={ username }
           />
         <UserInformationBlock 
           changeCurrentFrameFunction={ this.changeCurrentFrame } 

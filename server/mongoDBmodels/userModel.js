@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const petSchema = require("../mongoDBschemas/petSchema");
 
+const battleLogSchema = require("../mongoDBschemas/battleLogSchema");
+
 const Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 const userSchema = new Schema({
@@ -14,7 +16,8 @@ const userSchema = new Schema({
   inventory: [],
   meta: {
     registrationDate: { type: Date, default: Date.now }
-  }
+  },
+  battleLogs: { type: [battleLogSchema], default: [] }
 }, { usePushEach: true });
 const userModel = mongoose.model("pi-pets-users", userSchema);
 
