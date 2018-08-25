@@ -9,12 +9,42 @@ class Battleground extends React.Component {
     this.state = {}
   }
   render() {
-    const { User, Bot } = this.props;
+    const { User, Bot, turn, points, chosenPoint } = this.props;
+    
+    let styleForUserName = {};
+    let styleForBotName = {};
+    
+    const styleCurrentTurn = {
+      textShadow: 
+       `#FFF 0px 0px 5px, 
+        #FFF 0px 0px 10px, 
+        #FFF 0px 0px 15px, 
+        #FF2D95 0px 0px 20px, 
+        #FF2D95 0px 0px 30px, 
+        #FF2D95 0px 0px 40px, 
+        #FF2D95 0px 0px 50px, 
+        #FF2D95 0px 0px 75px `
+     };
+    
+    if (turn === "user") {
+      styleForUserName = styleCurrentTurn;
+    }
+    else if(turn === "bot") {
+      styleForBotName = styleCurrentTurn;
+    }
     
     return(
       <div className="battleground">
-        <UserSide User={ User }/>
-        <BotSide Bot={ Bot }/>
+        <UserSide
+          User={ User } 
+          styleForUserName={ styleForUserName }
+          userPoints={ points.user }
+          userChosenPoint={ chosenPoint.user } />
+        <BotSide 
+          Bot={ Bot } 
+          styleForBotName={ styleForBotName }
+          botPoints={ points.bot }
+          botChosenPoint={ chosenPoint.bot } />
       </div>
     );
   }

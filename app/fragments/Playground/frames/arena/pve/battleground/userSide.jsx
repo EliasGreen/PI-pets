@@ -11,13 +11,13 @@ class UserSide extends React.Component {
     this.state = {}
   }
   render() {
-    const { User } = this.props;
+    const { User, styleForUserName, userPoints } = this.props;
     const UserPetComponent = generatePetComponentByItsType(User.pet.type);
     
     return(
       <div className="userSide">
-        <PetContainer User={ User } />
-        <Dots />
+        <PetContainer User={ User } styleForUserName={ styleForUserName } />
+        <Dots userPoints={ userPoints } />
       </div>
     );
   }

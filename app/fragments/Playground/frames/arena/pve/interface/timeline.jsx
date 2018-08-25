@@ -6,8 +6,11 @@ class Timeline extends React.Component {
     this.state = {}
   }
   render() {
+    const { timelineInlineStyles } = this.props;
     return(
-      <div className="timeline"></div>
+      <div className="timeline">
+        <div className="inner" style={timelineInlineStyles}></div>
+      </div>
     );
   }
 }
