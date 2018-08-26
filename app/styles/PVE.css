@@ -63,14 +63,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 .petContainer .petNickname {
   text-align: center;
   background: #c57c7c;
-  margin: 10px;
+  width: 140px;
   padding: 4px;
   color: rgb(226, 216, 219);
+  position: absolute;
+  bottom: 10px;
+  left: 6px;
 }
 
 ul.userDefenseDots, ul.botDefenseDots {
@@ -163,4 +167,52 @@ ul.userDefenseDots li, ul.botDefenseDots li {
   padding: 5px;
   font-weight: bold;
   cursor: pointer;
+}
+
+@keyframes topUserPetAttack {
+  0% {
+    position: absolute;
+    left: 380px;
+    top: -65px;
+  }
+  
+  30% {
+    left: 540px;
+    top: initial;
+  }
+  
+  100% {
+    left: 0px;
+    position: initial;
+  }
+}
+
+@keyframes middleUserPetAttack {
+  0% {
+    position: absolute;
+    left: 540px;
+  }
+  
+  100% {
+    left: initial;
+    position: initial;
+  }
+}
+
+@keyframes bottomUserPetAttack {
+  0% {
+    position: absolute;
+    left: 380px;
+    bottom: -35px;
+  }
+  
+  30% {
+    left: 540px;
+    top: initial;
+  }
+  
+  100% {
+    left: initial;
+    position: initial;
+  }
 }

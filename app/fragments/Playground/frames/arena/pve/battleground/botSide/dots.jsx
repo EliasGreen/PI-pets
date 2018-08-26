@@ -7,7 +7,7 @@ class Dots extends React.Component {
     this.state = {}
   }
   render() {
-    const { botPoints, botChosenPoint } = this.props;
+    const { botPoints, botChosenPointForAttack, botChosenPointForDefense } = this.props;
     if (botPoints) {
       const { top, middle, bottom } = botPoints;
       
@@ -15,21 +15,39 @@ class Dots extends React.Component {
       let middleDotStyle = {};
       let bottomDotStyle = {};
       
-      if (botChosenPoint) {
-        switch (botChosenPoint.position) {
+      if (botChosenPointForAttack) {
+        switch (botChosenPointForAttack.position) {
           case "top":
-            topDotStyle = { color: "#ff4053" }
+            topDotStyle.color = "#ff4053";
             break;
           case "middle":
-            middleDotStyle = { color: "#ff4053" }
+            middleDotStyle.color = "#ff4053";
             break;
           case "bottom":
-            bottomDotStyle = { color: "#ff4053" }
+            bottomDotStyle.color = "#ff4053";
             break;
           default:
             throw new Error("unknown dot positon");
         };
       }
+      
+      
+      if (botChosenPointForDefense) {
+        switch (botChosenPointForDefense.position) {
+          case "top":
+            topDotStyle.background = "yellow";
+            break;
+          case "middle":
+            middleDotStyle.background = "yellow";
+            break;
+          case "bottom":
+            bottomDotStyle.background = "yellow";
+            break;
+          default:
+            throw new Error("unknown dot positon");
+         };
+       }
+      
       
       return(
         <ul className="botDefenseDots">

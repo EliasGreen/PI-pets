@@ -9,7 +9,7 @@ class Battleground extends React.Component {
     this.state = {}
   }
   render() {
-    const { User, Bot, turn, points, chosenPoint } = this.props;
+    const { User, Bot, turn, points, chosenPointForAttack, chosenPointForDefense } = this.props;
     
     let styleForUserName = {};
     let styleForBotName = {};
@@ -39,12 +39,14 @@ class Battleground extends React.Component {
           User={ User } 
           styleForUserName={ styleForUserName }
           userPoints={ points.user }
-          userChosenPoint={ chosenPoint.user } />
+          userChosenPointForAttack={ chosenPointForAttack.user }
+          userChosenPointForDefense={ chosenPointForDefense.user } />
         <BotSide 
           Bot={ Bot } 
           styleForBotName={ styleForBotName }
           botPoints={ points.bot }
-          botChosenPoint={ chosenPoint.bot } />
+          botChosenPointForAttack={ chosenPointForAttack.bot }
+          botChosenPointForDefense={ chosenPointForDefense.bot } />
       </div>
     );
   }

@@ -39,7 +39,11 @@ class ArenaPVE extends React.Component {
         user: {}
       },
       
-      chosenPoint: {
+      chosenPointForAttack: {
+        bot: null,
+        user: null
+      },
+      chosenPointForDefense: {
         bot: null,
         user: null
       }
@@ -54,7 +58,128 @@ class ArenaPVE extends React.Component {
     this.unhandleKeyUp = this.unhandleKeyUp.bind(this);
     this.generateBotPoints = this.generateBotPoints.bind(this);
     this.generateUserPoints = this.generateUserPoints.bind(this);
+    this.autoChooseAttackPointForUser = this.autoChooseAttackPointForUser.bind(this);
+    this.autoChooseDefensePointForBot = this.autoChooseDefensePointForBot.bind(this);
+    this.playUserPetAttackAnimation = this.playUserPetAttackAnimation.bind(this);
   }
+  
+  playUserPetAttackAnimation() {
+    const userPet = document.getElementById("userPVEpet");
+    const { battleState, chosenPointForAttack} = this.state;
+    const { position } = chosenPointForAttack.bot;
+    
+    if (battleState !== "user pet attack animation") return;
+    
+    switch (position) {
+      case "top":
+        userPet.animate([
+           {
+            position: "absolute",
+            left: "380px",
+            top: "-65px",
+          }
+
+//           {
+//             left: "540px",
+//             top: "initial",
+//           },
+
+//           {
+//             left: "0px",
+//             position: "initial",
+//           }
+        ], { 
+          duration: 6000,
+          iterations: 1
+        });
+        break;
+      case "middle":
+        userPet.style.animation = "middleUserPetAttack 10s 0.1";
+        break;
+      case "bottom":
+        userPet.style.animation = "bottomUserPetAttack 10s 0.1";
+        break;
+      default:
+        throw new Error("unknown chosenPointForAttack.bot.position");
+    }
+    
+    this.setState({
+      battleState: "user attack calculation"
+    });
+  }
+  
+ autoChooseDefensePointForBot() {
+   const { userLVL } = this.props;
+   const { points, chosenPointForAttack } = this.state;
+   
+   const chanceToChooseRightDefensePoint = userLVL/10;
+   
+   if (chanceToChooseRightDefensePoint > Math.random) {
+     this.setState( (prevState) => {
+       return ({ 
+         chosenPointForDefense: {
+           bot: {
+             point: prevState.chosenPointForAttack.bot.point,
+             position: prevState.chosenPointForAttack.bot.position
+           },
+           user: null
+         },
+         battleState: "user pet attack animation"
+       });
+     });
+   }
+   else {
+     Object.keys(points.bot).map( (position, index) => {
+       if (chosenPointForAttack.bot.position !== position) {
+         this.setState({
+           chosenPointForDefense: {
+             bot: {
+               point: points.bot[position],
+               position: position
+             },
+             user: null
+           },
+           battleState: "user pet attack animation"
+         });
+       }
+     });
+   }
+   
+   this.playUserPetAttackAnimation();
+ }
+  
+ autoChooseAttackPointForUser() {
+   const { battleState, points } = this.state;
+   
+   if (battleState === "user choosing attack point") {
+     const randomNumber =  Math.random();
+     
+     let position = null;
+     
+     if (randomNumber > 0.6) {
+       position = "top";
+     } 
+     else if (randomNumber > 0.3) {
+       position = "middle";
+     }
+     else {
+       position = "bottom";
+     }
+     
+      this.setState({
+        chosenPointForAttack: {
+          bot: {
+            point: points.bot[position],
+            position: position
+          },
+          user: null
+        },
+        battleState: "bot choosing defense point"
+      });
+     
+      setTimeout(this.autoChooseDefensePointForBot, 1000);
+   }
+ }
   
  generateBotPoints() {
    this.setState({
@@ -83,15 +208,17 @@ generateUserPoints() {
        Object.keys(points.bot).map( (key, index) => {
          if (letter === points.bot[key]) {
            this.setState({
-             chosenPoint: {
+             chosenPointForAttack: {
                bot: {
                  point: letter,
                  position: key
                },
                user: null
              },
-             battleState: "user pet attack animation"
+             battleState: "bot choosing defense point"
            });
+           
+           setTimeout(this.autoChooseDefensePointForBot, 1000);
          }
        });
          
@@ -116,20 +243,21 @@ generateUserPoints() {
    
    if (mathQuestion.answer.toString() === answer) {
      this.setState({
-       answerState: true,
-       battleState: "user choosing attack point"
+       answerState: true
      });
-     
-     this.generateBotPoints();
    }
    else {
      this.setState({
-       answerState: false,
-       battleState: "user choosing attack point"
+       answerState: false
      });
-     
-     this.generateBotPoints();
    }
+   
+   this.setState({
+     battleState: "user choosing attack point"
+   });
+   
+   this.generateBotPoints();
+   setTimeout(this.autoChooseAttackPointForUser, 5000);
  }
   
  startBattle() {
@@ -163,9 +291,10 @@ generateUserPoints() {
            answerState: false,
            battleState: "user choosing attack point"
          });
-         
-         this.generateBotPoints();
        });
+       
+       this.generateBotPoints();
+       setTimeout(this.autoChooseAttackPointForUser, 5000);
      }
      
      else if (timerState === "running" && answerState !== null) {
@@ -282,7 +411,8 @@ generateUserPoints() {
            turn,
            answerState,
            points,
-           chosenPoint } = this.state;
+           chosenPointForAttack,
+           chosenPointForDefense } = this.state;
     
     const timelineInlineStyles = this.calculateTimelineInlineStyles(timelineWidthPercent, answerState);
     
@@ -308,7 +438,8 @@ generateUserPoints() {
           User={ User } 
           turn={ turn }
           points={ points }
-          chosenPoint={ chosenPoint } /> }
+          chosenPointForAttack={ chosenPointForAttack }
+          chosenPointForDefense={ chosenPointForDefense } /> }
       </div>
     );
   }

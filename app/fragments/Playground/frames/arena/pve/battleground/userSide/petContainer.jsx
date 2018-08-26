@@ -14,7 +14,7 @@ class PetContainer extends React.Component {
     return(
       <div className="petContainer left">
         <p className="playerName" style={ styleForUserName }>{ User.username }</p>
-        <div className="petComponentWrapper">
+        <div className="petComponentWrapper" id="userPVEpet">
           <UserPetComponent pet={ User.pet } showMode={ true } />
         </div>
         <p className="petNickname">{ User.pet.nickname }</p>
