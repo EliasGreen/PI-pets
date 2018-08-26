@@ -6,11 +6,12 @@ class AnswerForm extends React.Component {
     this.state = {}
   }
   render() {
+    const { answerMathQuestion } = this.props;
     return(
-      <form>
-        <label> Answer: </label>
-        <input type="text" name="answer" />
-        <input type="submit" value="answer" />
+      <form onSubmit={(event) => { answerMathQuestion(event) }}>
+          <label> Answer: </label>
+          <input autoFocus type="number" name="answer" autoComplete="off" />
+          <button type="submit"> asnwer </button>
       </form>
     );
   }

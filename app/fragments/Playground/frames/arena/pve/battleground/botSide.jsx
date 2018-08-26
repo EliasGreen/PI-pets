@@ -11,12 +11,17 @@ class BotSide extends React.Component {
     this.state = {}
   }
   render() {
-    const { Bot } = this.props;
+    const { Bot, styleForBotName, botPoints, botChosenPointForAttack, botChosenPointForDefense } = this.props;
     
     return(
       <div className="botSide">
-        <Dots />
-        <PetContainer Bot={ Bot }/>
+        <Dots 
+          botPoints={ botPoints }
+          botChosenPointForAttack={ botChosenPointForAttack }
+          botChosenPointForDefense={ botChosenPointForDefense } />
+        <PetContainer 
+          Bot={ Bot } 
+          styleForBotName={ styleForBotName } />
       </div>
     );
   }

@@ -6,8 +6,11 @@ class MathQuestion extends React.Component {
     this.state = {}
   }
   render() {
+    const { mathQuestion } = this.props;
     return(
-      <div className="mathQuestionContainer"></div>
+      <div className="mathQuestionContainer">
+        { mathQuestion.question }
+      </div>
     );
   }
 }

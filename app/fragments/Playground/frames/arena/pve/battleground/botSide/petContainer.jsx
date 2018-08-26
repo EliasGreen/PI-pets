@@ -8,13 +8,13 @@ class PetContainer extends React.Component {
     this.state = {}
   }
   render() {
-    const { Bot } = this.props;
+    const { Bot, styleForBotName } = this.props;
     const BotPetComponent = generatePetComponentByItsType(Bot.pet.type);
     
     return(
      <div className="petContainer right">
-        <p className="playerName">{ Bot.botname }</p>
-        <div className="petComponentWrapper">
+        <p className="playerName" style={ styleForBotName }>{ Bot.botname }</p>
+        <div className="petComponentWrapper" id="botPVEpet">
           <BotPetComponent pet={ Bot.pet } showMode={ true }/>
         </div>
         <p className="petNickname">{ Bot.pet.nickname }</p>

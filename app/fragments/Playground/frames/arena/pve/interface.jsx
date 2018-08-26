@@ -1,6 +1,6 @@
 const React = require("react");
 
-
+const Round = require("./interface/round");
 const Timeline = require("./interface/timeline");
 const MathQuestion = require("./interface/mathQuestion");
 const AnswerForm = require("./interface/answerForm");
@@ -11,13 +11,20 @@ class Interface extends React.Component {
     this.state = {}
   }
   render() {
+    const { mathQuestion, round, answerMathQuestion, timelineInlineStyles } = this.props;
     return(
       <div className="interface">
-        <MathQuestion />
+        <Round 
+          round={ round } />
         
-        <AnswerForm />
+        <MathQuestion 
+          mathQuestion={ mathQuestion } />
         
-        <Timeline />
+        <AnswerForm 
+          answerMathQuestion={ answerMathQuestion } />
+        
+        <Timeline 
+          timelineInlineStyles={ timelineInlineStyles }/>
       </div>
     );
   }
