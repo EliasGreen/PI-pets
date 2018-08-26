@@ -169,50 +169,58 @@ ul.userDefenseDots li, ul.botDefenseDots li {
   cursor: pointer;
 }
 
+.topUserPetAttackAnimation {
+  animation-name: topUserPetAttack;
+  animation-duration: 6s;
+  animation-iteration-count: 1;
+}
+
 @keyframes topUserPetAttack {
-  0% {
-    position: absolute;
-    left: 380px;
-    top: -65px;
+  40% {
+    transform: translate(380px, -100px);
   }
   
-  30% {
-    left: 540px;
-    top: initial;
+  50% {
+    transform: translateX(540px);
   }
   
   100% {
-    left: 0px;
-    position: initial;
+    transform: translate(0px, 0px);
   }
+}
+
+.middleUserPetAttackAnimation {
+  animation-name: middleUserPetAttack;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
 }
 
 @keyframes middleUserPetAttack {
-  0% {
-    position: absolute;
-    left: 540px;
+  50% {
+   transform: translateX(540px);
   }
   
   100% {
-    left: initial;
-    position: initial;
+     transform: translateX(0px);
   }
 }
 
+.bottomUserPetAttackAnimation {
+  animation-name: bottomUserPetAttack;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+}
+
 @keyframes bottomUserPetAttack {
-  0% {
-    position: absolute;
-    left: 380px;
-    bottom: -35px;
+  40% {
+    transform: translate(380px, 100px);
   }
   
-  30% {
-    left: 540px;
-    top: initial;
+  50% {
+    transform: translateX(540px);
   }
   
   100% {
-    left: initial;
-    position: initial;
+    transform: translate(0px, 0px);
   }
 }

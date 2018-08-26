@@ -62928,7 +62928,8 @@ class ArenaPVE extends React.Component {
   }
   
   playUserPetAttackAnimation() {
-    const userPet = document.getElementById("userPVEpet");
+    const userPet = document.getElementById("userPVEpet").firstChild;
+    userPet.style.zIndex = "1";
     const { battleState, chosenPointForAttack} = this.state;
     const { position } = chosenPointForAttack.bot;
     
@@ -62936,32 +62937,16 @@ class ArenaPVE extends React.Component {
     
     switch (position) {
       case "top":
-        userPet.animate([
-           {
-            position: "absolute",
-            left: "380px",
-            top: "-65px",
-          }
-
-//           {
-//             left: "540px",
-//             top: "initial",
-//           },
-
-//           {
-//             left: "0px",
-//             position: "initial",
-//           }
-        ], { 
-          duration: 6000,
-          iterations: 1
-        });
+        userPet.classList.add("topUserPetAttackAnimation");
+        setTimeout( () => userPet.classList.remove("topUserPetAttackAnimation"), 6000);
         break;
       case "middle":
-        userPet.style.animation = "middleUserPetAttack 10s 0.1";
+        userPet.classList.add("middleUserPetAttackAnimation");
+        setTimeout( () => userPet.classList.remove("middleUserPetAttackAnimation"), 4000);
         break;
       case "bottom":
-        userPet.style.animation = "bottomUserPetAttack 10s 0.1";
+        userPet.classList.add("bottomUserPetAttackAnimation");
+        setTimeout( () => userPet.classList.remove("bottomUserPetAttackAnimation"), 6000);
         break;
       default:
         throw new Error("unknown chosenPointForAttack.bot.position");
@@ -63351,7 +63336,7 @@ exports = module.exports = __webpack_require__(37)(false);
 
 
 // module
-exports.push([module.i, ".ArenaPVEcontainer {\n  width: 100%;\n  height: 100%;\n}\n\n.interface {\n  position: relative;\n  box-sizing: border-box;\n  width: 100%;\n  height: 40%;\n}\n\n.battleground {\n  box-sizing: border-box;\n  width: 100%;\n  height: 60%;\n}\n\n.userSide, .botSide {\n  box-sizing: border-box;\n  width: 50%;\n  height: 100%;\n  position: relative;\n}\n\n.userSide {\n  float: left; \n}\n\n.botSide {\n  float: right; \n}\n\n.battleground .petContainer {\n  background: rgb(130, 29, 57);\n  position: relative;\n  width: 120pt;\n  height: 230px;\n  margin: 80px 20px;\n}\n\n.userSide .left, .botSide .left {\n  float: left; \n}\n\n.userSide .right, .botSide .right {\n  float: right; \n}\n\n.petContainer .playerName {\n  text-align: center;\n  font-size: 1.5rem;\n  padding: 10px;\n  font-weight: bold;\n  background: darkseagreen;\n  margin-bottom: 10px;\n  color: darkslategrey;\n  overflow-x: hidden;\n  white-space: pre;\n}\n\n.petContainer .petComponentWrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 1;\n}\n\n.petContainer .petNickname {\n  text-align: center;\n  background: #c57c7c;\n  width: 140px;\n  padding: 4px;\n  color: rgb(226, 216, 219);\n  position: absolute;\n  bottom: 10px;\n  left: 6px;\n}\n\nul.userDefenseDots, ul.botDefenseDots {\n  height: 325px;\n  width: 72px;\n  background: #ff4053;\n  margin: 20px 40px;\n}\n\nul.userDefenseDots {\n  float: right;\n}\n\nul.botDefenseDots {\n  float: left;\n}\n\nul.userDefenseDots li, ul.botDefenseDots li {\n  height: calc((100% - 40px)/3);\n  margin: 10px;\n  background: #7e8588;\n  text-align: center;\n  font-size: 3rem;\n  padding-top: 23px;\n  box-sizing: border-box;\n}\n\n.interface .timeline {\n  width: 100%;\n  height: 40px;\n  background: #4e4646;\n  position: absolute;\n  bottom: 0;\n  border: 5px solid #3a0010;\n  box-sizing: border-box;\n}\n\n.timeline .inner {\n  height: 100%;\n  background: rgb(255, 195, 201);\n  transition-duration: 0.1s;\n}\n\n.interface .round {\n  width: 203px;\n  margin: 10px auto;\n  text-align: center;\n  background: darkseagreen;\n  padding: 5px;\n  color: darkslategrey;\n  font-size: 1.2rem;\n  border-radius: 8%;\n  border: 10px solid rgba(0, 0, 0, 0.42);\n}\n\n.interface .mathQuestionContainer {\n  text-align: center;\n  margin: 10px 40px;\n  background: floralwhite;\n  border: 10px solid #821d39;\n  padding: 10px;\n  font-size: 3rem;\n}\n\n.interface form {\n  width: 300px;\n  background: #821d39;\n  margin: auto;\n  height: 140px;\n  border-radius: 20%;\n}\n\n.interface form label {\n  display: block;\n  padding: 20px 0 5px 10px;\n  color: white;\n}\n\n.interface form input[type=\"number\"] {\n  width: 80%;\n  margin: 5px auto;\n  display: block;\n  text-align: center;\n}\n\n.interface form button {\n  display: block;\n  margin: 30px auto;\n  width: 100px;\n  padding: 5px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n@keyframes topUserPetAttack {\n  0% {\n    position: absolute;\n    left: 380px;\n    top: -65px;\n  }\n  \n  30% {\n    left: 540px;\n    top: initial;\n  }\n  \n  100% {\n    left: 0px;\n    position: initial;\n  }\n}\n\n@keyframes middleUserPetAttack {\n  0% {\n    position: absolute;\n    left: 540px;\n  }\n  \n  100% {\n    left: initial;\n    position: initial;\n  }\n}\n\n@keyframes bottomUserPetAttack {\n  0% {\n    position: absolute;\n    left: 380px;\n    bottom: -35px;\n  }\n  \n  30% {\n    left: 540px;\n    top: initial;\n  }\n  \n  100% {\n    left: initial;\n    position: initial;\n  }\n}", ""]);
+exports.push([module.i, ".ArenaPVEcontainer {\n  width: 100%;\n  height: 100%;\n}\n\n.interface {\n  position: relative;\n  box-sizing: border-box;\n  width: 100%;\n  height: 40%;\n}\n\n.battleground {\n  box-sizing: border-box;\n  width: 100%;\n  height: 60%;\n}\n\n.userSide, .botSide {\n  box-sizing: border-box;\n  width: 50%;\n  height: 100%;\n  position: relative;\n}\n\n.userSide {\n  float: left; \n}\n\n.botSide {\n  float: right; \n}\n\n.battleground .petContainer {\n  background: rgb(130, 29, 57);\n  position: relative;\n  width: 120pt;\n  height: 230px;\n  margin: 80px 20px;\n}\n\n.userSide .left, .botSide .left {\n  float: left; \n}\n\n.userSide .right, .botSide .right {\n  float: right; \n}\n\n.petContainer .playerName {\n  text-align: center;\n  font-size: 1.5rem;\n  padding: 10px;\n  font-weight: bold;\n  background: darkseagreen;\n  margin-bottom: 10px;\n  color: darkslategrey;\n  overflow-x: hidden;\n  white-space: pre;\n}\n\n.petContainer .petComponentWrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 1;\n}\n\n.petContainer .petNickname {\n  text-align: center;\n  background: #c57c7c;\n  width: 140px;\n  padding: 4px;\n  color: rgb(226, 216, 219);\n  position: absolute;\n  bottom: 10px;\n  left: 6px;\n}\n\nul.userDefenseDots, ul.botDefenseDots {\n  height: 325px;\n  width: 72px;\n  background: #ff4053;\n  margin: 20px 40px;\n}\n\nul.userDefenseDots {\n  float: right;\n}\n\nul.botDefenseDots {\n  float: left;\n}\n\nul.userDefenseDots li, ul.botDefenseDots li {\n  height: calc((100% - 40px)/3);\n  margin: 10px;\n  background: #7e8588;\n  text-align: center;\n  font-size: 3rem;\n  padding-top: 23px;\n  box-sizing: border-box;\n}\n\n.interface .timeline {\n  width: 100%;\n  height: 40px;\n  background: #4e4646;\n  position: absolute;\n  bottom: 0;\n  border: 5px solid #3a0010;\n  box-sizing: border-box;\n}\n\n.timeline .inner {\n  height: 100%;\n  background: rgb(255, 195, 201);\n  transition-duration: 0.1s;\n}\n\n.interface .round {\n  width: 203px;\n  margin: 10px auto;\n  text-align: center;\n  background: darkseagreen;\n  padding: 5px;\n  color: darkslategrey;\n  font-size: 1.2rem;\n  border-radius: 8%;\n  border: 10px solid rgba(0, 0, 0, 0.42);\n}\n\n.interface .mathQuestionContainer {\n  text-align: center;\n  margin: 10px 40px;\n  background: floralwhite;\n  border: 10px solid #821d39;\n  padding: 10px;\n  font-size: 3rem;\n}\n\n.interface form {\n  width: 300px;\n  background: #821d39;\n  margin: auto;\n  height: 140px;\n  border-radius: 20%;\n}\n\n.interface form label {\n  display: block;\n  padding: 20px 0 5px 10px;\n  color: white;\n}\n\n.interface form input[type=\"number\"] {\n  width: 80%;\n  margin: 5px auto;\n  display: block;\n  text-align: center;\n}\n\n.interface form button {\n  display: block;\n  margin: 30px auto;\n  width: 100px;\n  padding: 5px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.topUserPetAttackAnimation {\n  animation-name: topUserPetAttack;\n  animation-duration: 6s;\n  animation-iteration-count: 1;\n}\n\n@keyframes topUserPetAttack {\n  40% {\n    transform: translate(380px, -100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.middleUserPetAttackAnimation {\n  animation-name: middleUserPetAttack;\n  animation-duration: 3s;\n  animation-iteration-count: 1;\n}\n\n@keyframes middleUserPetAttack {\n  50% {\n   transform: translateX(540px);\n  }\n  \n  100% {\n     transform: translateX(0px);\n  }\n}\n\n.bottomUserPetAttackAnimation {\n  animation-name: bottomUserPetAttack;\n  animation-duration: 3s;\n  animation-iteration-count: 1;\n}\n\n@keyframes bottomUserPetAttack {\n  40% {\n    transform: translate(380px, 100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n", ""]);
 
 // exports
 

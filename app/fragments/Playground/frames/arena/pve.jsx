@@ -64,7 +64,8 @@ class ArenaPVE extends React.Component {
   }
   
   playUserPetAttackAnimation() {
-    const userPet = document.getElementById("userPVEpet");
+    const userPet = document.getElementById("userPVEpet").firstChild;
+    userPet.style.zIndex = "1";
     const { battleState, chosenPointForAttack} = this.state;
     const { position } = chosenPointForAttack.bot;
     
@@ -72,32 +73,16 @@ class ArenaPVE extends React.Component {
     
     switch (position) {
       case "top":
-        userPet.animate([
-           {
-            position: "absolute",
-            left: "380px",
-            top: "-65px",
-          }
-
-//           {
-//             left: "540px",
-//             top: "initial",
-//           },
-
-//           {
-//             left: "0px",
-//             position: "initial",
-//           }
-        ], { 
-          duration: 6000,
-          iterations: 1
-        });
+        userPet.classList.add("topUserPetAttackAnimation");
+        setTimeout( () => userPet.classList.remove("topUserPetAttackAnimation"), 6000);
         break;
       case "middle":
-        userPet.style.animation = "middleUserPetAttack 10s 0.1";
+        userPet.classList.add("middleUserPetAttackAnimation");
+        setTimeout( () => userPet.classList.remove("middleUserPetAttackAnimation"), 4000);
         break;
       case "bottom":
-        userPet.style.animation = "bottomUserPetAttack 10s 0.1";
+        userPet.classList.add("bottomUserPetAttackAnimation");
+        setTimeout( () => userPet.classList.remove("bottomUserPetAttackAnimation"), 6000);
         break;
       default:
         throw new Error("unknown chosenPointForAttack.bot.position");
