@@ -2,17 +2,12 @@ const randomMathQuestion = require("random-math-question");
 
 const generateRandomMathQuestion = () => {
   const mathQuestion = randomMathQuestion.get({
-    numberRange: "1-20",
-    amountOfNumber: "3-4",
+    numberRange: "1-10",
+    amountOfNumber: "4-5",
     operations: ["/", "*", "+", "-"],
     nagative: {
         containsNagatives: true,
         negativeChance: "10%"
-    },
-    exponent: {
-        containsExponents: false,
-        exponentChance: "10%",
-        exponentRange: "1-10"
     }
   });
   

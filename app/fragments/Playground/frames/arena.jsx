@@ -33,8 +33,15 @@ class Arena extends React.Component {
     this.loadAliveUserPets = this.loadAliveUserPets.bind(this);
     this.compilePetsIntoPetArenaCardsForChoosing = this.compilePetsIntoPetArenaCardsForChoosing.bind(this);
     this.changeCurrentArenaFRAME = this.changeCurrentArenaFRAME.bind(this);
+    this.setDefaultCurrentArenaFRAME = this.setDefaultCurrentArenaFRAME.bind(this);
     this.loadBattleLogs = this.loadBattleLogs.bind(this);
     this.compileBattleLogsIntoCards = this.compileBattleLogsIntoCards.bind(this);
+  }
+  
+  setDefaultCurrentArenaFRAME() {
+    this.setState({
+        currentArenaFRAME: "DEFAULT"
+    });
   }
   
   async changeCurrentArenaFRAME(event, frameNAME) {
@@ -271,7 +278,8 @@ class Arena extends React.Component {
           <ArenaPVE 
             chosenPetForBattleID={ chosenPetForBattleID }
             userLVL={ Math.trunc(xp/100) }
-            username={ username } />
+            username={ username }
+            setDefaultCurrentArenaFRAME={ this.setDefaultCurrentArenaFRAME } />
         </div>
       );      
     }

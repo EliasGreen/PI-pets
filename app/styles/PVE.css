@@ -171,7 +171,7 @@ ul.userDefenseDots li, ul.botDefenseDots li {
 
 .topUserPetAttackAnimation {
   animation-name: topUserPetAttack;
-  animation-duration: 6s;
+  animation-duration: 1s;
   animation-iteration-count: 1;
 }
 
@@ -191,7 +191,7 @@ ul.userDefenseDots li, ul.botDefenseDots li {
 
 .middleUserPetAttackAnimation {
   animation-name: middleUserPetAttack;
-  animation-duration: 3s;
+  animation-duration: 1s;
   animation-iteration-count: 1;
 }
 
@@ -207,7 +207,7 @@ ul.userDefenseDots li, ul.botDefenseDots li {
 
 .bottomUserPetAttackAnimation {
   animation-name: bottomUserPetAttack;
-  animation-duration: 3s;
+  animation-duration: 1s;
   animation-iteration-count: 1;
 }
 
@@ -223,4 +223,68 @@ ul.userDefenseDots li, ul.botDefenseDots li {
   100% {
     transform: translate(0px, 0px);
   }
+}
+
+.hitToolTip {
+  position: absolute;
+  z-index: 9;
+  background: black;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff4053;
+  padding: 10px;
+  border-radius: 50%;
+  
+  animation-name: hitToolTipMoving;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hitToolTipMoving {
+  0% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+    transform: translate(40px, -80px);
+  }
+}
+
+.finalModal {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: rgba(233, 255, 109, 0.58);
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.finalModal .inner {
+  background: #ff4053;
+  width: 600px;
+  height: 300px;
+  margin: 200px auto;
+  border-radius: 20px;
+  border: 10px solid #523030;
+}
+
+.finalModal .inner h1 {
+  text-align: center;
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.finalModal .inner p {
+  text-align: center;
+}
+
+.finalModal .inner button {
+  margin: 10px auto;
+  display: block;
+  cursor: pointer;
+  padding: 5px;
 }

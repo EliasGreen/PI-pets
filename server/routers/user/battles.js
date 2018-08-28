@@ -65,4 +65,26 @@ router.post("/logs", loginCheck, urlencodedParser, jsonParser, (req, res) => {
   });
 });
 
+/*
+*  @information PUT
+*  @dest: update the last battle log in DB
+*  @security: private
+*/
+router.put("/logs", loginCheck, urlencodedParser, jsonParser, (req, res) => {
+  const { newBattleLogStatus } = req.body;
+  
+  userModel.findById(req.session.passport.user, "battleLogs", (err, user) => {
+    if (!err) {
+      const lastBattleLog = user.battleLogs[user.battleLogs.length - 1];
+      lastBattleLog.status = newBattleLogStatus;
+
+      user.save();
+      res.sendStatus(200);
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
 module.exports = router;

@@ -280,6 +280,31 @@ router.post("/xp", loginCheck, urlencodedParser, jsonParser, (req, res) => {
 
 /*
 *  @information POST
+*  @dest: add coins to user
+*  @security: private
+*/
+router.post("/coins", loginCheck, urlencodedParser, jsonParser, (req, res) => {
+  const { coins } = req.body;
+  
+  userModel.findById(req.session.passport.user, "coins", (err, user) => {
+    if (!err) {
+      user.coins += coins;
+      
+      user.save();
+      res.sendStatus(200);
+      
+      if (listOfUsersSockets.getSocket(user.id)) {
+        listOfUsersSockets.getSocket(user.id).emit("userInformationUpdated");
+      }
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
+*  @information POST
 *  @dest: check the given pet's ID if that pet is alive
 *  @security: private
 */

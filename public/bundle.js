@@ -55659,7 +55659,7 @@ const styles = __webpack_require__(24);
 const io = __webpack_require__(426);
 
 const Frame = __webpack_require__(451);
-const UserInformationBlock = __webpack_require__(899);
+const UserInformationBlock = __webpack_require__(901);
 
 /* 
   @name: Playgeound [page/AI component]
@@ -61005,7 +61005,7 @@ const Inventory = __webpack_require__(462);
 const IngameShop = __webpack_require__(469);
 const WorldMarket = __webpack_require__(470);
 const Arena = __webpack_require__(471);
-const UsersTOP = __webpack_require__(898);
+const UsersTOP = __webpack_require__(900);
 
 class Frame extends React.Component {
   constructor(props) {
@@ -62529,12 +62529,12 @@ const LoadingCircleSpinner = __webpack_require__(55);
 const PetArenaCard = __webpack_require__(472);
 
 const ArenaPVE = __webpack_require__(473);
-const ArenaPVP = __webpack_require__(894);
+const ArenaPVP = __webpack_require__(896);
 
-const TopContainer = __webpack_require__(895);
-const BottomContainer = __webpack_require__(896);
+const TopContainer = __webpack_require__(897);
+const BottomContainer = __webpack_require__(898);
 
-const BattleLogCard = __webpack_require__(897);
+const BattleLogCard = __webpack_require__(899);
 
 class Arena extends React.Component {
   constructor(props) {
@@ -62556,8 +62556,15 @@ class Arena extends React.Component {
     this.loadAliveUserPets = this.loadAliveUserPets.bind(this);
     this.compilePetsIntoPetArenaCardsForChoosing = this.compilePetsIntoPetArenaCardsForChoosing.bind(this);
     this.changeCurrentArenaFRAME = this.changeCurrentArenaFRAME.bind(this);
+    this.setDefaultCurrentArenaFRAME = this.setDefaultCurrentArenaFRAME.bind(this);
     this.loadBattleLogs = this.loadBattleLogs.bind(this);
     this.compileBattleLogsIntoCards = this.compileBattleLogsIntoCards.bind(this);
+  }
+  
+  setDefaultCurrentArenaFRAME() {
+    this.setState({
+        currentArenaFRAME: "DEFAULT"
+    });
   }
   
   async changeCurrentArenaFRAME(event, frameNAME) {
@@ -62794,7 +62801,8 @@ class Arena extends React.Component {
           React.createElement(ArenaPVE, {
             chosenPetForBattleID:  chosenPetForBattleID, 
             userLVL:  Math.trunc(xp/100), 
-            username:  username })
+            username:  username, 
+            setDefaultCurrentArenaFRAME:  this.setDefaultCurrentArenaFRAME})
         )
       );      
     }
@@ -62873,7 +62881,7 @@ const generatePoints =  __webpack_require__(478);
 const generateRandomMathQuestion =  __webpack_require__(479);
 
 const Interface =  __webpack_require__(882);
-const Battleground =  __webpack_require__(887);
+const Battleground =  __webpack_require__(889);
 
 class ArenaPVE extends React.Component {
  constructor(props) {
@@ -62886,8 +62894,15 @@ class ArenaPVE extends React.Component {
       },
       User: {},
       
+      botPetDamage: null,
+      userPetDamage: null,
+      
+      xpUserWillGet: 0,
+      coinsUserWillGet: 0,
+      
       creatingBattleLogError: null,
       gettingUserPetError: null,
+      finalSetupError: null,
       
       timelineWidthPercent: 100,
       mathQuestion: "MathQuestion",
@@ -62910,7 +62925,9 @@ class ArenaPVE extends React.Component {
       chosenPointForDefense: {
         bot: null,
         user: null
-      }
+      },
+      
+      showFinalBattleModal: false
     }
     
     this.createBattleLogInDB = this.createBattleLogInDB.bind(this);
@@ -62925,7 +62942,143 @@ class ArenaPVE extends React.Component {
     this.autoChooseAttackPointForUser = this.autoChooseAttackPointForUser.bind(this);
     this.autoChooseDefensePointForBot = this.autoChooseDefensePointForBot.bind(this);
     this.playUserPetAttackAnimation = this.playUserPetAttackAnimation.bind(this);
+    this.calculateUserPetAttack = this.calculateUserPetAttack.bind(this);
+    this.changeTurn = this.changeTurn.bind(this);
+    this.handleFinalOfBattle = this.handleFinalOfBattle.bind(this); 
   }
+  
+  async handleFinalOfBattle() {
+    const { battleState, Bot } = this.state;
+    
+    this.setState({
+      showFinalBattleModal: true
+    });
+    
+    let data = {
+      newBattleLogStatus: battleState
+    }
+
+    let options = { 
+      method: "put", 
+      credentials: "include",
+      headers: { "Content-Type": "application/json", "Accept":"application/json" }, 
+      body: JSON.stringify(data)
+    };
+    
+    if (battleState === "user have won") {
+      const XP = 15;
+      const xpUserWillGet = Math.round(XP * (Bot.lvl+1) * Math.random());
+      
+      const COINS = 30;
+      const coinsUserWillGet = Math.round(COINS * (Bot.lvl+1) * Math.random());
+      
+      this.setState({
+        xpUserWillGet: xpUserWillGet,
+        coinsUserWillGet: coinsUserWillGet
+      });
+      
+      try {
+        await fetch("user/battles/logs", options);
+        
+        data = {
+          xp: xpUserWillGet
+        };
+        options.method = "post";
+        options.body = JSON.stringify(data);
+        await fetch("user/xp", options);
+        
+        data = {
+          coins: coinsUserWillGet
+        };
+        options.body = JSON.stringify(data);
+        await fetch("user/coins", options);
+      }
+      catch (finalSetupError) {
+        this.setState({ finalSetupError });
+      }
+    }
+    else if (battleState = "bot have won") {
+      try {
+        await fetch("user/battles/logs", options);
+      }
+      catch (finalSetupError) {
+        this.setState({ finalSetupError });
+      }       
+    }
+  }
+  
+  changeTurn() {
+    const { battleState, turn } = this.state;
+    
+    if (battleState !== "changing turn") return;
+    
+    const newTurn = turn === "user" ? "bot" : "user";
+    
+    const answerInput = document.forms.answer.elements.answer;
+    answerInput.value = null;
+    
+    this.setState({
+      mathQuestion: "MathQuestion",
+      answerState: null,
+       points: {
+        bot: {},
+        user: {}
+      },
+      
+      chosenPointForAttack: {
+        bot: null,
+        user: null
+      },
+      chosenPointForDefense: {
+        bot: null,
+        user: null
+      },
+      
+      turn: newTurn,
+      battleState: "bot pet attack"
+    });
+  }
+  
+  calculateUserPetAttack(USER_PET_ATTACK_ANIMATION_TIME_MS) {
+    const { User, Bot, answerState, chosenPointForAttack, chosenPointForDefense, battleState } = this.state;
+    
+    if (battleState !== "user attack calculation") return;
+    
+    const USER_DAMAGE_DECREASE_RATE = 0.7;
+    const BOT_DEFENSE_DECREASE_RATE = 0.7;
+    
+    const botPetDefense = (chosenPointForAttack.bot.position === chosenPointForDefense.bot.position) ?
+                           Bot.pet.defense :
+                           Math.round(Bot.pet.defense * BOT_DEFENSE_DECREASE_RATE);
+     
+    const userPetDamage = (answerState === true) ? 
+                           Math.max(1, (User.pet.attack - botPetDefense)): 
+                           Math.max(1, (Math.round(User.pet.attack * USER_DAMAGE_DECREASE_RATE) - botPetDefense));
+    
+    
+    const newBotPetHitPoints = Bot.pet.hitPoints - userPetDamage;
+    Bot.pet.hitPoints = newBotPetHitPoints;
+    this.setState({ Bot });
+    
+    setTimeout( () => {
+      if (newBotPetHitPoints > 0) {
+        this.setState({ 
+          userPetDamage: userPetDamage,
+          battleState: "changing turn",
+        });
+        
+        setTimeout(this.changeTurn, USER_PET_ATTACK_ANIMATION_TIME_MS/2);
+      }
+      else {
+        this.setState({ 
+          userPetDamage: userPetDamage,
+          battleState: "user have won",
+        });
+        
+        setTimeout(this.handleFinalOfBattle, USER_PET_ATTACK_ANIMATION_TIME_MS/2);
+      }
+    }, USER_PET_ATTACK_ANIMATION_TIME_MS/2);
+  }                 
   
   playUserPetAttackAnimation() {
     const userPet = document.getElementById("userPVEpet").firstChild;
@@ -62935,18 +63088,20 @@ class ArenaPVE extends React.Component {
     
     if (battleState !== "user pet attack animation") return;
     
+    const USER_PET_ATTACK_ANIMATION_TIME_MS = 1000;
+    
     switch (position) {
       case "top":
         userPet.classList.add("topUserPetAttackAnimation");
-        setTimeout( () => userPet.classList.remove("topUserPetAttackAnimation"), 6000);
+        setTimeout( () => userPet.classList.remove("topUserPetAttackAnimation"), USER_PET_ATTACK_ANIMATION_TIME_MS);
         break;
       case "middle":
         userPet.classList.add("middleUserPetAttackAnimation");
-        setTimeout( () => userPet.classList.remove("middleUserPetAttackAnimation"), 4000);
+        setTimeout( () => userPet.classList.remove("middleUserPetAttackAnimation"), USER_PET_ATTACK_ANIMATION_TIME_MS);
         break;
       case "bottom":
         userPet.classList.add("bottomUserPetAttackAnimation");
-        setTimeout( () => userPet.classList.remove("bottomUserPetAttackAnimation"), 6000);
+        setTimeout( () => userPet.classList.remove("bottomUserPetAttackAnimation"), USER_PET_ATTACK_ANIMATION_TIME_MS);
         break;
       default:
         throw new Error("unknown chosenPointForAttack.bot.position");
@@ -62955,6 +63110,7 @@ class ArenaPVE extends React.Component {
     this.setState({
       battleState: "user attack calculation"
     });
+    this.calculateUserPetAttack(USER_PET_ATTACK_ANIMATION_TIME_MS);
   }
   
  autoChooseDefensePointForBot() {
@@ -63051,6 +63207,7 @@ generateUserPoints() {
  handleKeyUp() {
    document.onkeyup = (event) => {
      const { battleState, points } = this.state;
+
      if (battleState === "user choosing attack point") {
        const letter = event.key.toUpperCase();
        
@@ -63261,7 +63418,15 @@ generateUserPoints() {
            answerState,
            points,
            chosenPointForAttack,
-           chosenPointForDefense } = this.state;
+           chosenPointForDefense,
+           userPetDamage,
+           botPetDamage,
+           xpUserWillGet,
+           coinsUserWillGet,
+           showFinalBattleModal,
+           battleState } = this.state;
+    
+    const { setDefaultCurrentArenaFRAME } = this.props;
     
     const timelineInlineStyles = this.calculateTimelineInlineStyles(timelineWidthPercent, answerState);
     
@@ -63279,7 +63444,16 @@ generateUserPoints() {
           mathQuestion:  mathQuestion, 
           round:  round, 
           answerMathQuestion:  this.answerMathQuestion, 
-          timelineInlineStyles:  timelineInlineStyles }), 
+          timelineInlineStyles:  timelineInlineStyles, 
+          userPetDamage:  userPetDamage, 
+          botPetDamage:  botPetDamage, 
+          xpUserWillGet:  xpUserWillGet, 
+          coinsUserWillGet:  coinsUserWillGet, 
+          username:  User.username, 
+          botname:  Bot.botname, 
+          showFinalBattleModal:  showFinalBattleModal, 
+          battleState:  battleState, 
+          setDefaultCurrentArenaFRAME:  setDefaultCurrentArenaFRAME }), 
         
          User.pet && 
         React.createElement(Battleground, {
@@ -63336,7 +63510,7 @@ exports = module.exports = __webpack_require__(37)(false);
 
 
 // module
-exports.push([module.i, ".ArenaPVEcontainer {\n  width: 100%;\n  height: 100%;\n}\n\n.interface {\n  position: relative;\n  box-sizing: border-box;\n  width: 100%;\n  height: 40%;\n}\n\n.battleground {\n  box-sizing: border-box;\n  width: 100%;\n  height: 60%;\n}\n\n.userSide, .botSide {\n  box-sizing: border-box;\n  width: 50%;\n  height: 100%;\n  position: relative;\n}\n\n.userSide {\n  float: left; \n}\n\n.botSide {\n  float: right; \n}\n\n.battleground .petContainer {\n  background: rgb(130, 29, 57);\n  position: relative;\n  width: 120pt;\n  height: 230px;\n  margin: 80px 20px;\n}\n\n.userSide .left, .botSide .left {\n  float: left; \n}\n\n.userSide .right, .botSide .right {\n  float: right; \n}\n\n.petContainer .playerName {\n  text-align: center;\n  font-size: 1.5rem;\n  padding: 10px;\n  font-weight: bold;\n  background: darkseagreen;\n  margin-bottom: 10px;\n  color: darkslategrey;\n  overflow-x: hidden;\n  white-space: pre;\n}\n\n.petContainer .petComponentWrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 1;\n}\n\n.petContainer .petNickname {\n  text-align: center;\n  background: #c57c7c;\n  width: 140px;\n  padding: 4px;\n  color: rgb(226, 216, 219);\n  position: absolute;\n  bottom: 10px;\n  left: 6px;\n}\n\nul.userDefenseDots, ul.botDefenseDots {\n  height: 325px;\n  width: 72px;\n  background: #ff4053;\n  margin: 20px 40px;\n}\n\nul.userDefenseDots {\n  float: right;\n}\n\nul.botDefenseDots {\n  float: left;\n}\n\nul.userDefenseDots li, ul.botDefenseDots li {\n  height: calc((100% - 40px)/3);\n  margin: 10px;\n  background: #7e8588;\n  text-align: center;\n  font-size: 3rem;\n  padding-top: 23px;\n  box-sizing: border-box;\n}\n\n.interface .timeline {\n  width: 100%;\n  height: 40px;\n  background: #4e4646;\n  position: absolute;\n  bottom: 0;\n  border: 5px solid #3a0010;\n  box-sizing: border-box;\n}\n\n.timeline .inner {\n  height: 100%;\n  background: rgb(255, 195, 201);\n  transition-duration: 0.1s;\n}\n\n.interface .round {\n  width: 203px;\n  margin: 10px auto;\n  text-align: center;\n  background: darkseagreen;\n  padding: 5px;\n  color: darkslategrey;\n  font-size: 1.2rem;\n  border-radius: 8%;\n  border: 10px solid rgba(0, 0, 0, 0.42);\n}\n\n.interface .mathQuestionContainer {\n  text-align: center;\n  margin: 10px 40px;\n  background: floralwhite;\n  border: 10px solid #821d39;\n  padding: 10px;\n  font-size: 3rem;\n}\n\n.interface form {\n  width: 300px;\n  background: #821d39;\n  margin: auto;\n  height: 140px;\n  border-radius: 20%;\n}\n\n.interface form label {\n  display: block;\n  padding: 20px 0 5px 10px;\n  color: white;\n}\n\n.interface form input[type=\"number\"] {\n  width: 80%;\n  margin: 5px auto;\n  display: block;\n  text-align: center;\n}\n\n.interface form button {\n  display: block;\n  margin: 30px auto;\n  width: 100px;\n  padding: 5px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.topUserPetAttackAnimation {\n  animation-name: topUserPetAttack;\n  animation-duration: 6s;\n  animation-iteration-count: 1;\n}\n\n@keyframes topUserPetAttack {\n  40% {\n    transform: translate(380px, -100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.middleUserPetAttackAnimation {\n  animation-name: middleUserPetAttack;\n  animation-duration: 3s;\n  animation-iteration-count: 1;\n}\n\n@keyframes middleUserPetAttack {\n  50% {\n   transform: translateX(540px);\n  }\n  \n  100% {\n     transform: translateX(0px);\n  }\n}\n\n.bottomUserPetAttackAnimation {\n  animation-name: bottomUserPetAttack;\n  animation-duration: 3s;\n  animation-iteration-count: 1;\n}\n\n@keyframes bottomUserPetAttack {\n  40% {\n    transform: translate(380px, 100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n", ""]);
+exports.push([module.i, ".ArenaPVEcontainer {\n  width: 100%;\n  height: 100%;\n}\n\n.interface {\n  position: relative;\n  box-sizing: border-box;\n  width: 100%;\n  height: 40%;\n}\n\n.battleground {\n  box-sizing: border-box;\n  width: 100%;\n  height: 60%;\n}\n\n.userSide, .botSide {\n  box-sizing: border-box;\n  width: 50%;\n  height: 100%;\n  position: relative;\n}\n\n.userSide {\n  float: left; \n}\n\n.botSide {\n  float: right; \n}\n\n.battleground .petContainer {\n  background: rgb(130, 29, 57);\n  position: relative;\n  width: 120pt;\n  height: 230px;\n  margin: 80px 20px;\n}\n\n.userSide .left, .botSide .left {\n  float: left; \n}\n\n.userSide .right, .botSide .right {\n  float: right; \n}\n\n.petContainer .playerName {\n  text-align: center;\n  font-size: 1.5rem;\n  padding: 10px;\n  font-weight: bold;\n  background: darkseagreen;\n  margin-bottom: 10px;\n  color: darkslategrey;\n  overflow-x: hidden;\n  white-space: pre;\n}\n\n.petContainer .petComponentWrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 1;\n}\n\n.petContainer .petNickname {\n  text-align: center;\n  background: #c57c7c;\n  width: 140px;\n  padding: 4px;\n  color: rgb(226, 216, 219);\n  position: absolute;\n  bottom: 10px;\n  left: 6px;\n}\n\nul.userDefenseDots, ul.botDefenseDots {\n  height: 325px;\n  width: 72px;\n  background: #ff4053;\n  margin: 20px 40px;\n}\n\nul.userDefenseDots {\n  float: right;\n}\n\nul.botDefenseDots {\n  float: left;\n}\n\nul.userDefenseDots li, ul.botDefenseDots li {\n  height: calc((100% - 40px)/3);\n  margin: 10px;\n  background: #7e8588;\n  text-align: center;\n  font-size: 3rem;\n  padding-top: 23px;\n  box-sizing: border-box;\n}\n\n.interface .timeline {\n  width: 100%;\n  height: 40px;\n  background: #4e4646;\n  position: absolute;\n  bottom: 0;\n  border: 5px solid #3a0010;\n  box-sizing: border-box;\n}\n\n.timeline .inner {\n  height: 100%;\n  background: rgb(255, 195, 201);\n  transition-duration: 0.1s;\n}\n\n.interface .round {\n  width: 203px;\n  margin: 10px auto;\n  text-align: center;\n  background: darkseagreen;\n  padding: 5px;\n  color: darkslategrey;\n  font-size: 1.2rem;\n  border-radius: 8%;\n  border: 10px solid rgba(0, 0, 0, 0.42);\n}\n\n.interface .mathQuestionContainer {\n  text-align: center;\n  margin: 10px 40px;\n  background: floralwhite;\n  border: 10px solid #821d39;\n  padding: 10px;\n  font-size: 3rem;\n}\n\n.interface form {\n  width: 300px;\n  background: #821d39;\n  margin: auto;\n  height: 140px;\n  border-radius: 20%;\n}\n\n.interface form label {\n  display: block;\n  padding: 20px 0 5px 10px;\n  color: white;\n}\n\n.interface form input[type=\"number\"] {\n  width: 80%;\n  margin: 5px auto;\n  display: block;\n  text-align: center;\n}\n\n.interface form button {\n  display: block;\n  margin: 30px auto;\n  width: 100px;\n  padding: 5px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.topUserPetAttackAnimation {\n  animation-name: topUserPetAttack;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n}\n\n@keyframes topUserPetAttack {\n  40% {\n    transform: translate(380px, -100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.middleUserPetAttackAnimation {\n  animation-name: middleUserPetAttack;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n}\n\n@keyframes middleUserPetAttack {\n  50% {\n   transform: translateX(540px);\n  }\n  \n  100% {\n     transform: translateX(0px);\n  }\n}\n\n.bottomUserPetAttackAnimation {\n  animation-name: bottomUserPetAttack;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n}\n\n@keyframes bottomUserPetAttack {\n  40% {\n    transform: translate(380px, 100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.hitToolTip {\n  position: absolute;\n  z-index: 9;\n  background: black;\n  font-size: 2rem;\n  font-weight: bold;\n  color: #ff4053;\n  padding: 10px;\n  border-radius: 50%;\n  \n  animation-name: hitToolTipMoving;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n  animation-fill-mode: forwards;\n}\n\n@keyframes hitToolTipMoving {\n  0% {\n    opacity: 1;\n  }\n  \n  100% {\n    opacity: 0;\n    transform: translate(40px, -80px);\n  }\n}\n\n.finalModal {\n  position: fixed;\n  width: 100%;\n  height: 100vh;\n  background: rgba(233, 255, 109, 0.58);\n  top: 0;\n  left: 0;\n  z-index: 2;\n}\n\n.finalModal .inner {\n  background: #ff4053;\n  width: 600px;\n  height: 300px;\n  margin: 200px auto;\n  border-radius: 20px;\n  border: 10px solid #523030;\n}\n\n.finalModal .inner h1 {\n  text-align: center;\n  padding: 10px;\n  font-size: 2rem;\n  font-weight: bold;\n}\n\n.finalModal .inner p {\n  text-align: center;\n}\n\n.finalModal .inner button {\n  margin: 10px auto;\n  display: block;\n  cursor: pointer;\n  padding: 5px;\n}\n", ""]);
 
 // exports
 
@@ -63380,8 +63554,10 @@ module.exports = generateLVL;
 /* 478 */
 /***/ (function(module, exports) {
 
-const getRandomInt = (min, max) => {
-  	return Math.floor(Math.random() * (max - min)) + min;
+function getRandomInt(min, max) {
+    let rand = min + Math.random() * (max + 1 - min);
+    rand = Math.floor(rand);
+    return rand;
 }
 
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
@@ -63390,7 +63566,8 @@ const generateRandomLetters = () => {
   let randomLetters = [];
   
   while (randomLetters.length !== 3) {
-    let letter = alphabet[getRandomInt(0, alphabet.length + 1)];
+    const randomInt = getRandomInt(0, alphabet.length - 1);
+    const letter = alphabet[randomInt];
     
     if (!randomLetters.includes(letter)) {
       randomLetters.push(letter);
@@ -63419,17 +63596,12 @@ const randomMathQuestion = __webpack_require__(480);
 
 const generateRandomMathQuestion = () => {
   const mathQuestion = randomMathQuestion.get({
-    numberRange: "1-20",
-    amountOfNumber: "3-4",
+    numberRange: "1-10",
+    amountOfNumber: "4-5",
     operations: ["/", "*", "+", "-"],
     nagative: {
         containsNagatives: true,
         negativeChance: "10%"
-    },
-    exponent: {
-        containsExponents: false,
-        exponentChance: "10%",
-        exponentRange: "1-10"
     }
   });
   
@@ -100131,6 +100303,8 @@ const Round = __webpack_require__(883);
 const Timeline = __webpack_require__(884);
 const MathQuestion = __webpack_require__(885);
 const AnswerForm = __webpack_require__(886);
+const HitTooltip = __webpack_require__(887);
+const FinalModal = __webpack_require__(888);
 
 class Interface extends React.Component {
  constructor(props) {
@@ -100138,7 +100312,19 @@ class Interface extends React.Component {
     this.state = {}
   }
   render() {
-    const { mathQuestion, round, answerMathQuestion, timelineInlineStyles } = this.props;
+    const { mathQuestion,
+           round,
+           answerMathQuestion,
+           timelineInlineStyles, 
+           userPetDamage,
+           botPetDamage,
+           xpUserWillGet,
+           coinsUserWillGet,
+           username,
+           botname,
+           showFinalBattleModal,
+           battleState,
+           setDefaultCurrentArenaFRAME } = this.props;
     return(
       React.createElement("div", {className: "interface"}, 
         React.createElement(Round, {
@@ -100151,7 +100337,23 @@ class Interface extends React.Component {
           answerMathQuestion:  answerMathQuestion }), 
         
         React.createElement(Timeline, {
-          timelineInlineStyles:  timelineInlineStyles })
+          timelineInlineStyles:  timelineInlineStyles }), 
+        
+         
+          userPetDamage && React.createElement(HitTooltip, {userPetDamage:  userPetDamage }) || 
+          botPetDamage && React.createElement(HitTooltip, {botPetDamage:  botPetDamage }), 
+        
+        
+         
+          showFinalBattleModal && 
+            React.createElement(FinalModal, {
+              battleState:  battleState, 
+              xpUserWillGet:  xpUserWillGet, 
+              coinsUserWillGet:  coinsUserWillGet, 
+              username:  username, 
+              botname:  botname, 
+              setDefaultCurrentArenaFRAME:  setDefaultCurrentArenaFRAME })
+        
       )
     );
   }
@@ -100218,11 +100420,21 @@ class MathQuestion extends React.Component {
   }
   render() {
     const { mathQuestion } = this.props;
-    return(
-      React.createElement("div", {className: "mathQuestionContainer"}, 
-         mathQuestion.question
-      )
-    );
+    
+    if (mathQuestion.question) {
+      return(
+        React.createElement("div", {className: "mathQuestionContainer"}, 
+           "-" + mathQuestion.question
+        )
+      );
+    }
+    else {
+      return(
+        React.createElement("div", {className: "mathQuestionContainer"}, 
+           mathQuestion 
+        )
+      );
+    }
   }
 }
 
@@ -100242,7 +100454,7 @@ class AnswerForm extends React.Component {
   render() {
     const { answerMathQuestion } = this.props;
     return(
-      React.createElement("form", {onSubmit: (event) => { answerMathQuestion(event) }}, 
+      React.createElement("form", {onSubmit: (event) => { answerMathQuestion(event) }, name: "answer"}, 
           React.createElement("label", null, " Answer: "), 
           React.createElement("input", {autoFocus: true, type: "number", name: "answer", autoComplete: "off"}), 
           React.createElement("button", {type: "submit"}, " asnwer ")
@@ -100259,8 +100471,80 @@ module.exports = AnswerForm;
 
 const React = __webpack_require__(4);
 
-const UserSide = __webpack_require__(888);
-const BotSide = __webpack_require__(891);
+class HitToolTip extends React.Component {
+ constructor(props) {
+    super(props)
+    this.state = {}
+  }
+  render() {
+    const { userPetDamage, botPetDamage } = this.props;
+    
+    
+    if (userPetDamage) {
+      const hitToolTipPosition = {
+        top: "450px",
+        left: "660px"
+      };
+
+      return(
+        React.createElement("div", {className: "hitToolTip", style:  hitToolTipPosition }, 
+           "-" + userPetDamage
+        )
+      );  
+    }
+    else if (botPetDamage) {
+      const hitToolTipPosition = {
+        top: "450px",
+        left: "60px"
+      };
+
+      return(
+        React.createElement("div", {className: "hitToolTip", style:  hitToolTipPosition }, 
+           "-" + botPetDamage
+        )
+      );  
+    }
+  }
+}
+
+module.exports = HitToolTip;
+
+/***/ }),
+/* 888 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const React = __webpack_require__(4);
+
+class FinalModal extends React.Component {
+ constructor(props) {
+    super(props)
+    this.state = {}
+  }
+  render() {
+    const { battleState, xpUserWillGet, coinsUserWillGet, username, botname, setDefaultCurrentArenaFRAME } = this.props;
+    const whoWon = battleState === "user have won" ? username : botname;
+    return(
+      React.createElement("div", {className: "finalModal"}, 
+        React.createElement("div", {className: "inner"}, 
+          React.createElement("h1", null,  whoWon, " - winner!"), 
+          React.createElement("p", null, " You got ",  xpUserWillGet, " XP points and ",  coinsUserWillGet, " coins "), 
+          React.createElement("button", {onClick:  setDefaultCurrentArenaFRAME }, " back to arena ")
+        )
+      )
+    );
+  }
+}
+
+module.exports = FinalModal;
+
+/***/ }),
+/* 889 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const React = __webpack_require__(4);
+
+const UserSide = __webpack_require__(890);
+const BotSide = __webpack_require__(893);
 
 class Battleground extends React.Component {
  constructor(props) {
@@ -100314,15 +100598,15 @@ class Battleground extends React.Component {
 module.exports = Battleground;
 
 /***/ }),
-/* 888 */
+/* 890 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
 
 const generatePetComponentByItsType =  __webpack_require__(125);
 
-const Dots = __webpack_require__(889);
-const PetContainer = __webpack_require__(890);
+const Dots = __webpack_require__(891);
+const PetContainer = __webpack_require__(892);
 
 class UserSide extends React.Component {
  constructor(props) {
@@ -100345,7 +100629,7 @@ class UserSide extends React.Component {
 module.exports = UserSide;
 
 /***/ }),
-/* 889 */
+/* 891 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100404,7 +100688,7 @@ class Dots extends React.Component {
 module.exports = Dots;
 
 /***/ }),
-/* 890 */
+/* 892 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100435,15 +100719,15 @@ class PetContainer extends React.Component {
 module.exports = PetContainer;
 
 /***/ }),
-/* 891 */
+/* 893 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
 
 const generatePetComponentByItsType =  __webpack_require__(125);
 
-const Dots = __webpack_require__(892);
-const PetContainer = __webpack_require__(893);
+const Dots = __webpack_require__(894);
+const PetContainer = __webpack_require__(895);
 
 class BotSide extends React.Component {
  constructor(props) {
@@ -100470,7 +100754,7 @@ class BotSide extends React.Component {
 module.exports = BotSide;
 
 /***/ }),
-/* 892 */
+/* 894 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100547,7 +100831,7 @@ class Dots extends React.Component {
 module.exports = Dots;
 
 /***/ }),
-/* 893 */
+/* 895 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100578,7 +100862,7 @@ class PetContainer extends React.Component {
 module.exports = PetContainer;
 
 /***/ }),
-/* 894 */
+/* 896 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100606,7 +100890,7 @@ class ArenaPVP extends React.Component {
 module.exports = ArenaPVP;
 
 /***/ }),
-/* 895 */
+/* 897 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100626,7 +100910,7 @@ const TopContainer = ({ choosingError, changeCurrentArenaFRAME }) => {
 module.exports = TopContainer;
 
 /***/ }),
-/* 896 */
+/* 898 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100656,7 +100940,7 @@ const BottomContainer = ({ petArenaCards, battleLogCards }) => {
 module.exports = BottomContainer;
 
 /***/ }),
-/* 897 */
+/* 899 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100675,7 +100959,7 @@ const battleLogCard = ({ battleLog }) => {
 module.exports = battleLogCard;
 
 /***/ }),
-/* 898 */
+/* 900 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100723,7 +101007,7 @@ class UsersTOP extends React.Component {
 module.exports = UsersTOP;
 
 /***/ }),
-/* 899 */
+/* 901 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
