@@ -6,7 +6,7 @@ class Dots extends React.Component {
     this.state = {}
   }
   render() {
-    const { userPoints, userChosenPoint } = this.props;
+    const { userPoints, userChosenPointForDefense } = this.props;
     
     if (userPoints) {
       const { top, middle, bottom } = userPoints;
@@ -15,21 +15,24 @@ class Dots extends React.Component {
       let middleDotStyle = {};
       let bottomDotStyle = {};
       
-      if (userChosenPoint) {
-        switch (userChosenPoint.position) {
+       if (userChosenPointForDefense) {
+        switch (userChosenPointForDefense.position) {
           case "top":
-            topDotStyle = { color: "#ff4053" }
+            topDotStyle.background = "yellow";
             break;
           case "middle":
-            middleDotStyle = { color: "#ff4053" }
+            middleDotStyle.background = "yellow";
             break;
           case "bottom":
-            bottomDotStyle = { color: "#ff4053" }
+            bottomDotStyle.background = "yellow";
+            break;
+          case "placeholer-plug":
+            // do nothing
             break;
           default:
-            throw new Error("unknown dot positon");
-        };
-      }
+            throw new Error("unknown dot position");
+         };
+       }
       
       return(
         <ul className="userDefenseDots">

@@ -189,6 +189,26 @@ ul.userDefenseDots li, ul.botDefenseDots li {
   }
 }
 
+.topBotPetAttackAnimation {
+  animation-name: topBotPetAttack;
+  animation-duration: 8s;
+  animation-iteration-count: 1;
+}
+
+@keyframes topBotPetAttack {
+  40% {
+    transform: translate(-380px, -100px);
+  }
+  
+  50% {
+    transform: translateX(-540px);
+  }
+  
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
 .middleUserPetAttackAnimation {
   animation-name: middleUserPetAttack;
   animation-duration: 1s;
@@ -198,6 +218,22 @@ ul.userDefenseDots li, ul.botDefenseDots li {
 @keyframes middleUserPetAttack {
   50% {
    transform: translateX(540px);
+  }
+  
+  100% {
+     transform: translateX(0px);
+  }
+}
+
+.middleBotPetAttackAnimation {
+  animation-name: middleBotPetAttack;
+  animation-duration: 8s;
+  animation-iteration-count: 1;
+}
+
+@keyframes middleBotPetAttack {
+  50% {
+   transform: translateX(-540px);
   }
   
   100% {
@@ -218,6 +254,26 @@ ul.userDefenseDots li, ul.botDefenseDots li {
   
   50% {
     transform: translateX(540px);
+  }
+  
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.bottomBotPetAttackAnimation {
+  animation-name: bottomBotPetAttack;
+  animation-duration: 8s;
+  animation-iteration-count: 1;
+}
+
+@keyframes bottomBotPetAttack {
+  40% {
+    transform: translate(-380px, 100px);
+  }
+  
+  50% {
+    transform: translateX(-540px);
   }
   
   100% {

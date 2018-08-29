@@ -31,11 +31,12 @@ class ArenaPVE extends React.Component {
       creatingBattleLogError: null,
       gettingUserPetError: null,
       finalSetupError: null,
+      unknownError: null,
       
       timelineWidthPercent: 100,
       mathQuestion: "MathQuestion",
       round: 1,
-      turn: null,
+      turn: "user",
       
       battleState: "starting",
       timerState: "pause",
@@ -71,8 +72,150 @@ class ArenaPVE extends React.Component {
     this.autoChooseDefensePointForBot = this.autoChooseDefensePointForBot.bind(this);
     this.playUserPetAttackAnimation = this.playUserPetAttackAnimation.bind(this);
     this.calculateUserPetAttack = this.calculateUserPetAttack.bind(this);
+    this.calculateBotPetAttack = this.calculateBotPetAttack.bind(this);
     this.changeTurn = this.changeTurn.bind(this);
     this.handleFinalOfBattle = this.handleFinalOfBattle.bind(this); 
+    this.playBotPetAttackAnimation = this.playBotPetAttackAnimation.bind(this); 
+    this.botPetDamageCalculation = this.botPetDamageCalculation.bind(this);
+    this.setNewUserPetHitPointsIntoDB = this.setNewUserPetHitPointsIntoDB.bind(this);
+    this.incrementRound = this.incrementRound.bind(this);
+  }
+  
+  incrementRound() {
+    this.setState( prevState => {
+      return({
+        round: prevState.round + 1
+      });  
+    });
+  }
+  
+  async setNewUserPetHitPointsIntoDB(newUserPetHitPoints, petID) {
+    const data = {
+      updatedPetHitPoints: newUserPetHitPoints
+    }
+    
+    const options = { 
+      method: "put", 
+      credentials: "include",
+      headers: { "Content-Type": "application/json", "Accept":"application/json" }, 
+      body: JSON.stringify(data)
+    };
+    
+    try {
+      await fetch(`user/pet/${petID}/hitpoints`, options);
+    }
+    catch (unknownError) {
+      this.setState({ unknownError });
+    }
+  }
+  
+  botPetDamageCalculation(BOT_PET_ATTACK_ANIMATION_TIME_MS) {
+    this.setState({ 
+      battleState: "bot pet damage calculation"
+    });
+    
+    const { chosenPointForAttack, chosenPointForDefense, answerState, User, Bot } = this.state;
+    
+    const BOT_DAMAGE_DECREASE_RATE = 0.7;
+    const USER_DEFENSE_DECREASE_RATE = 0.7;
+    
+    if (!chosenPointForDefense.user) chosenPointForDefense.user = { position: "placeholer-plug" };
+    
+    const userPetDefense = (chosenPointForAttack.user.position === chosenPointForDefense.user.position) ?
+                           User.pet.defense :
+                           Math.round(User.pet.defense * USER_DEFENSE_DECREASE_RATE);
+     
+    const botPetDamage = (answerState === true) ? 
+                           Math.max(1, (Bot.pet.attack - userPetDefense)): 
+                           Math.max(1, (Math.round(Bot.pet.attack * BOT_DAMAGE_DECREASE_RATE) - userPetDefense));
+    
+    const newUserPetHitPoints = Math.max(0, (User.pet.hitPoints - botPetDamage));
+    User.pet.hitPoints = newUserPetHitPoints;
+    this.setState({ 
+      User: User,
+      botPetDamage: botPetDamage
+    });
+    
+    this.setNewUserPetHitPointsIntoDB(newUserPetHitPoints, User.pet._id);
+    
+    if (newUserPetHitPoints !== 0) {
+      this.setState({ 
+        battleState: "changing turn",
+      });
+        
+      setTimeout( () => {
+        this.changeTurn();
+        this.incrementRound();
+      }, BOT_PET_ATTACK_ANIMATION_TIME_MS/2);
+    }
+    else {
+      this.setState({ 
+        battleState: "bot have won"
+      });
+      
+      setTimeout(this.handleFinalOfBattle, BOT_PET_ATTACK_ANIMATION_TIME_MS/2);
+    }
+  }
+  
+  playBotPetAttackAnimation(BOT_PET_ATTACK_ANIMATION_TIME_MS) {
+    const { battleState } = this.state;
+    
+    const botPet = document.getElementById("botPVEpet").firstChild;
+    botPet.style.zIndex = "1";
+    const { chosenPointForAttack} = this.state;
+    const { position } = chosenPointForAttack.user;
+    
+    switch (position) {
+      case "top":
+        botPet.classList.add("topBotPetAttackAnimation");
+        setTimeout( () => botPet.classList.remove("topBotPetAttackAnimation"), BOT_PET_ATTACK_ANIMATION_TIME_MS);
+        break;
+      case "middle":
+        botPet.classList.add("middleBotPetAttackAnimation");
+        setTimeout( () => botPet.classList.remove("middleBotPetAttackAnimation"), BOT_PET_ATTACK_ANIMATION_TIME_MS);
+        break;
+      case "bottom":
+        botPet.classList.add("bottomBotPetAttackAnimation");
+        setTimeout( () => botPet.classList.remove("bottomBotPetAttackAnimation"), BOT_PET_ATTACK_ANIMATION_TIME_MS);
+        break;
+      default:
+        throw new Error("unknown chosenPointForAttack.user.position");
+    }
+  }
+  
+  calculateBotPetAttack() {
+    const { battleState, Bot } = this.state;
+    
+    if (battleState !== "bot pet attack calculation") return;
+    
+    const _CHANCE_DECREASER = 20;
+    const botMathQuestionAnswer = 
+          (Bot.lvl / _CHANCE_DECREASER) > Math.random()
+          ? true
+          : false;
+    
+    this.generateUserPoints();
+    const pointsPositions = ["top", "middle", "bottom"];
+    const chosenPointPositionForAttack = pointsPositions[Math.floor(Math.random() * 3)];
+    const { points } = this.state;
+    const chosenPointForAttack = {
+      point: points.user[chosenPointPositionForAttack],
+      position: chosenPointPositionForAttack
+    }
+    
+    this.setState( prevState => { 
+       return({
+         battleState: "user choosing defense point",
+         answerState: botMathQuestionAnswer,
+         chosenPointForAttack:  
+           Object.assign({}, prevState.chosenPointForAttack, { user: chosenPointForAttack })
+       });
+    });
+    
+    const BOT_PET_ATTACK_ANIMATION_TIME_MS = 8000;
+    this.playBotPetAttackAnimation(BOT_PET_ATTACK_ANIMATION_TIME_MS);
+    
+    setTimeout( () => this.botPetDamageCalculation(BOT_PET_ATTACK_ANIMATION_TIME_MS), BOT_PET_ATTACK_ANIMATION_TIME_MS/2);
   }
   
   async handleFinalOfBattle() {
@@ -141,6 +284,8 @@ class ArenaPVE extends React.Component {
     if (battleState !== "changing turn") return;
     
     const newTurn = turn === "user" ? "bot" : "user";
+    const newBattleState = turn === "user" ? "bot pet attack calculation" : "user answering";
+    const nextFunction = turn === "user" ? this.calculateBotPetAttack : this.startBattle;
     
     const answerInput = document.forms.answer.elements.answer;
     answerInput.value = null;
@@ -163,8 +308,12 @@ class ArenaPVE extends React.Component {
       },
       
       turn: newTurn,
-      battleState: "bot pet attack"
+      battleState: newBattleState,
+      botPetDamage: null,
+      userPetDamage: null
     });
+    
+    nextFunction();
   }
   
   calculateUserPetAttack(USER_PET_ATTACK_ANIMATION_TIME_MS) {
@@ -355,8 +504,25 @@ generateUserPoints() {
            setTimeout(this.autoChooseDefensePointForBot, 1000);
          }
        });
-         
-         
+     }
+     
+     if (battleState === "user choosing defense point") {
+       const letter = event.key.toUpperCase();
+       
+       Object.keys(points.user).map( (key, index) => {
+         if (letter === points.user[key]) {
+           this.setState({
+             chosenPointForDefense: {
+               bot: null,
+               user: {
+                 point: letter,
+                 position: key
+               }
+             },
+             battleState: "bot pet damage calculation"
+           });
+         }
+       });
      }
    }
  }
@@ -400,8 +566,7 @@ generateUserPoints() {
    this.setState({
      mathQuestion: generateRandomMathQuestion(),
      battleState: "user answering",
-     timerState: "running",
-     turn: "user"
+     timerState: "running"
    });
  }
   
@@ -590,7 +755,8 @@ generateUserPoints() {
           turn={ turn }
           points={ points }
           chosenPointForAttack={ chosenPointForAttack }
-          chosenPointForDefense={ chosenPointForDefense } /> }
+          chosenPointForDefense={ chosenPointForDefense }
+          setDefaultCurrentArenaFRAME={ setDefaultCurrentArenaFRAME } /> }
       </div>
     );
   }

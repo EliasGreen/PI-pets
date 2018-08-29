@@ -304,6 +304,29 @@ router.post("/coins", loginCheck, urlencodedParser, jsonParser, (req, res) => {
 });
 
 /*
+*  @information PUT
+*  @dest: add coins to user
+*  @security: private
+*/
+router.put("/pet/:id/hitpoints", loginCheck, urlencodedParser, jsonParser, (req, res) => {
+  const { updatedPetHitPoints } = req.body;
+  const { id } = req.params;
+  
+  userModel.findById(req.session.passport.user, {pets: {$elemMatch: {_id: id} } } , (err, user) => {
+    if (!err) {
+      user.pets[0].alive= updatedPetHitPoints !== 0 ? true : false;
+      user.pets[0].hitPoints = updatedPetHitPoints;
+      
+      user.save();
+      res.sendStatus(200);
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
 *  @information POST
 *  @dest: check the given pet's ID if that pet is alive
 *  @security: private

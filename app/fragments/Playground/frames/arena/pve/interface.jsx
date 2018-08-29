@@ -41,8 +41,7 @@ class Interface extends React.Component {
           timelineInlineStyles={ timelineInlineStyles }/>
         
         { 
-          userPetDamage && <HitTooltip userPetDamage={ userPetDamage }/> || 
-          botPetDamage && <HitTooltip botPetDamage={ botPetDamage }/>
+          (userPetDamage || botPetDamage) && <HitTooltip key={userPetDamage || botPetDamage} botPetDamage={ botPetDamage } userPetDamage={ userPetDamage }/>
         }
         
         { 

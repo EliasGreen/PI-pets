@@ -55659,7 +55659,7 @@ const styles = __webpack_require__(24);
 const io = __webpack_require__(426);
 
 const Frame = __webpack_require__(451);
-const UserInformationBlock = __webpack_require__(901);
+const UserInformationBlock = __webpack_require__(902);
 
 /* 
   @name: Playgeound [page/AI component]
@@ -61005,7 +61005,7 @@ const Inventory = __webpack_require__(462);
 const IngameShop = __webpack_require__(469);
 const WorldMarket = __webpack_require__(470);
 const Arena = __webpack_require__(471);
-const UsersTOP = __webpack_require__(900);
+const UsersTOP = __webpack_require__(901);
 
 class Frame extends React.Component {
   constructor(props) {
@@ -62529,12 +62529,12 @@ const LoadingCircleSpinner = __webpack_require__(55);
 const PetArenaCard = __webpack_require__(472);
 
 const ArenaPVE = __webpack_require__(473);
-const ArenaPVP = __webpack_require__(896);
+const ArenaPVP = __webpack_require__(897);
 
-const TopContainer = __webpack_require__(897);
-const BottomContainer = __webpack_require__(898);
+const TopContainer = __webpack_require__(898);
+const BottomContainer = __webpack_require__(899);
 
-const BattleLogCard = __webpack_require__(899);
+const BattleLogCard = __webpack_require__(900);
 
 class Arena extends React.Component {
   constructor(props) {
@@ -62903,11 +62903,12 @@ class ArenaPVE extends React.Component {
       creatingBattleLogError: null,
       gettingUserPetError: null,
       finalSetupError: null,
+      unknownError: null,
       
       timelineWidthPercent: 100,
       mathQuestion: "MathQuestion",
       round: 1,
-      turn: null,
+      turn: "user",
       
       battleState: "starting",
       timerState: "pause",
@@ -62943,8 +62944,150 @@ class ArenaPVE extends React.Component {
     this.autoChooseDefensePointForBot = this.autoChooseDefensePointForBot.bind(this);
     this.playUserPetAttackAnimation = this.playUserPetAttackAnimation.bind(this);
     this.calculateUserPetAttack = this.calculateUserPetAttack.bind(this);
+    this.calculateBotPetAttack = this.calculateBotPetAttack.bind(this);
     this.changeTurn = this.changeTurn.bind(this);
     this.handleFinalOfBattle = this.handleFinalOfBattle.bind(this); 
+    this.playBotPetAttackAnimation = this.playBotPetAttackAnimation.bind(this); 
+    this.botPetDamageCalculation = this.botPetDamageCalculation.bind(this);
+    this.setNewUserPetHitPointsIntoDB = this.setNewUserPetHitPointsIntoDB.bind(this);
+    this.incrementRound = this.incrementRound.bind(this);
+  }
+  
+  incrementRound() {
+    this.setState( prevState => {
+      return({
+        round: prevState.round + 1
+      });  
+    });
+  }
+  
+  async setNewUserPetHitPointsIntoDB(newUserPetHitPoints, petID) {
+    const data = {
+      updatedPetHitPoints: newUserPetHitPoints
+    }
+    
+    const options = { 
+      method: "put", 
+      credentials: "include",
+      headers: { "Content-Type": "application/json", "Accept":"application/json" }, 
+      body: JSON.stringify(data)
+    };
+    
+    try {
+      await fetch(`user/pet/${petID}/hitpoints`, options);
+    }
+    catch (unknownError) {
+      this.setState({ unknownError });
+    }
+  }
+  
+  botPetDamageCalculation(BOT_PET_ATTACK_ANIMATION_TIME_MS) {
+    this.setState({ 
+      battleState: "bot pet damage calculation"
+    });
+    
+    const { chosenPointForAttack, chosenPointForDefense, answerState, User, Bot } = this.state;
+    
+    const BOT_DAMAGE_DECREASE_RATE = 0.7;
+    const USER_DEFENSE_DECREASE_RATE = 0.7;
+    
+    if (!chosenPointForDefense.user) chosenPointForDefense.user = { position: "placeholer-plug" };
+    
+    const userPetDefense = (chosenPointForAttack.user.position === chosenPointForDefense.user.position) ?
+                           User.pet.defense :
+                           Math.round(User.pet.defense * USER_DEFENSE_DECREASE_RATE);
+     
+    const botPetDamage = (answerState === true) ? 
+                           Math.max(1, (Bot.pet.attack - userPetDefense)): 
+                           Math.max(1, (Math.round(Bot.pet.attack * BOT_DAMAGE_DECREASE_RATE) - userPetDefense));
+    
+    const newUserPetHitPoints = Math.max(0, (User.pet.hitPoints - botPetDamage));
+    User.pet.hitPoints = newUserPetHitPoints;
+    this.setState({ 
+      User: User,
+      botPetDamage: botPetDamage
+    });
+    
+    this.setNewUserPetHitPointsIntoDB(newUserPetHitPoints, User.pet._id);
+    
+    if (newUserPetHitPoints !== 0) {
+      this.setState({ 
+        battleState: "changing turn",
+      });
+        
+      setTimeout( () => {
+        this.changeTurn();
+        this.incrementRound();
+      }, BOT_PET_ATTACK_ANIMATION_TIME_MS/2);
+    }
+    else {
+      this.setState({ 
+        battleState: "bot have won"
+      });
+      
+      setTimeout(this.handleFinalOfBattle, BOT_PET_ATTACK_ANIMATION_TIME_MS/2);
+    }
+  }
+  
+  playBotPetAttackAnimation(BOT_PET_ATTACK_ANIMATION_TIME_MS) {
+    const { battleState } = this.state;
+    
+    const botPet = document.getElementById("botPVEpet").firstChild;
+    botPet.style.zIndex = "1";
+    const { chosenPointForAttack} = this.state;
+    const { position } = chosenPointForAttack.user;
+    
+    switch (position) {
+      case "top":
+        botPet.classList.add("topBotPetAttackAnimation");
+        setTimeout( () => botPet.classList.remove("topBotPetAttackAnimation"), BOT_PET_ATTACK_ANIMATION_TIME_MS);
+        break;
+      case "middle":
+        botPet.classList.add("middleBotPetAttackAnimation");
+        setTimeout( () => botPet.classList.remove("middleBotPetAttackAnimation"), BOT_PET_ATTACK_ANIMATION_TIME_MS);
+        break;
+      case "bottom":
+        botPet.classList.add("bottomBotPetAttackAnimation");
+        setTimeout( () => botPet.classList.remove("bottomBotPetAttackAnimation"), BOT_PET_ATTACK_ANIMATION_TIME_MS);
+        break;
+      default:
+        throw new Error("unknown chosenPointForAttack.user.position");
+    }
+  }
+  
+  calculateBotPetAttack() {
+    const { battleState, Bot } = this.state;
+    
+    if (battleState !== "bot pet attack calculation") return;
+    
+    const _CHANCE_DECREASER = 20;
+    const botMathQuestionAnswer = 
+          (Bot.lvl / _CHANCE_DECREASER) > Math.random()
+          ? true
+          : false;
+    
+    this.generateUserPoints();
+    const pointsPositions = ["top", "middle", "bottom"];
+    const chosenPointPositionForAttack = pointsPositions[Math.floor(Math.random() * 3)];
+    const { points } = this.state;
+    const chosenPointForAttack = {
+      point: points.user[chosenPointPositionForAttack],
+      position: chosenPointPositionForAttack
+    }
+    
+    this.setState( prevState => { 
+       return({
+         battleState: "user choosing defense point",
+         answerState: botMathQuestionAnswer,
+         chosenPointForAttack:  
+           Object.assign({}, prevState.chosenPointForAttack, { user: chosenPointForAttack })
+       });
+    });
+    
+    const BOT_PET_ATTACK_ANIMATION_TIME_MS = 8000;
+    this.playBotPetAttackAnimation(BOT_PET_ATTACK_ANIMATION_TIME_MS);
+    
+    setTimeout( () => this.botPetDamageCalculation(BOT_PET_ATTACK_ANIMATION_TIME_MS), BOT_PET_ATTACK_ANIMATION_TIME_MS/2);
   }
   
   async handleFinalOfBattle() {
@@ -63013,6 +63156,8 @@ class ArenaPVE extends React.Component {
     if (battleState !== "changing turn") return;
     
     const newTurn = turn === "user" ? "bot" : "user";
+    const newBattleState = turn === "user" ? "bot pet attack calculation" : "user answering";
+    const nextFunction = turn === "user" ? this.calculateBotPetAttack : this.startBattle;
     
     const answerInput = document.forms.answer.elements.answer;
     answerInput.value = null;
@@ -63035,8 +63180,12 @@ class ArenaPVE extends React.Component {
       },
       
       turn: newTurn,
-      battleState: "bot pet attack"
+      battleState: newBattleState,
+      botPetDamage: null,
+      userPetDamage: null
     });
+    
+    nextFunction();
   }
   
   calculateUserPetAttack(USER_PET_ATTACK_ANIMATION_TIME_MS) {
@@ -63227,8 +63376,25 @@ generateUserPoints() {
            setTimeout(this.autoChooseDefensePointForBot, 1000);
          }
        });
-         
-         
+     }
+     
+     if (battleState === "user choosing defense point") {
+       const letter = event.key.toUpperCase();
+       
+       Object.keys(points.user).map( (key, index) => {
+         if (letter === points.user[key]) {
+           this.setState({
+             chosenPointForDefense: {
+               bot: null,
+               user: {
+                 point: letter,
+                 position: key
+               }
+             },
+             battleState: "bot pet damage calculation"
+           });
+         }
+       });
      }
    }
  }
@@ -63272,8 +63438,7 @@ generateUserPoints() {
    this.setState({
      mathQuestion: generateRandomMathQuestion(),
      battleState: "user answering",
-     timerState: "running",
-     turn: "user"
+     timerState: "running"
    });
  }
   
@@ -63462,7 +63627,8 @@ generateUserPoints() {
           turn:  turn, 
           points:  points, 
           chosenPointForAttack:  chosenPointForAttack, 
-          chosenPointForDefense:  chosenPointForDefense })
+          chosenPointForDefense:  chosenPointForDefense, 
+          setDefaultCurrentArenaFRAME:  setDefaultCurrentArenaFRAME })
       )
     );
   }
@@ -63510,7 +63676,7 @@ exports = module.exports = __webpack_require__(37)(false);
 
 
 // module
-exports.push([module.i, ".ArenaPVEcontainer {\n  width: 100%;\n  height: 100%;\n}\n\n.interface {\n  position: relative;\n  box-sizing: border-box;\n  width: 100%;\n  height: 40%;\n}\n\n.battleground {\n  box-sizing: border-box;\n  width: 100%;\n  height: 60%;\n}\n\n.userSide, .botSide {\n  box-sizing: border-box;\n  width: 50%;\n  height: 100%;\n  position: relative;\n}\n\n.userSide {\n  float: left; \n}\n\n.botSide {\n  float: right; \n}\n\n.battleground .petContainer {\n  background: rgb(130, 29, 57);\n  position: relative;\n  width: 120pt;\n  height: 230px;\n  margin: 80px 20px;\n}\n\n.userSide .left, .botSide .left {\n  float: left; \n}\n\n.userSide .right, .botSide .right {\n  float: right; \n}\n\n.petContainer .playerName {\n  text-align: center;\n  font-size: 1.5rem;\n  padding: 10px;\n  font-weight: bold;\n  background: darkseagreen;\n  margin-bottom: 10px;\n  color: darkslategrey;\n  overflow-x: hidden;\n  white-space: pre;\n}\n\n.petContainer .petComponentWrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 1;\n}\n\n.petContainer .petNickname {\n  text-align: center;\n  background: #c57c7c;\n  width: 140px;\n  padding: 4px;\n  color: rgb(226, 216, 219);\n  position: absolute;\n  bottom: 10px;\n  left: 6px;\n}\n\nul.userDefenseDots, ul.botDefenseDots {\n  height: 325px;\n  width: 72px;\n  background: #ff4053;\n  margin: 20px 40px;\n}\n\nul.userDefenseDots {\n  float: right;\n}\n\nul.botDefenseDots {\n  float: left;\n}\n\nul.userDefenseDots li, ul.botDefenseDots li {\n  height: calc((100% - 40px)/3);\n  margin: 10px;\n  background: #7e8588;\n  text-align: center;\n  font-size: 3rem;\n  padding-top: 23px;\n  box-sizing: border-box;\n}\n\n.interface .timeline {\n  width: 100%;\n  height: 40px;\n  background: #4e4646;\n  position: absolute;\n  bottom: 0;\n  border: 5px solid #3a0010;\n  box-sizing: border-box;\n}\n\n.timeline .inner {\n  height: 100%;\n  background: rgb(255, 195, 201);\n  transition-duration: 0.1s;\n}\n\n.interface .round {\n  width: 203px;\n  margin: 10px auto;\n  text-align: center;\n  background: darkseagreen;\n  padding: 5px;\n  color: darkslategrey;\n  font-size: 1.2rem;\n  border-radius: 8%;\n  border: 10px solid rgba(0, 0, 0, 0.42);\n}\n\n.interface .mathQuestionContainer {\n  text-align: center;\n  margin: 10px 40px;\n  background: floralwhite;\n  border: 10px solid #821d39;\n  padding: 10px;\n  font-size: 3rem;\n}\n\n.interface form {\n  width: 300px;\n  background: #821d39;\n  margin: auto;\n  height: 140px;\n  border-radius: 20%;\n}\n\n.interface form label {\n  display: block;\n  padding: 20px 0 5px 10px;\n  color: white;\n}\n\n.interface form input[type=\"number\"] {\n  width: 80%;\n  margin: 5px auto;\n  display: block;\n  text-align: center;\n}\n\n.interface form button {\n  display: block;\n  margin: 30px auto;\n  width: 100px;\n  padding: 5px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.topUserPetAttackAnimation {\n  animation-name: topUserPetAttack;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n}\n\n@keyframes topUserPetAttack {\n  40% {\n    transform: translate(380px, -100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.middleUserPetAttackAnimation {\n  animation-name: middleUserPetAttack;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n}\n\n@keyframes middleUserPetAttack {\n  50% {\n   transform: translateX(540px);\n  }\n  \n  100% {\n     transform: translateX(0px);\n  }\n}\n\n.bottomUserPetAttackAnimation {\n  animation-name: bottomUserPetAttack;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n}\n\n@keyframes bottomUserPetAttack {\n  40% {\n    transform: translate(380px, 100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.hitToolTip {\n  position: absolute;\n  z-index: 9;\n  background: black;\n  font-size: 2rem;\n  font-weight: bold;\n  color: #ff4053;\n  padding: 10px;\n  border-radius: 50%;\n  \n  animation-name: hitToolTipMoving;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n  animation-fill-mode: forwards;\n}\n\n@keyframes hitToolTipMoving {\n  0% {\n    opacity: 1;\n  }\n  \n  100% {\n    opacity: 0;\n    transform: translate(40px, -80px);\n  }\n}\n\n.finalModal {\n  position: fixed;\n  width: 100%;\n  height: 100vh;\n  background: rgba(233, 255, 109, 0.58);\n  top: 0;\n  left: 0;\n  z-index: 2;\n}\n\n.finalModal .inner {\n  background: #ff4053;\n  width: 600px;\n  height: 300px;\n  margin: 200px auto;\n  border-radius: 20px;\n  border: 10px solid #523030;\n}\n\n.finalModal .inner h1 {\n  text-align: center;\n  padding: 10px;\n  font-size: 2rem;\n  font-weight: bold;\n}\n\n.finalModal .inner p {\n  text-align: center;\n}\n\n.finalModal .inner button {\n  margin: 10px auto;\n  display: block;\n  cursor: pointer;\n  padding: 5px;\n}\n", ""]);
+exports.push([module.i, ".ArenaPVEcontainer {\n  width: 100%;\n  height: 100%;\n}\n\n.interface {\n  position: relative;\n  box-sizing: border-box;\n  width: 100%;\n  height: 40%;\n}\n\n.battleground {\n  box-sizing: border-box;\n  width: 100%;\n  height: 60%;\n}\n\n.userSide, .botSide {\n  box-sizing: border-box;\n  width: 50%;\n  height: 100%;\n  position: relative;\n}\n\n.userSide {\n  float: left; \n}\n\n.botSide {\n  float: right; \n}\n\n.battleground .petContainer {\n  background: rgb(130, 29, 57);\n  position: relative;\n  width: 120pt;\n  height: 230px;\n  margin: 80px 20px;\n}\n\n.userSide .left, .botSide .left {\n  float: left; \n}\n\n.userSide .right, .botSide .right {\n  float: right; \n}\n\n.petContainer .playerName {\n  text-align: center;\n  font-size: 1.5rem;\n  padding: 10px;\n  font-weight: bold;\n  background: darkseagreen;\n  margin-bottom: 10px;\n  color: darkslategrey;\n  overflow-x: hidden;\n  white-space: pre;\n}\n\n.petContainer .petComponentWrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 1;\n}\n\n.petContainer .petNickname {\n  text-align: center;\n  background: #c57c7c;\n  width: 140px;\n  padding: 4px;\n  color: rgb(226, 216, 219);\n  position: absolute;\n  bottom: 10px;\n  left: 6px;\n}\n\nul.userDefenseDots, ul.botDefenseDots {\n  height: 325px;\n  width: 72px;\n  background: #ff4053;\n  margin: 20px 40px;\n}\n\nul.userDefenseDots {\n  float: right;\n}\n\nul.botDefenseDots {\n  float: left;\n}\n\nul.userDefenseDots li, ul.botDefenseDots li {\n  height: calc((100% - 40px)/3);\n  margin: 10px;\n  background: #7e8588;\n  text-align: center;\n  font-size: 3rem;\n  padding-top: 23px;\n  box-sizing: border-box;\n}\n\n.interface .timeline {\n  width: 100%;\n  height: 40px;\n  background: #4e4646;\n  position: absolute;\n  bottom: 0;\n  border: 5px solid #3a0010;\n  box-sizing: border-box;\n}\n\n.timeline .inner {\n  height: 100%;\n  background: rgb(255, 195, 201);\n  transition-duration: 0.1s;\n}\n\n.interface .round {\n  width: 203px;\n  margin: 10px auto;\n  text-align: center;\n  background: darkseagreen;\n  padding: 5px;\n  color: darkslategrey;\n  font-size: 1.2rem;\n  border-radius: 8%;\n  border: 10px solid rgba(0, 0, 0, 0.42);\n}\n\n.interface .mathQuestionContainer {\n  text-align: center;\n  margin: 10px 40px;\n  background: floralwhite;\n  border: 10px solid #821d39;\n  padding: 10px;\n  font-size: 3rem;\n}\n\n.interface form {\n  width: 300px;\n  background: #821d39;\n  margin: auto;\n  height: 140px;\n  border-radius: 20%;\n}\n\n.interface form label {\n  display: block;\n  padding: 20px 0 5px 10px;\n  color: white;\n}\n\n.interface form input[type=\"number\"] {\n  width: 80%;\n  margin: 5px auto;\n  display: block;\n  text-align: center;\n}\n\n.interface form button {\n  display: block;\n  margin: 30px auto;\n  width: 100px;\n  padding: 5px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.topUserPetAttackAnimation {\n  animation-name: topUserPetAttack;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n}\n\n@keyframes topUserPetAttack {\n  40% {\n    transform: translate(380px, -100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.topBotPetAttackAnimation {\n  animation-name: topBotPetAttack;\n  animation-duration: 8s;\n  animation-iteration-count: 1;\n}\n\n@keyframes topBotPetAttack {\n  40% {\n    transform: translate(-380px, -100px);\n  }\n  \n  50% {\n    transform: translateX(-540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.middleUserPetAttackAnimation {\n  animation-name: middleUserPetAttack;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n}\n\n@keyframes middleUserPetAttack {\n  50% {\n   transform: translateX(540px);\n  }\n  \n  100% {\n     transform: translateX(0px);\n  }\n}\n\n.middleBotPetAttackAnimation {\n  animation-name: middleBotPetAttack;\n  animation-duration: 8s;\n  animation-iteration-count: 1;\n}\n\n@keyframes middleBotPetAttack {\n  50% {\n   transform: translateX(-540px);\n  }\n  \n  100% {\n     transform: translateX(0px);\n  }\n}\n\n.bottomUserPetAttackAnimation {\n  animation-name: bottomUserPetAttack;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n}\n\n@keyframes bottomUserPetAttack {\n  40% {\n    transform: translate(380px, 100px);\n  }\n  \n  50% {\n    transform: translateX(540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.bottomBotPetAttackAnimation {\n  animation-name: bottomBotPetAttack;\n  animation-duration: 8s;\n  animation-iteration-count: 1;\n}\n\n@keyframes bottomBotPetAttack {\n  40% {\n    transform: translate(-380px, 100px);\n  }\n  \n  50% {\n    transform: translateX(-540px);\n  }\n  \n  100% {\n    transform: translate(0px, 0px);\n  }\n}\n\n.hitToolTip {\n  position: absolute;\n  z-index: 9;\n  background: black;\n  font-size: 2rem;\n  font-weight: bold;\n  color: #ff4053;\n  padding: 10px;\n  border-radius: 50%;\n  \n  animation-name: hitToolTipMoving;\n  animation-duration: 1s;\n  animation-iteration-count: 1;\n  animation-fill-mode: forwards;\n}\n\n@keyframes hitToolTipMoving {\n  0% {\n    opacity: 1;\n  }\n  \n  100% {\n    opacity: 0;\n    transform: translate(40px, -80px);\n  }\n}\n\n.finalModal {\n  position: fixed;\n  width: 100%;\n  height: 100vh;\n  background: rgba(233, 255, 109, 0.58);\n  top: 0;\n  left: 0;\n  z-index: 2;\n}\n\n.finalModal .inner {\n  background: #ff4053;\n  width: 600px;\n  height: 300px;\n  margin: 200px auto;\n  border-radius: 20px;\n  border: 10px solid #523030;\n}\n\n.finalModal .inner h1 {\n  text-align: center;\n  padding: 10px;\n  font-size: 2rem;\n  font-weight: bold;\n}\n\n.finalModal .inner p {\n  text-align: center;\n}\n\n.finalModal .inner button {\n  margin: 10px auto;\n  display: block;\n  cursor: pointer;\n  padding: 5px;\n}\n", ""]);
 
 // exports
 
@@ -100340,8 +100506,7 @@ class Interface extends React.Component {
           timelineInlineStyles:  timelineInlineStyles }), 
         
          
-          userPetDamage && React.createElement(HitTooltip, {userPetDamage:  userPetDamage }) || 
-          botPetDamage && React.createElement(HitTooltip, {botPetDamage:  botPetDamage }), 
+          (userPetDamage || botPetDamage) && React.createElement(HitTooltip, {key: userPetDamage || botPetDamage, botPetDamage:  botPetDamage, userPetDamage:  userPetDamage }), 
         
         
          
@@ -100545,6 +100710,7 @@ const React = __webpack_require__(4);
 
 const UserSide = __webpack_require__(890);
 const BotSide = __webpack_require__(893);
+const RunFromBattleButton = __webpack_require__(896);
 
 class Battleground extends React.Component {
  constructor(props) {
@@ -100552,7 +100718,7 @@ class Battleground extends React.Component {
     this.state = {}
   }
   render() {
-    const { User, Bot, turn, points, chosenPointForAttack, chosenPointForDefense } = this.props;
+    const { User, Bot, turn, points, chosenPointForAttack, chosenPointForDefense, setDefaultCurrentArenaFRAME } = this.props;
     
     let styleForUserName = {};
     let styleForBotName = {};
@@ -100589,7 +100755,8 @@ class Battleground extends React.Component {
           styleForBotName:  styleForBotName, 
           botPoints:  points.bot, 
           botChosenPointForAttack:  chosenPointForAttack.bot, 
-          botChosenPointForDefense:  chosenPointForDefense.bot})
+          botChosenPointForDefense:  chosenPointForDefense.bot}), 
+        React.createElement(RunFromBattleButton, {setDefaultCurrentArenaFRAME:  setDefaultCurrentArenaFRAME })
       )
     );
   }
@@ -100614,13 +100781,13 @@ class UserSide extends React.Component {
     this.state = {}
   }
   render() {
-    const { User, styleForUserName, userPoints } = this.props;
+    const { User, styleForUserName, userPoints, userChosenPointForDefense } = this.props;
     const UserPetComponent = generatePetComponentByItsType(User.pet.type);
     
     return(
       React.createElement("div", {className: "userSide"}, 
         React.createElement(PetContainer, {User:  User, styleForUserName:  styleForUserName }), 
-        React.createElement(Dots, {userPoints:  userPoints })
+        React.createElement(Dots, {userChosenPointForDefense:  userChosenPointForDefense, userPoints:  userPoints })
       )
     );
   }
@@ -100640,7 +100807,7 @@ class Dots extends React.Component {
     this.state = {}
   }
   render() {
-    const { userPoints, userChosenPoint } = this.props;
+    const { userPoints, userChosenPointForDefense } = this.props;
     
     if (userPoints) {
       const { top, middle, bottom } = userPoints;
@@ -100649,21 +100816,24 @@ class Dots extends React.Component {
       let middleDotStyle = {};
       let bottomDotStyle = {};
       
-      if (userChosenPoint) {
-        switch (userChosenPoint.position) {
+       if (userChosenPointForDefense) {
+        switch (userChosenPointForDefense.position) {
           case "top":
-            topDotStyle = { color: "#ff4053" }
+            topDotStyle.background = "yellow";
             break;
           case "middle":
-            middleDotStyle = { color: "#ff4053" }
+            middleDotStyle.background = "yellow";
             break;
           case "bottom":
-            bottomDotStyle = { color: "#ff4053" }
+            bottomDotStyle.background = "yellow";
+            break;
+          case "placeholer-plug":
+            // do nothing
             break;
           default:
-            throw new Error("unknown dot positon");
-        };
-      }
+            throw new Error("unknown dot position");
+         };
+       }
       
       return(
         React.createElement("ul", {className: "userDefenseDots"}, 
@@ -100866,6 +101036,47 @@ module.exports = PetContainer;
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
+
+class RunFromBattleButton extends React.Component {
+ constructor(props) {
+    super(props)
+    this.state = {}
+  }
+  render() {
+    const { Bot, styleForBotName, botPoints, botChosenPointForAttack, botChosenPointForDefense, setDefaultCurrentArenaFRAME } = this.props;
+    
+    const handleLeavingPVEbattle = async () => {
+      setDefaultCurrentArenaFRAME();
+      
+      const data = {
+        newBattleLogStatus: "user ran from battle"
+      }
+
+      const options = { 
+        method: "put", 
+        credentials: "include",
+        headers: { "Content-Type": "application/json", "Accept":"application/json" }, 
+        body: JSON.stringify(data)
+      };
+      
+      await fetch("user/battles/logs", options);
+    }
+    
+    return(
+      React.createElement("button", {onClick:  handleLeavingPVEbattle }, 
+        "run from battle"
+      )
+    );
+  }
+}
+
+module.exports = RunFromBattleButton;
+
+/***/ }),
+/* 897 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const React = __webpack_require__(4);
 const styles = __webpack_require__(24);
 
 const Cat = __webpack_require__(78);
@@ -100890,7 +101101,7 @@ class ArenaPVP extends React.Component {
 module.exports = ArenaPVP;
 
 /***/ }),
-/* 897 */
+/* 898 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100910,7 +101121,7 @@ const TopContainer = ({ choosingError, changeCurrentArenaFRAME }) => {
 module.exports = TopContainer;
 
 /***/ }),
-/* 898 */
+/* 899 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100940,7 +101151,7 @@ const BottomContainer = ({ petArenaCards, battleLogCards }) => {
 module.exports = BottomContainer;
 
 /***/ }),
-/* 899 */
+/* 900 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -100959,7 +101170,7 @@ const battleLogCard = ({ battleLog }) => {
 module.exports = battleLogCard;
 
 /***/ }),
-/* 900 */
+/* 901 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const React = __webpack_require__(4);
@@ -101007,7 +101218,7 @@ class UsersTOP extends React.Component {
 module.exports = UsersTOP;
 
 /***/ }),
-/* 901 */
+/* 902 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
