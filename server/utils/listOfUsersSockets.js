@@ -11,6 +11,10 @@ class SocketList {
     return this.socketList;
   }
   
+  getSocketsCount() {
+    return Object.keys(this.socketList).length;
+  }
+  
   setList(socketList) {
     this.socketList = socketList;
   }

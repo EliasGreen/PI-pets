@@ -344,3 +344,21 @@ ul.userDefenseDots li, ul.botDefenseDots li {
   cursor: pointer;
   padding: 5px;
 }
+
+.battleground button {
+  display: block;
+  width: 30%;
+  background: wheat;
+  color: #6d6d6d;
+  border: 1px solid #ff665d;
+  margin: auto;
+  opacity: 0.5;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  transition: 0.5s;
+}
+
+.battleground button:hover {
+  cursor: pointer;
+  opacity: 1;
+}
