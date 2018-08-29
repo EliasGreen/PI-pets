@@ -2,6 +2,7 @@ const React = require("react");
 
 const UserSide = require("./battleground/userSide");
 const BotSide = require("./battleground/botSide");
+const RunFromBattleButton = require("./battleground/runFromBattleButton");
 
 class Battleground extends React.Component {
  constructor(props) {
@@ -9,7 +10,7 @@ class Battleground extends React.Component {
     this.state = {}
   }
   render() {
-    const { User, Bot, turn, points, chosenPointForAttack, chosenPointForDefense } = this.props;
+    const { User, Bot, turn, points, chosenPointForAttack, chosenPointForDefense, setDefaultCurrentArenaFRAME } = this.props;
     
     let styleForUserName = {};
     let styleForBotName = {};
@@ -47,6 +48,7 @@ class Battleground extends React.Component {
           botPoints={ points.bot }
           botChosenPointForAttack={ chosenPointForAttack.bot }
           botChosenPointForDefense={ chosenPointForDefense.bot } />
+        <RunFromBattleButton setDefaultCurrentArenaFRAME={ setDefaultCurrentArenaFRAME } />
       </div>
     );
   }

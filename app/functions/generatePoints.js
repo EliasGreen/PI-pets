@@ -1,5 +1,7 @@
-const getRandomInt = (min, max) => {
-  	return Math.floor(Math.random() * (max - min)) + min;
+function getRandomInt(min, max) {
+    let rand = min + Math.random() * (max + 1 - min);
+    rand = Math.floor(rand);
+    return rand;
 }
 
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
@@ -8,7 +10,8 @@ const generateRandomLetters = () => {
   let randomLetters = [];
   
   while (randomLetters.length !== 3) {
-    let letter = alphabet[getRandomInt(0, alphabet.length + 1)];
+    const randomInt = getRandomInt(0, alphabet.length - 1);
+    const letter = alphabet[randomInt];
     
     if (!randomLetters.includes(letter)) {
       randomLetters.push(letter);

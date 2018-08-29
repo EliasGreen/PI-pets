@@ -8,7 +8,7 @@ class AnswerForm extends React.Component {
   render() {
     const { answerMathQuestion } = this.props;
     return(
-      <form onSubmit={(event) => { answerMathQuestion(event) }}>
+      <form onSubmit={(event) => { answerMathQuestion(event) }} name="answer">
           <label> Answer: </label>
           <input autoFocus type="number" name="answer" autoComplete="off" />
           <button type="submit"> asnwer </button>

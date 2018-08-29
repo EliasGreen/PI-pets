@@ -7,11 +7,21 @@ class MathQuestion extends React.Component {
   }
   render() {
     const { mathQuestion } = this.props;
-    return(
-      <div className="mathQuestionContainer">
-        { mathQuestion.question }
-      </div>
-    );
+    
+    if (mathQuestion.question) {
+      return(
+        <div className="mathQuestionContainer">
+          { "-" + mathQuestion.question }
+        </div>
+      );
+    }
+    else {
+      return(
+        <div className="mathQuestionContainer">
+          { mathQuestion }
+        </div>
+      );
+    }
   }
 }
 

@@ -169,50 +169,178 @@ ul.userDefenseDots li, ul.botDefenseDots li {
   cursor: pointer;
 }
 
+.topUserPetAttackAnimation {
+  animation-name: topUserPetAttack;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+}
+
 @keyframes topUserPetAttack {
-  0% {
-    position: absolute;
-    left: 380px;
-    top: -65px;
+  40% {
+    transform: translate(380px, -100px);
   }
   
-  30% {
-    left: 540px;
-    top: initial;
+  50% {
+    transform: translateX(540px);
   }
   
   100% {
-    left: 0px;
-    position: initial;
+    transform: translate(0px, 0px);
   }
+}
+
+.topBotPetAttackAnimation {
+  animation-name: topBotPetAttack;
+  animation-duration: 8s;
+  animation-iteration-count: 1;
+}
+
+@keyframes topBotPetAttack {
+  40% {
+    transform: translate(-380px, -100px);
+  }
+  
+  50% {
+    transform: translateX(-540px);
+  }
+  
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.middleUserPetAttackAnimation {
+  animation-name: middleUserPetAttack;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
 }
 
 @keyframes middleUserPetAttack {
-  0% {
-    position: absolute;
-    left: 540px;
+  50% {
+   transform: translateX(540px);
   }
   
   100% {
-    left: initial;
-    position: initial;
+     transform: translateX(0px);
   }
 }
 
-@keyframes bottomUserPetAttack {
-  0% {
-    position: absolute;
-    left: 380px;
-    bottom: -35px;
-  }
-  
-  30% {
-    left: 540px;
-    top: initial;
+.middleBotPetAttackAnimation {
+  animation-name: middleBotPetAttack;
+  animation-duration: 8s;
+  animation-iteration-count: 1;
+}
+
+@keyframes middleBotPetAttack {
+  50% {
+   transform: translateX(-540px);
   }
   
   100% {
-    left: initial;
-    position: initial;
+     transform: translateX(0px);
   }
+}
+
+.bottomUserPetAttackAnimation {
+  animation-name: bottomUserPetAttack;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+}
+
+@keyframes bottomUserPetAttack {
+  40% {
+    transform: translate(380px, 100px);
+  }
+  
+  50% {
+    transform: translateX(540px);
+  }
+  
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.bottomBotPetAttackAnimation {
+  animation-name: bottomBotPetAttack;
+  animation-duration: 8s;
+  animation-iteration-count: 1;
+}
+
+@keyframes bottomBotPetAttack {
+  40% {
+    transform: translate(-380px, 100px);
+  }
+  
+  50% {
+    transform: translateX(-540px);
+  }
+  
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.hitToolTip {
+  position: absolute;
+  z-index: 9;
+  background: black;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff4053;
+  padding: 10px;
+  border-radius: 50%;
+  
+  animation-name: hitToolTipMoving;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hitToolTipMoving {
+  0% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+    transform: translate(40px, -80px);
+  }
+}
+
+.finalModal {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: rgba(233, 255, 109, 0.58);
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.finalModal .inner {
+  background: #ff4053;
+  width: 600px;
+  height: 300px;
+  margin: 200px auto;
+  border-radius: 20px;
+  border: 10px solid #523030;
+}
+
+.finalModal .inner h1 {
+  text-align: center;
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.finalModal .inner p {
+  text-align: center;
+}
+
+.finalModal .inner button {
+  margin: 10px auto;
+  display: block;
+  cursor: pointer;
+  padding: 5px;
 }
