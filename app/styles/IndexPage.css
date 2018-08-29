@@ -273,3 +273,24 @@
   margin: 5px;
   font-weight: bold;
 }
+
+.IndexPage__userCountContainer { 
+  background: rgb(221, 221, 221);
+  width: 120px;
+  margin: 60px auto;
+  border-radius: 30px;
+  opacity: 0.3;
+  cursor: help;
+  transition: 1s;
+}
+
+.IndexPage__userCountContainer:hover {
+  opacity: 1;
+}
+
+.IndexPage__userCountContainer p {
+  text-align: center;
+  font-size: 0.7rem;
+  padding: 5px;
+  color: darkred;
+}

@@ -76,6 +76,25 @@ router.get("/pet/:id", loginCheck, (req, res) => {
 
 /*
 *  @information GET
+*  @dest: get total and online users count
+*  @security: private
+*/
+router.get("/count", loginCheck, (req, res) => {
+  userModel.count({}, (err, totalCount) => {
+    if(!err) {
+      res.status(200).json({
+        total: totalCount,
+        online: listOfUsersSockets.getSocketsCount()
+      });
+    }
+    else {
+      res.sendStatus(409); 
+    }
+  });
+});
+
+/*
+*  @information GET
 *  @dest: send the requested user inventory
 *  @security: private
 */
