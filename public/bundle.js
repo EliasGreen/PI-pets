@@ -387,6 +387,16 @@ module.exports = function deepMap(array, callback, skipZeros) {
 "use strict";
 
 
+module.exports = __webpack_require__(70);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var number = __webpack_require__(5);
 var string = __webpack_require__(14);
 var object = __webpack_require__(9);
@@ -918,16 +928,6 @@ exports.generalize = function(a) {
  * @return {boolean} isArray
  */
 exports.isArray = Array.isArray;
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(70);
 
 
 /***/ }),
@@ -2889,7 +2889,7 @@ module.exports = DimensionError;
 
 
 var extend = __webpack_require__(9).extend;
-var array = __webpack_require__(3);
+var array = __webpack_require__(4);
 
 function factory (type, config, load, typed) {
   var latex = __webpack_require__(7);
@@ -5848,7 +5848,7 @@ module.exports = ReactComponentTreeHook;
 
 
 var clone = __webpack_require__(9).clone;
-var validateIndex = __webpack_require__(3).validateIndex;
+var validateIndex = __webpack_require__(4).validateIndex;
 var getSafeProperty = __webpack_require__(21).getSafeProperty;
 var setSafeProperty = __webpack_require__(21).setSafeProperty;
 var DimensionError = __webpack_require__(18);
@@ -7059,7 +7059,7 @@ module.exports = ReactUpdates;
 "use strict";
 
 
-exports.array = __webpack_require__(3);
+exports.array = __webpack_require__(4);
 exports['boolean'] = __webpack_require__(510);
 exports['function'] = __webpack_require__(56);
 exports.number = __webpack_require__(5);
@@ -7565,7 +7565,7 @@ exports.factory = factory;
 "use strict";
 
 
-var array = __webpack_require__(3);
+var array = __webpack_require__(4);
 
 function factory (type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -8892,7 +8892,7 @@ module.exports = warning;
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(225);
 
 const loadingCircleSpinner = (props) => {
@@ -10420,7 +10420,7 @@ exports.factory = factory;
 
 
 var isInteger = __webpack_require__(5).isInteger;
-var resize = __webpack_require__(3).resize;
+var resize = __webpack_require__(4).resize;
 
 function factory (type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -13483,7 +13483,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(224);
 
 
@@ -13558,7 +13558,7 @@ module.exports = Cat;
 /* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(457);
 
 
@@ -14561,7 +14561,7 @@ exports.lazy = false;  // no lazy loading, as we alter type.Matrix._storage
 
 
 var isInteger = __webpack_require__(5).isInteger;
-var size = __webpack_require__(3).size;
+var size = __webpack_require__(4).size;
 
 function factory (type, config, load, typed) {
   var latex = __webpack_require__(7);
@@ -16517,8 +16517,8 @@ module.exports.isAssociativeWith = isAssociativeWith;
 
 
 var latex = __webpack_require__(7);
-var map = __webpack_require__(3).map;
-var join = __webpack_require__(3).join;
+var map = __webpack_require__(4).map;
+var join = __webpack_require__(4).join;
 var stringify = __webpack_require__(14).stringify;
 var escape = __webpack_require__(14).escape;
 var isSafeMethod = __webpack_require__(21).isSafeMethod;
@@ -17107,8 +17107,8 @@ var stringify = __webpack_require__(14).stringify;
 var escape = __webpack_require__(14).escape;
 var extend = __webpack_require__(9).extend;
 var hasOwnProperty = __webpack_require__(9).hasOwnProperty;
-var map = __webpack_require__(3).map;
-var join = __webpack_require__(3).join;
+var map = __webpack_require__(4).map;
+var join = __webpack_require__(4).join;
 var validateSafeMethod = __webpack_require__(21).validateSafeMethod;
 var getUniqueArgumentName = __webpack_require__(246);
 
@@ -19327,7 +19327,7 @@ exports.factory = factory;
 "use strict";
 
 
-var array = __webpack_require__(3);
+var array = __webpack_require__(4);
 var isInteger = __webpack_require__(5).isInteger;
 
 function factory (type, config, load, typed) {
@@ -19625,7 +19625,7 @@ exports.factory = factory;
 
 var clone = __webpack_require__(9).clone;
 var isInteger = __webpack_require__(5).isInteger;
-var array = __webpack_require__(3);
+var array = __webpack_require__(4);
 var IndexError = __webpack_require__(95);
 var DimensionError = __webpack_require__(18);
 
@@ -19774,7 +19774,7 @@ exports.factory = factory;
 "use strict";
 
 
-var arraySize = __webpack_require__(3).size;
+var arraySize = __webpack_require__(4).size;
 var isMatrix = __webpack_require__(114);
 var IndexError = __webpack_require__(95);
 
@@ -22378,7 +22378,7 @@ var createTransitionManager = function createTransitionManager() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
@@ -23213,7 +23213,7 @@ Transport.prototype.onClose = function () {
 /* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(459);
 
 class Bottle extends React.Component {
@@ -23256,7 +23256,7 @@ module.exports = Bottle;
 /* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(461);
 
 class Can extends React.Component {
@@ -23277,7 +23277,7 @@ module.exports = Can;
 /* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(467);
 
 class PI extends React.Component {
@@ -24053,8 +24053,8 @@ module.exports = {
 "use strict";
 
 
-var map = __webpack_require__(3).map;
-var join = __webpack_require__(3).join;
+var map = __webpack_require__(4).map;
+var join = __webpack_require__(4).join;
 var escape = __webpack_require__(14).escape;
 
 function factory (type, config, load, typed) {
@@ -24584,8 +24584,8 @@ exports.factory = factory;
 "use strict";
 
 
-var map = __webpack_require__(3).map;
-var join = __webpack_require__(3).join;
+var map = __webpack_require__(4).map;
+var join = __webpack_require__(4).join;
 
 function factory (type, config, load, typed) {
   var register = load(__webpack_require__(12)).register;
@@ -26219,7 +26219,7 @@ var isNumber = __webpack_require__(5).isNumber;
 // TODO: rework to a typed function
 function factory (type, config, load, typed, math) {
   var matrix = load(__webpack_require__(1));
-  var array = __webpack_require__(3);
+  var array = __webpack_require__(4);
 
   // seeded pseudo random number generator
   var rng = load(__webpack_require__(825));
@@ -30243,7 +30243,7 @@ var isExtraneousPopstateEvent = function isExtraneousPopstateEvent(event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
@@ -30375,7 +30375,7 @@ Link.contextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
@@ -32693,7 +32693,7 @@ if(false) {
 /* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(465);
 
 class PI extends React.Component {
@@ -34889,8 +34889,8 @@ exports.factory = factory;
 "use strict";
 
 
-var map = __webpack_require__(3).map;
-var join = __webpack_require__(3).join;
+var map = __webpack_require__(4).map;
+var join = __webpack_require__(4).join;
 
 function factory (type, config, load, typed) {
   var register = load(__webpack_require__(12)).register;
@@ -35306,8 +35306,8 @@ exports.factory = factory;
 var keywords = __webpack_require__(161);
 var stringify = __webpack_require__(14).stringify;
 var escape = __webpack_require__(14).escape;
-var map = __webpack_require__(3).map;
-var join = __webpack_require__(3).join;
+var map = __webpack_require__(4).map;
+var join = __webpack_require__(4).join;
 var latex = __webpack_require__(7);
 var operators = __webpack_require__(96);
 var setSafeProperty = __webpack_require__(21).setSafeProperty;
@@ -36112,7 +36112,7 @@ exports.factory = factory;
 "use strict";
 
 
-var size = __webpack_require__(3).size;
+var size = __webpack_require__(4).size;
 var deepForEach = __webpack_require__(69);
 var reduce = __webpack_require__(120);
 var containsCollections = __webpack_require__(121);
@@ -40169,7 +40169,7 @@ exports.factory = factory;
 "use strict";
 
 
-var size = __webpack_require__(3).size;
+var size = __webpack_require__(4).size;
 
 function factory (type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -40391,9 +40391,9 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
-var identify = __webpack_require__(3).identify;
-var generalize = __webpack_require__(3).generalize;
+var flatten = __webpack_require__(4).flatten;
+var identify = __webpack_require__(4).identify;
+var generalize = __webpack_require__(4).generalize;
 
 function factory (type, config, load, typed) {
   var equal = load(__webpack_require__(51));
@@ -40473,9 +40473,9 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
-var identify = __webpack_require__(3).identify;
-var generalize = __webpack_require__(3).generalize;
+var flatten = __webpack_require__(4).flatten;
+var identify = __webpack_require__(4).identify;
+var generalize = __webpack_require__(4).generalize;
 
 function factory (type, config, load, typed) {
   var equal = load(__webpack_require__(51));
@@ -40547,7 +40547,7 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var index = load(__webpack_require__(45));
@@ -40606,7 +40606,7 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 var reduce = __webpack_require__(120);
 var containsCollections = __webpack_require__(121);
 
@@ -40938,7 +40938,7 @@ exports.factory = factory;
 /* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const { render } = __webpack_require__(303);
 const Route = __webpack_require__(93).Route;
 const BrowserRouter = __webpack_require__(93).BrowserRouter;
@@ -52967,7 +52967,7 @@ module.exports = ReactDOMInvalidARIAHook;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
@@ -54012,7 +54012,7 @@ var createMemoryHistory = function createMemoryHistory() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
@@ -54088,7 +54088,7 @@ HashRouter.propTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
@@ -54152,7 +54152,7 @@ MemoryRouter.propTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
@@ -54258,7 +54258,7 @@ module.exports = Array.isArray || function (arr) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
@@ -54360,7 +54360,7 @@ Prompt.contextTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
@@ -54504,7 +54504,7 @@ Redirect.contextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
@@ -54677,7 +54677,7 @@ StaticRouter.childContextTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
@@ -54802,7 +54802,7 @@ Switch.propTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
@@ -55065,7 +55065,7 @@ module.exports = function (css) {
 /* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const Link = __webpack_require__(93).Link
 const styles = __webpack_require__(75);
 
@@ -55181,7 +55181,7 @@ exports.push([module.i, ".IndexPage__body {\n  margin: auto;\n  background: rgba
 /* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(75);
 const img_src = "https://cdn.dribbble.com/users/230290/screenshots/1903145/dog_no_211.png";
 
@@ -55199,7 +55199,7 @@ module.exports = Header;
 /* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(75);
 
 const infoText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.Phasellus consequat placerat laoreet. In lobortis viverra 
@@ -55224,7 +55224,7 @@ module.exports = InformationBlock;
 /* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(75);
 
 const imgs = [
@@ -55371,7 +55371,7 @@ module.exports = Slider;
 /* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(75);
 
 const MIN_USERNAME_LENGTH = 3;
@@ -55571,7 +55571,7 @@ module.exports = RegisterModal;
 /* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(75);
 
 class LoginModal extends React.Component {
@@ -55688,7 +55688,7 @@ module.exports = LoginModal;
 /* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 const UserCountContainer = (props) => (
   React.createElement("div", {className: "IndexPage__userCountContainer"}, 
@@ -55703,14 +55703,14 @@ module.exports = UserCountContainer;
 /* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const Link = __webpack_require__(93).Link
 const styles = __webpack_require__(24);
 
 const io = __webpack_require__(427);
 
 const Frame = __webpack_require__(452);
-const UserInformationBlock = __webpack_require__(903);
+const UserInformationBlock = __webpack_require__(904);
 
 /* 
   @name: Playgeound [page/AI component]
@@ -61048,7 +61048,7 @@ Backoff.prototype.setJitter = function(jitter){
 /* 452 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const Pets = __webpack_require__(453);
@@ -61056,7 +61056,7 @@ const Inventory = __webpack_require__(463);
 const IngameShop = __webpack_require__(470);
 const WorldMarket = __webpack_require__(471);
 const Arena = __webpack_require__(472);
-const UsersTOP = __webpack_require__(902);
+const UsersTOP = __webpack_require__(903);
 
 class Frame extends React.Component {
   constructor(props) {
@@ -61096,7 +61096,7 @@ module.exports = Frame;
 /* 453 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(224);
 
 const PetInterfaceModal = __webpack_require__(455);
@@ -61279,7 +61279,7 @@ exports.push([module.i, ".Pets__cat {\n  display: inline;\n}\n\n.leftCatEar {\n 
 /* 455 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const LoadingCircleSpinner = __webpack_require__(55);
@@ -61735,7 +61735,7 @@ exports.push([module.i, ".FOOD__can {\n  margin: 27px auto;\n  border: 1px solid
 /* 463 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const LoadingCircleSpinner = __webpack_require__(55);
@@ -62017,7 +62017,7 @@ module.exports = Inventory;
 /* 464 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(225);
 
 const InventoryTooltip = (props) => {
@@ -62126,7 +62126,7 @@ exports.push([module.i, ".Boxes__PI {\n  background: #f14949;\n  border-radius: 
 /* 469 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const BoxPI = __webpack_require__(154);
@@ -62271,7 +62271,7 @@ module.exports = BoxOpenModal;
 /* 470 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const LoadingCircleSpinner = __webpack_require__(55);
@@ -62524,7 +62524,7 @@ module.exports = IngameShop;
 /* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const LoadingCircleSpinner = __webpack_require__(55);
@@ -62572,7 +62572,7 @@ module.exports = WorldMarket;
 /* 472 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const LoadingCircleSpinner = __webpack_require__(55);
@@ -62875,7 +62875,7 @@ module.exports = Arena;
 /* 473 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const Cat = __webpack_require__(78);
@@ -62921,7 +62921,7 @@ module.exports = PetArenaCard;
 /* 474 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(475);
 
 const generateNewPet =  __webpack_require__(227);
@@ -80344,7 +80344,7 @@ function factory (type, config, load, typed, math) {
   setConstant(math, 'true', true);
   setConstant(math, 'false', false);
   setConstant(math, 'null', null);
-  setConstant(math, 'uninitialized', __webpack_require__(3).UNINITIALIZED);
+  setConstant(math, 'uninitialized', __webpack_require__(4).UNINITIALIZED);
 
   if (config.number === 'BigNumber') {
     setConstant(math, 'Infinity', new type.BigNumber(Infinity));
@@ -85308,8 +85308,8 @@ exports.factory = factory;
 "use strict";
 
 
-var filter = __webpack_require__(3).filter;
-var filterRegExp = __webpack_require__(3).filterRegExp;
+var filter = __webpack_require__(4).filter;
+var filterRegExp = __webpack_require__(4).filterRegExp;
 var maxArgumentCount = __webpack_require__(56).maxArgumentCount;
 
 /**
@@ -85406,7 +85406,7 @@ exports.factory = factory;
 
 
 var maxArgumentCount = __webpack_require__(56).maxArgumentCount;
-var forEach = __webpack_require__(3).forEach;
+var forEach = __webpack_require__(4).forEach;
 
 /**
  * Attach a transform function to math.forEach
@@ -85543,7 +85543,7 @@ exports.factory = factory;
 
 
 var maxArgumentCount = __webpack_require__(56).maxArgumentCount;
-var map = __webpack_require__(3).map;
+var map = __webpack_require__(4).map;
 
 /**
  * Attach a transform function to math.map
@@ -90623,7 +90623,7 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var abs = load(__webpack_require__(46));
@@ -94916,7 +94916,7 @@ module.exports = [
 "use strict";
 
 
-var array = __webpack_require__(3);
+var array = __webpack_require__(4);
 
 function factory (type, config, load, typed) {
   var matrix   = load(__webpack_require__(1));
@@ -95024,7 +95024,7 @@ exports.factory = factory;
 "use strict";
 
 
-var array     = __webpack_require__(3);
+var array     = __webpack_require__(4);
 var clone     = __webpack_require__(9).clone;
 var isInteger = __webpack_require__(5).isInteger;
 
@@ -95201,7 +95201,7 @@ exports.factory = factory;
 "use strict";
 
 
-var size = __webpack_require__(3).size;
+var size = __webpack_require__(4).size;
 
 function factory (type, config, load, typed) {
   var add      = load(__webpack_require__(30));
@@ -95287,8 +95287,8 @@ exports.factory = factory;
 "use strict";
 
 
-var filter = __webpack_require__(3).filter;
-var filterRegExp = __webpack_require__(3).filterRegExp;
+var filter = __webpack_require__(4).filter;
+var filterRegExp = __webpack_require__(4).filterRegExp;
 var maxArgumentCount = __webpack_require__(56).maxArgumentCount;
 
 function factory (type, config, load, typed) {
@@ -95379,7 +95379,7 @@ exports.factory = factory;
 
 
 var clone = __webpack_require__(9).clone;
-var _flatten = __webpack_require__(3).flatten;
+var _flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -95431,7 +95431,7 @@ exports.factory = factory;
 
 
 var maxArgumentCount = __webpack_require__(56).maxArgumentCount;
-var forEach = __webpack_require__(3).forEach;
+var forEach = __webpack_require__(4).forEach;
 
 function factory (type, config, load, typed) {
   /**
@@ -95514,7 +95514,7 @@ exports.factory = factory;
 "use strict";
 
 
-var size = __webpack_require__(3).size;
+var size = __webpack_require__(4).size;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -95612,7 +95612,7 @@ exports.factory = factory;
 
 
 var isInteger = __webpack_require__(5).isInteger;
-var resize = __webpack_require__(3).resize;
+var resize = __webpack_require__(4).resize;
 
 function factory (type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -95755,7 +95755,7 @@ exports.factory = factory;
 var DimensionError = __webpack_require__(18);
 
 var isInteger = __webpack_require__(5).isInteger;
-var array = __webpack_require__(3);
+var array = __webpack_require__(4);
 
 function factory (type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -95839,7 +95839,7 @@ var ArgumentsError = __webpack_require__(80);
 var isInteger = __webpack_require__(5).isInteger;
 var format = __webpack_require__(14).format;
 var clone = __webpack_require__(9).clone;
-var array = __webpack_require__(3);
+var array = __webpack_require__(4);
 
 function factory (type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -96030,7 +96030,7 @@ module.exports = function naturalSort (a, b) {
 
 
 var object = __webpack_require__(9);
-var array = __webpack_require__(3);
+var array = __webpack_require__(4);
 
 function factory (type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -97062,7 +97062,7 @@ module.exports = [
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var index = load(__webpack_require__(45));
@@ -97129,7 +97129,7 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var equal = load(__webpack_require__(51));
@@ -97196,8 +97196,8 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
-var identify = __webpack_require__(3).identify;
+var flatten = __webpack_require__(4).flatten;
+var identify = __webpack_require__(4).identify;
 
 function factory (type, config, load, typed) {
   var equal = load(__webpack_require__(51));
@@ -97268,7 +97268,7 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var equal = load(__webpack_require__(51));
@@ -97327,7 +97327,7 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var index = load(__webpack_require__(45));
@@ -97411,7 +97411,7 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var equal = load(__webpack_require__(51));
@@ -97473,7 +97473,7 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var index = load(__webpack_require__(45));
@@ -97764,7 +97764,7 @@ module.exports = [
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
   var abs      = load(__webpack_require__(46));
@@ -97835,7 +97835,7 @@ exports.factory = factory;
 "use strict";
 
 
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 
 function factory (type, config, load, typed) {
 
@@ -98003,7 +98003,7 @@ exports.factory = factory;
 
 var isInteger = __webpack_require__(5).isInteger;
 var isNumber = __webpack_require__(5).isNumber;
-var flatten = __webpack_require__(3).flatten;
+var flatten = __webpack_require__(4).flatten;
 var isCollection = __webpack_require__(84);
 
 function factory (type, config, load, typed) {
@@ -100565,7 +100565,7 @@ module.exports = [
 /* 883 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 const Round = __webpack_require__(884);
 const Timeline = __webpack_require__(885);
@@ -100632,7 +100632,7 @@ module.exports = Interface;
 /* 884 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 class Round extends React.Component {
  constructor(props) {
@@ -100655,7 +100655,7 @@ module.exports = Round;
 /* 885 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 class Timeline extends React.Component {
  constructor(props) {
@@ -100678,7 +100678,7 @@ module.exports = Timeline;
 /* 886 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 class MathQuestion extends React.Component {
  constructor(props) {
@@ -100711,7 +100711,7 @@ module.exports = MathQuestion;
 /* 887 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 class AnswerForm extends React.Component {
  constructor(props) {
@@ -100736,7 +100736,7 @@ module.exports = AnswerForm;
 /* 888 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 class HitToolTip extends React.Component {
  constructor(props) {
@@ -100780,7 +100780,7 @@ module.exports = HitToolTip;
 /* 889 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 class FinalModal extends React.Component {
  constructor(props) {
@@ -100808,7 +100808,7 @@ module.exports = FinalModal;
 /* 890 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 const UserSide = __webpack_require__(891);
 const BotSide = __webpack_require__(894);
@@ -100870,7 +100870,7 @@ module.exports = Battleground;
 /* 891 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 const generatePetComponentByItsType =  __webpack_require__(101);
 
@@ -100901,7 +100901,7 @@ module.exports = UserSide;
 /* 892 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 class Dots extends React.Component {
  constructor(props) {
@@ -100963,7 +100963,7 @@ module.exports = Dots;
 /* 893 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 const generatePetComponentByItsType =  __webpack_require__(101);
 
@@ -100994,7 +100994,7 @@ module.exports = PetContainer;
 /* 894 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 const generatePetComponentByItsType =  __webpack_require__(101);
 
@@ -101029,7 +101029,7 @@ module.exports = BotSide;
 /* 895 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 
 class Dots extends React.Component {
@@ -101106,7 +101106,7 @@ module.exports = Dots;
 /* 896 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 const generatePetComponentByItsType = __webpack_require__(101);
 
@@ -101137,7 +101137,7 @@ module.exports = PetContainer;
 /* 897 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 
 class RunFromBattleButton extends React.Component {
  constructor(props) {
@@ -101178,7 +101178,7 @@ module.exports = RunFromBattleButton;
 /* 898 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const Cat = __webpack_require__(78);
@@ -101206,7 +101206,7 @@ module.exports = ArenaPVP;
 /* 899 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const TopContainer = ({ choosingError, changeCurrentArenaFRAME }) => {
@@ -101226,7 +101226,7 @@ module.exports = TopContainer;
 /* 900 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const BottomContainer = ({ petArenaCards, battleLogCards }) => {
@@ -101256,10 +101256,12 @@ module.exports = BottomContainer;
 /* 901 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const generatePetComponentByItsType = __webpack_require__(101);
+
+const BattleLogCardPVE = __webpack_require__(902);
 
 const battleLogCard = ({ battleLog }) => {
   const battleDate = new Date(battleLog.date);
@@ -101270,23 +101272,11 @@ const battleLogCard = ({ battleLog }) => {
   
   switch (battleLog.type) {
     case "PVE":
-      return(
-        React.createElement("div", {className: "battleLogCard"}, 
-          React.createElement("h2", null,  battleLog.type), 
-          React.createElement("div", {className: "opponentsContainer"}, 
-            React.createElement("div", {className: "userPet"}, 
-              React.createElement(UserPetComponent, {pet:  battleLog.userPet, showMode:  true }), 
-               battleLog.userPet.nickname
-            ), 
-            React.createElement("p", null, " VS "), 
-            React.createElement("div", {className: "enemyPet"}, 
-              React.createElement(EnemyPetComponent, {pet:  battleLog.enemy.pet, showMode:  true }), 
-               battleLog.enemy.pet.nickname
-            )
-          ), 
-          React.createElement("h4", null, " Status: ",  battleLog.status, " "), 
-          React.createElement("h5", null,  battleDateVisualisation )
-        ));
+      return React.createElement(BattleLogCardPVE, {
+               battleLog: battleLog, 
+               battleDateVisualisation: battleDateVisualisation, 
+               UserPetComponent: UserPetComponent, 
+               EnemyPetComponent: EnemyPetComponent});
       
     case "PVP":
       return(
@@ -101299,6 +101289,7 @@ const battleLogCard = ({ battleLog }) => {
     default:
       throw new Error("unknown battleLog type");
   };   
+  
 }
 
 module.exports = battleLogCard;
@@ -101307,7 +101298,35 @@ module.exports = battleLogCard;
 /* 902 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
+
+const battleLogCardPVE = ({ battleLog, battleDateVisualisation, UserPetComponent, EnemyPetComponent }) => {
+  return(
+    React.createElement("div", {className: "battleLogCard"}, 
+      React.createElement("h2", null,  battleLog.type), 
+      React.createElement("div", {className: "opponentsContainer"}, 
+        React.createElement("div", {className: "userPet"}, 
+          React.createElement(UserPetComponent, {pet:  battleLog.userPet, showMode:  true }), 
+           battleLog.userPet.nickname
+        ), 
+        React.createElement("p", null, " VS "), 
+        React.createElement("div", {className: "enemyPet"}, 
+          React.createElement(EnemyPetComponent, {pet:  battleLog.enemy.pet, showMode:  true }), 
+           battleLog.enemy.pet.nickname
+        )
+      ), 
+      React.createElement("h4", null, " Status: ",  battleLog.status, " "), 
+      React.createElement("h5", null,  battleDateVisualisation )
+    ));
+}
+
+module.exports = battleLogCardPVE;
+
+/***/ }),
+/* 903 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const LoadingCircleSpinner = __webpack_require__(55);
@@ -101352,11 +101371,11 @@ class UsersTOP extends React.Component {
 module.exports = UsersTOP;
 
 /***/ }),
-/* 903 */
+/* 904 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-const React = __webpack_require__(4);
+const React = __webpack_require__(3);
 const styles = __webpack_require__(24);
 
 const LoadingCircleSpinner = __webpack_require__(55);
