@@ -1,6 +1,6 @@
 const React = require("react");
 
-const generatePetComponentByItsType =  require("../../../../../../../functions/generatePetComponentByItsType");
+const generatePetComponentByItsType = require("../../../../../../../functions/generatePetComponentByItsType");
 
 class PetContainer extends React.Component {
  constructor(props) {
