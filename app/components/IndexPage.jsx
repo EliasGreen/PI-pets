@@ -8,6 +8,7 @@ const Slider = require("../fragments/IndexPage/slider");
 const RegisterModal = require("../fragments/IndexPage/registerModal");
 const LoginModal = require("../fragments/IndexPage/loginModal");
 const UserCountContainer = require("../fragments/IndexPage/userCountContainer");
+const ButtonsBlock = require("../fragments/IndexPage/buttonsBlock");
 
 /* 
   @name: IndexPage [page/AI component]
@@ -80,10 +81,7 @@ class IndexPage extends React.Component  {
         <div className="divBlock"></div>
         <Slider />
         
-        <div className="blureLine"></div>
-        
-        <button className="registerButton" onClick={ () => { this.toggleBooleanVariableFromState("showRegisterModal") }}>Register now!</button>
-        <button className="loginButton" onClick={ () => { this.toggleBooleanVariableFromState("showLoginModal") }}>or login</button>
+        <ButtonsBlock toggleBooleanVariableFromState={ this.toggleBooleanVariableFromState } />
         
         <UserCountContainer usersCount={ usersCount } />
         

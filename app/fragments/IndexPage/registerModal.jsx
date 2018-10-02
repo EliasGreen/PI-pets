@@ -1,5 +1,4 @@
 const React = require("react");
-const styles = require("../../styles/IndexPage");
 
 const MIN_USERNAME_LENGTH = 3;
 const MAX_USERNAME_LENGTH = 8;
@@ -91,8 +90,13 @@ class RegisterModal extends React.Component {
     }
     
     try {
-      const response = await fetch("authenticating/signup", { method: "post", credentials: "include", headers: { "Content-Type": "application/json", "Accept":"application/json" }, body: JSON.stringify(newUser)});
-      
+      const response = await fetch(
+        "authenticating/signup", 
+         { method: "post", 
+          credentials: "include", 
+          headers: { "Content-Type": "application/json", "Accept":"application/json" }, 
+          body: JSON.stringify(newUser)});
+
       if(response.redirected && response.ok) {
         window.location.assign(response.url);
         this.setState({
@@ -154,7 +158,12 @@ class RegisterModal extends React.Component {
   
   render() {
     const { toggleFunctionFromParent } = this.props;
-    const { showErrorBox, validationErrorTexts, signUpButtonDisabled, textOfModalHeader, signUpButtonOpacity } = this.state;
+    const { showErrorBox, 
+           validationErrorTexts, 
+           signUpButtonDisabled, 
+           textOfModalHeader, 
+           signUpButtonOpacity } = this.state;
+    
    return (
       <form onSubmit={this.handleSubmit} className="IndexPage__modal">
       <div className="formContainer">

@@ -268,7 +268,7 @@ class ArenaPVE extends React.Component {
         this.setState({ finalSetupError });
       }
     }
-    else if (battleState = "bot have won") {
+    else if (battleState === "bot have won") {
       try {
         await fetch("user/battles/logs", options);
       }

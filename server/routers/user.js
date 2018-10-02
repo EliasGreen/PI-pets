@@ -333,7 +333,8 @@ router.put("/pet/:id/hitpoints", loginCheck, urlencodedParser, jsonParser, (req,
   
   userModel.findById(req.session.passport.user, {pets: {$elemMatch: {_id: id} } } , (err, user) => {
     if (!err) {
-      user.pets[0].alive= updatedPetHitPoints !== 0 ? true : false;
+      user.pets[0].alive = updatedPetHitPoints != 0;
+      console.log(user.pets[0].alive);
       user.pets[0].hitPoints = updatedPetHitPoints;
       
       user.save();
