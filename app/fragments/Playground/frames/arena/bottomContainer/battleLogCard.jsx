@@ -3,6 +3,8 @@ const styles = require("../../../../../styles/Playground");
 
 const generatePetComponentByItsType = require("../../../../../functions/generatePetComponentByItsType");
 
+const BattleLogCardPVE = require("./battleLogCard/pve");
+
 const battleLogCard = ({ battleLog }) => {
   const battleDate = new Date(battleLog.date);
   const battleDateVisualisation = `${battleDate.getFullYear()}/${battleDate.getMonth()}/${battleDate.getDay()} ${battleDate.getHours()}:${battleDate.getMinutes()}`;
@@ -12,23 +14,11 @@ const battleLogCard = ({ battleLog }) => {
   
   switch (battleLog.type) {
     case "PVE":
-      return(
-        <div className="battleLogCard">
-          <h2>{ battleLog.type }</h2>
-          <div className="opponentsContainer">
-            <div className="userPet">
-              <UserPetComponent pet={ battleLog.userPet } showMode={ true } />
-              { battleLog.userPet.nickname }
-            </div>
-            <p> VS </p>
-            <div className="enemyPet">
-              <EnemyPetComponent pet={ battleLog.enemy.pet } showMode={ true } />
-              { battleLog.enemy.pet.nickname }
-            </div>
-          </div>
-          <h4> Status: { battleLog.status } </h4>
-          <h5>{ battleDateVisualisation }</h5>
-        </div>);
+      return <BattleLogCardPVE 
+               battleLog={battleLog} 
+               battleDateVisualisation={battleDateVisualisation} 
+               UserPetComponent={UserPetComponent} 
+               EnemyPetComponent={EnemyPetComponent}/>;
       
     case "PVP":
       return(
@@ -41,6 +31,7 @@ const battleLogCard = ({ battleLog }) => {
     default:
       throw new Error("unknown battleLog type");
   };   
+  
 }
 
 module.exports = battleLogCard;

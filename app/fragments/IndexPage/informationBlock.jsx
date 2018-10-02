@@ -1,15 +1,18 @@
 const React = require("react");
-const styles = require("../../styles/IndexPage");
 
-const infoText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.Phasellus consequat placerat laoreet. In lobortis viverra 
-    odio, pulvinar facilisis tortor tempus at. Duis tincidunt a
-    c lorem sed auctor. Maecenas facilisis vehicula efficitur. 
-    In eu placerat velit, eu finibus velit. Fusce eget mollis el
-    it. Duis eleifend tempor tellus, iaculis feugiat ex fermentu
-    m nec. Duis ullamcorper diam a lacus feugiat dignissim. Int
-    eger vitae nisi eget tellus placerat feugiat vitae a libero.
-    In a leo elit. Mauris pharetra nisl odio, sed ultricies magn
-    a venenatis a.` ;
+const infoText = `
+Do you love math? And pets? 
+Have you ever wanted to have a nice pet?
+Or maybe just a good mark for math?
+So if your answer - yes, this game is for you!
+
+Key gameplay features:
+- get your own pet!
+- collect new pets!
+- practice and improve your skills in math!
+- feed your pet in real-time to keep it alive!
+- and so on!\n
+`;
 
 const InformationBlock = () => (
   <div className="IndexPage__informationBlock">

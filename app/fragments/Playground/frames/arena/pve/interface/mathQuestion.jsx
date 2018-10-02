@@ -11,7 +11,7 @@ class MathQuestion extends React.Component {
     if (mathQuestion.question) {
       return(
         <div className="mathQuestionContainer">
-          { "-" + mathQuestion.question }
+          { mathQuestion.question }
         </div>
       );
     }

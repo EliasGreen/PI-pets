@@ -1,4 +1,5 @@
 dependencies:
+  babel-preset-stage-2: 6.24.1
   bcrypt: 3.0.0
   body-parser: 1.18.3
   connect-mongodb-session: 2.0.3
@@ -12,8 +13,8 @@ dependencies:
   mongoose: 4.13.14
   passport: 0.4.0
   random-math-question: 1.0.3
-  react: 15.6.2
-  react-dom: 15.6.2
+  react: 16.5.2
+  react-dom: 16.5.2
   react-router-dom: 4.3.1
   socket.io: 2.1.1
   style-loader: 0.19.1
@@ -170,10 +171,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-wGUIVQXuehL5TCqQun8OW81jGzAWycqzFF8lFp+GOM5BXLYj3bKNsYC4daB7n6XjCqxQA/qgTJ+8ANR3acjrog==
-  /asap/2.0.6:
-    dev: false
-    resolution:
-      integrity: sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
   /asn1.js/4.10.1:
     dependencies:
       bn.js: 4.11.8
@@ -246,6 +243,225 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Y/1D99weO7fONZR9uP42mj9Yx0s=
+  /babel-helper-bindify-decorators/6.24.1:
+    dependencies:
+      babel-runtime: 6.26.0
+      babel-traverse: 6.26.0
+      babel-types: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-FMGeXxQte0fxmlJDHlKxzLxAozA=
+  /babel-helper-builder-binary-assignment-operator-visitor/6.24.1:
+    dependencies:
+      babel-helper-explode-assignable-expression: 6.24.1
+      babel-runtime: 6.26.0
+      babel-types: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-zORReto1b0IgvK6KAsKzRvmlZmQ=
+  /babel-helper-explode-assignable-expression/6.24.1:
+    dependencies:
+      babel-runtime: 6.26.0
+      babel-traverse: 6.26.0
+      babel-types: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-8luCz33BBDPFX3BZLVdGQArCLKo=
+  /babel-helper-explode-class/6.24.1:
+    dependencies:
+      babel-helper-bindify-decorators: 6.24.1
+      babel-runtime: 6.26.0
+      babel-traverse: 6.26.0
+      babel-types: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-fcKjkQ3uAHBW4eMdZAztPVTqqes=
+  /babel-helper-function-name/6.24.1:
+    dependencies:
+      babel-helper-get-function-arity: 6.24.1
+      babel-runtime: 6.26.0
+      babel-template: 6.26.0
+      babel-traverse: 6.26.0
+      babel-types: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-00dbjAPtmCQqJbSDUasYOZ01gKk=
+  /babel-helper-get-function-arity/6.24.1:
+    dependencies:
+      babel-runtime: 6.26.0
+      babel-types: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-j3eCqpNAfEHTqlCQj4mwMbG2hT0=
+  /babel-helper-remap-async-to-generator/6.24.1:
+    dependencies:
+      babel-helper-function-name: 6.24.1
+      babel-runtime: 6.26.0
+      babel-template: 6.26.0
+      babel-traverse: 6.26.0
+      babel-types: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-XsWBgnrXI/7N04HxySg5BnbkVRs=
+  /babel-messages/6.23.0:
+    dependencies:
+      babel-runtime: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-8830cDhYA1sqKVHG7F7fbGLyYw4=
+  /babel-plugin-syntax-async-functions/6.13.0:
+    dev: false
+    resolution:
+      integrity: sha1-ytnK0RkbWtY0vzCuCHI5HgZHvpU=
+      tarball: 'http://registry.npmjs.org/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz'
+  /babel-plugin-syntax-async-generators/6.13.0:
+    dev: false
+    resolution:
+      integrity: sha1-a8lj67FuzLrmuStZbrfzXDQqi5o=
+      tarball: 'http://registry.npmjs.org/babel-plugin-syntax-async-generators/-/babel-plugin-syntax-async-generators-6.13.0.tgz'
+  /babel-plugin-syntax-class-properties/6.13.0:
+    dev: false
+    resolution:
+      integrity: sha1-1+sjt5oxf4VDlixQW4J8fWysJ94=
+      tarball: 'http://registry.npmjs.org/babel-plugin-syntax-class-properties/-/babel-plugin-syntax-class-properties-6.13.0.tgz'
+  /babel-plugin-syntax-decorators/6.13.0:
+    dev: false
+    resolution:
+      integrity: sha1-MSVjtNvePMgGzuPkFszurd0RrAs=
+      tarball: 'http://registry.npmjs.org/babel-plugin-syntax-decorators/-/babel-plugin-syntax-decorators-6.13.0.tgz'
+  /babel-plugin-syntax-dynamic-import/6.18.0:
+    dev: false
+    resolution:
+      integrity: sha1-jWomIpyDdFqZgqRBBRVyyqF5sdo=
+      tarball: 'http://registry.npmjs.org/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz'
+  /babel-plugin-syntax-exponentiation-operator/6.13.0:
+    dev: false
+    resolution:
+      integrity: sha1-nufoM3KQ2pUoggGmpX9BcDF4MN4=
+      tarball: 'http://registry.npmjs.org/babel-plugin-syntax-exponentiation-operator/-/babel-plugin-syntax-exponentiation-operator-6.13.0.tgz'
+  /babel-plugin-syntax-object-rest-spread/6.13.0:
+    dev: false
+    resolution:
+      integrity: sha1-/WU28rzhODb/o6VFjEkDpZe7O/U=
+      tarball: 'http://registry.npmjs.org/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz'
+  /babel-plugin-syntax-trailing-function-commas/6.22.0:
+    dev: false
+    resolution:
+      integrity: sha1-ugNgk3+NBuQBgKQ/4NVhb/9TLPM=
+  /babel-plugin-transform-async-generator-functions/6.24.1:
+    dependencies:
+      babel-helper-remap-async-to-generator: 6.24.1
+      babel-plugin-syntax-async-generators: 6.13.0
+      babel-runtime: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-8FiQAUX9PpkHpt3yjaWfIVJYpds=
+  /babel-plugin-transform-async-to-generator/6.24.1:
+    dependencies:
+      babel-helper-remap-async-to-generator: 6.24.1
+      babel-plugin-syntax-async-functions: 6.13.0
+      babel-runtime: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-ZTbjeK/2yx1VF6wOQOs+n8jQh2E=
+  /babel-plugin-transform-class-properties/6.24.1:
+    dependencies:
+      babel-helper-function-name: 6.24.1
+      babel-plugin-syntax-class-properties: 6.13.0
+      babel-runtime: 6.26.0
+      babel-template: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-anl2PqYdM9NvN7YRqp3vgagbRqw=
+  /babel-plugin-transform-decorators/6.24.1:
+    dependencies:
+      babel-helper-explode-class: 6.24.1
+      babel-plugin-syntax-decorators: 6.13.0
+      babel-runtime: 6.26.0
+      babel-template: 6.26.0
+      babel-types: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-eIAT2PjGtSIr33s0Q5Df13Vp4k0=
+  /babel-plugin-transform-exponentiation-operator/6.24.1:
+    dependencies:
+      babel-helper-builder-binary-assignment-operator-visitor: 6.24.1
+      babel-plugin-syntax-exponentiation-operator: 6.13.0
+      babel-runtime: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-KrDJx/MJj6SJB3cruBP+QejeOg4=
+  /babel-plugin-transform-object-rest-spread/6.26.0:
+    dependencies:
+      babel-plugin-syntax-object-rest-spread: 6.13.0
+      babel-runtime: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-DzZpLVD+9rfi1LOsFHgTepY7ewY=
+  /babel-preset-stage-2/6.24.1:
+    dependencies:
+      babel-plugin-syntax-dynamic-import: 6.18.0
+      babel-plugin-transform-class-properties: 6.24.1
+      babel-plugin-transform-decorators: 6.24.1
+      babel-preset-stage-3: 6.24.1
+    dev: false
+    resolution:
+      integrity: sha1-2eKWD7PXEYfw5k7sYrwHdnIZvcE=
+  /babel-preset-stage-3/6.24.1:
+    dependencies:
+      babel-plugin-syntax-trailing-function-commas: 6.22.0
+      babel-plugin-transform-async-generator-functions: 6.24.1
+      babel-plugin-transform-async-to-generator: 6.24.1
+      babel-plugin-transform-exponentiation-operator: 6.24.1
+      babel-plugin-transform-object-rest-spread: 6.26.0
+    dev: false
+    resolution:
+      integrity: sha1-g2raCp56f6N8sTj7kyb4eTSkg5U=
+  /babel-runtime/6.26.0:
+    dependencies:
+      core-js: 2.5.7
+      regenerator-runtime: 0.11.1
+    dev: false
+    resolution:
+      integrity: sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
+  /babel-template/6.26.0:
+    dependencies:
+      babel-runtime: 6.26.0
+      babel-traverse: 6.26.0
+      babel-types: 6.26.0
+      babylon: 6.18.0
+      lodash: 4.17.11
+    dev: false
+    resolution:
+      integrity: sha1-3gPi0WOWsGn0bdn/+FIfsaDjXgI=
+  /babel-traverse/6.26.0:
+    dependencies:
+      babel-code-frame: 6.26.0
+      babel-messages: 6.23.0
+      babel-runtime: 6.26.0
+      babel-types: 6.26.0
+      babylon: 6.18.0
+      debug: 2.6.9
+      globals: 9.18.0
+      invariant: 2.2.4
+      lodash: 4.17.11
+    dev: false
+    resolution:
+      integrity: sha1-RqnL1+3MYsjlwGTi0tjQ9ANXZu4=
+  /babel-types/6.26.0:
+    dependencies:
+      babel-runtime: 6.26.0
+      esutils: 2.0.2
+      lodash: 4.17.11
+      to-fast-properties: 1.0.3
+    dev: false
+    resolution:
+      integrity: sha1-o7Bz+Uq0nrb6Vc1lInozQ4BjJJc=
+  /babylon/6.18.0:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-q/UEjfGJ2Cm3oKV71DJz9d25TPnq5rhBVL2Q4fA5wcC3jcrdn7+SssEybFIxwAvvP+YCsCYNKughoF33GxgycQ==
   /backo2/1.0.2:
     dev: false
     resolution:
@@ -800,10 +1016,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
-  /core-js/1.2.7:
+  /core-js/2.5.7:
     dev: false
     resolution:
-      integrity: sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY=
+      integrity: sha512-RszJCAxg/PP6uzXVXL6BsxSXx/B05oJAQ2vkJRjyjrEcNVycaqOmNb5OTxZPE3xa5gwZduqza6L9JOCenh/Ecw==
   /core-util-is/1.0.2:
     dev: false
     resolution:
@@ -840,14 +1056,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-MJG9liiZ+ogc4TzUwuvbER1JRdgvUFSB5+VR/g5h82fGaIRWMWddtKBHi7/sVhfjQZ6SehlyhvQYrcYkaUIpLg==
-  /create-react-class/15.6.3:
-    dependencies:
-      fbjs: 0.8.17
-      loose-envify: 1.3.1
-      object-assign: 4.1.1
-    dev: false
-    resolution:
-      integrity: sha512-M+/3Q6E6DLO6Yx3OwrWjwHBnvfXXYA7W+dFjt/ZDBemHO1DDZhsalX/NUtnTYclN6GfnBDRh4qRHjcDHmlJBJg==
   /cross-spawn/5.1.0:
     dependencies:
       lru-cache: 4.1.3
@@ -1107,12 +1315,6 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=
-  /encoding/0.1.12:
-    dependencies:
-      iconv-lite: 0.4.23
-    dev: false
-    resolution:
-      integrity: sha1-U4tm8+5izRq1HsMjgp0flIDHS+s=
   /engine.io-client/3.2.1:
     dependencies:
       component-emitter: 1.2.1
@@ -1452,18 +1654,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-0eJkOzipTXWDtHkGDmxK/8lAcfg=
-  /fbjs/0.8.17:
-    dependencies:
-      core-js: 1.2.7
-      isomorphic-fetch: 2.2.1
-      loose-envify: 1.3.1
-      object-assign: 4.1.1
-      promise: 7.3.1
-      setimmediate: 1.0.5
-      ua-parser-js: 0.7.18
-    dev: false
-    resolution:
-      integrity: sha1-xNWY6taUkRJlPWWIsBpc3Nn5D90=
   /fill-range/4.0.0:
     dependencies:
       extend-shallow: 2.0.1
@@ -1582,6 +1772,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-G8k2ueAvSmA/zCIuz3Yz0wuLk7E=
+  /globals/9.18.0:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha512-S0nG3CLEQiY/ILxqtztTWH/3iRRdyBLw6KMDxnKMchrtbj2OFmehVh0WUCfW3DUrIgx/qFrJPICrq4Z4sTR9UQ==
   /graceful-fs/4.1.11:
     dev: false
     engines:
@@ -1686,7 +1882,7 @@ packages:
   /history/4.7.2:
     dependencies:
       invariant: 2.2.4
-      loose-envify: 1.3.1
+      loose-envify: 1.4.0
       resolve-pathname: 2.2.0
       value-equal: 0.4.0
       warning: 3.0.0
@@ -1802,7 +1998,7 @@ packages:
       integrity: sha1-ftGxQQxqDg94z5XTuEQMY/eLhhQ=
   /invariant/2.2.4:
     dependencies:
-      loose-envify: 1.3.1
+      loose-envify: 1.4.0
     dev: false
     resolution:
       integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -2022,13 +2218,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
-  /isomorphic-fetch/2.2.1:
-    dependencies:
-      node-fetch: 1.7.3
-      whatwg-fetch: 2.0.4
-    dev: false
-    resolution:
-      integrity: sha1-YRrhrPFPXoH3KVB0coGf6XM1WKk=
   /javascript-natural-sort/0.7.1:
     dev: false
     resolution:
@@ -2041,6 +2230,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-mGbfOVECEw449/mWvOtlRDIJwls=
+  /js-tokens/4.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
   /js-yaml/3.7.0:
     dependencies:
       argparse: 1.0.10
@@ -2206,6 +2399,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg==
+  /lodash/4.17.11:
+    dev: false
+    resolution:
+      integrity: sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
   /longest/1.0.1:
     dev: false
     engines:
@@ -2219,6 +2416,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-0aitM/qc4OcT1l/dCsi3SNR4yEg=
+  /loose-envify/1.4.0:
+    dependencies:
+      js-tokens: 4.0.0
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   /lru-cache/4.1.3:
     dependencies:
       pseudomap: 1.0.2
@@ -2515,13 +2719,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-yobR/ogoFpsBICCOPchCS524NCw=
-  /node-fetch/1.7.3:
-    dependencies:
-      encoding: 0.1.12
-      is-stream: 1.1.0
-    dev: false
-    resolution:
-      integrity: sha512-NhZ4CsKx7cYm2vSrBAr2PvFOe6sWDf0UYLRqA6svUYg7+/TSfVAu49jYC4BvQ4Sms9SZgdqGBgroqfDhJdTyKQ==
   /node-libs-browser/2.1.0:
     dependencies:
       assert: 1.4.1
@@ -3114,12 +3311,6 @@ packages:
       node: '>= 0.6.0'
     resolution:
       integrity: sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
-  /promise/7.3.1:
-    dependencies:
-      asap: 2.0.6
-    dev: false
-    resolution:
-      integrity: sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==
   /prop-types/15.6.2:
     dependencies:
       loose-envify: 1.3.1
@@ -3266,25 +3457,25 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-9esiElv1BrZoI3rCDuOuKCBRbuApGGaDPQfjSflGxdy4oyzqghxu6klEkkVIvBje+FF0BX9coEv8KqW6X/7njw==
-  /react-dom/15.6.2:
+  /react-dom/16.5.2:
     dependencies:
-      fbjs: 0.8.17
-      loose-envify: 1.3.1
+      loose-envify: 1.4.0
       object-assign: 4.1.1
       prop-types: 15.6.2
+      schedule: 0.5.0
     dev: false
     peerDependencies:
-      react: ^15.6.2
+      react: ^16.0.0
     resolution:
-      integrity: sha1-Qc+t9pO3V/rycIRDodH9WgK+9zA=
+      integrity: sha512-RC8LDw8feuZOHVgzEf7f+cxBr/DnKdqp56VU0lAs1f4UfKc4cU8wU4fTq/mgnvynLQo8OtlPC19NUFh/zjZPuA==
   /react-router-dom/4.3.1:
     dependencies:
       history: 4.7.2
       invariant: 2.2.4
-      loose-envify: 1.3.1
+      loose-envify: 1.4.0
       prop-types: 15.6.2
       react-router: 4.3.1
-      warning: 4.0.1
+      warning: 4.0.2
     dev: false
     peerDependencies:
       react: '>=15'
@@ -3295,27 +3486,26 @@ packages:
       history: 4.7.2
       hoist-non-react-statics: 2.5.5
       invariant: 2.2.4
-      loose-envify: 1.3.1
+      loose-envify: 1.4.0
       path-to-regexp: 1.7.0
       prop-types: 15.6.2
-      warning: 4.0.1
+      warning: 4.0.2
     dev: false
     peerDependencies:
       react: '>=15'
     resolution:
       integrity: sha512-yrvL8AogDh2X42Dt9iknk4wF4V8bWREPirFfS9gLU1huk6qK41sg7Z/1S81jjTrGHxa3B8R3J6xIkDAA6CVarg==
-  /react/15.6.2:
+  /react/16.5.2:
     dependencies:
-      create-react-class: 15.6.3
-      fbjs: 0.8.17
-      loose-envify: 1.3.1
+      loose-envify: 1.4.0
       object-assign: 4.1.1
       prop-types: 15.6.2
+      schedule: 0.5.0
     dev: false
     engines:
       node: '>=0.10.0'
     resolution:
-      integrity: sha1-26BDSrQ5z+gvEI8PURZjkIF5qnI=
+      integrity: sha512-FDCSVd3DjVTmbEAjUNX6FgfAmQ+ypJfHUsqUJOYNCBUp1h8lqmtC+0mXJ+JjsWx4KAVTkk1vKd1hLQPvEviSuw==
   /read-pkg-up/2.0.0:
     dependencies:
       find-up: 2.1.0
@@ -3399,6 +3589,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-1G6jJVDWrt0rK99kBjvEtziZNCICAuvIPkSiUFIQxVP06RCVpq3dmDo2oi6ABpYaDYaTRr67BEhL8r1wgEZZKg==
+  /regenerator-runtime/0.11.1:
+    dev: false
+    resolution:
+      integrity: sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
   /regex-not/1.0.2:
     dependencies:
       extend-shallow: 3.0.2
@@ -3528,6 +3722,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
+  /schedule/0.5.0:
+    dependencies:
+      object-assign: 4.1.1
+    dev: false
+    resolution:
+      integrity: sha512-HUcJicG5Ou8xfR//c2rPT0lPIRR09vVvN81T9fqfVgBmhERUbDEQoYKjpBxbueJnCPpSu2ujXzOnRQt6x9o/jw==
   /schema-utils/0.3.0:
     dependencies:
       ajv: 5.5.2
@@ -3992,6 +4192,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-fSKbH8xjfkZsoIEYCDanqr/4P0M=
+  /to-fast-properties/1.0.3:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-uDVx+k2MJbguIxsG46MFXeTKGkc=
   /to-object-path/0.3.0:
     dependencies:
       kind-of: 3.2.2
@@ -4039,10 +4245,6 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-3mlZ5AwRMbLvUKkc8a1TI4RUJUS2H27pmD5q0lHRObgsoWzhDAX01yg82kwSP1FUw922/4Y9ZliIEh0qJZcz+g==
-  /ua-parser-js/0.7.18:
-    dev: false
-    resolution:
-      integrity: sha512-LtzwHlVHwFGTptfNSgezHp7WUlwiqb0gA9AALRbKaERfxwJoiX0A73QbTToxteIAuIaFshhgIZfqK8s7clqgnA==
   /uglify-js/2.8.29:
     dependencies:
       source-map: 0.5.7
@@ -4201,16 +4403,16 @@ packages:
       integrity: sha1-XX6kW7755Kb/ZflUOOCofDV9WnM=
   /warning/3.0.0:
     dependencies:
-      loose-envify: 1.3.1
+      loose-envify: 1.4.0
     dev: false
     resolution:
       integrity: sha1-MuU3fLVy3kqwR1O9+IIcAe1gW3w=
-  /warning/4.0.1:
+  /warning/4.0.2:
     dependencies:
-      loose-envify: 1.3.1
+      loose-envify: 1.4.0
     dev: false
     resolution:
-      integrity: sha512-rAVtTNZw+cQPjvGp1ox0XC5Q2IBFyqoqh+QII4J/oguyu83Bax1apbo2eqB8bHRS+fqYUBagys6lqUoVwKSmXQ==
+      integrity: sha512-wbTp09q/9C+jJn4KKJfJfoS6VleK/Dti0yqWSm6KMvJ4MRCXFQNapHuJXutJIrWV0Cf4AhTdeIe4qdKHR1+Hug==
   /watchpack/1.6.0:
     dependencies:
       chokidar: 2.0.4
@@ -4256,10 +4458,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-Sw7MdIIOv/nkzPzee4o0EdvCuPmxT98+vVpIvwtcwcF1Q4SDSNp92vwcKc4REe7NItH9f1S4ra9FuQ7yuYZ8bQ==
-  /whatwg-fetch/2.0.4:
-    dev: false
-    resolution:
-      integrity: sha512-dcQ1GWpOD/eEQ97k66aiEVpNnapVj90/+R+SXTPYGHpYBBypfKJEQjLrvMZ7YXbKm21gXd4NcuxUTjiv1YtLng==
   /whet.extend/0.9.9:
     dev: false
     engines:
@@ -4371,6 +4569,7 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
+  babel-preset-stage-2: ^6.24.1
   bcrypt: '*'
   body-parser: ^1.18.2
   connect-mongodb-session: '*'
@@ -4384,9 +4583,9 @@ specifiers:
   mongoose: ^4.13.8
   passport: '*'
   random-math-question: ^1.0.3
-  react: ^15.6.1
-  react-dom: ^15.6.1
-  react-router-dom: ^4.2.2
+  react: ^16.5.2
+  react-dom: ^16.5.2
+  react-router-dom: ^4.3.1
   socket.io: ^2.1.1
   style-loader: ^0.19.1
   webpack: ^3.5.5

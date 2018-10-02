@@ -1,5 +1,4 @@
 const React = require("react");
-const styles = require("../../styles/IndexPage");
 const img_src = "https://cdn.dribbble.com/users/230290/screenshots/1903145/dog_no_211.png";
 
 const Header = () => (

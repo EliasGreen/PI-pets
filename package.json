@@ -14,10 +14,10 @@
     "express": "^4.15.4",
     "express-session": "^1.15.6",
     "jsx-loader": "^0.13.2",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "webpack": "^3.5.5",
-    "react-router-dom": "^4.2.2",
+    "react-router-dom": "^4.3.1",
     "dotenv": "^4.0.0",
     "css-loader": "^0.28.7",
     "style-loader": "^0.19.1",
@@ -29,7 +29,8 @@
     "connect-mongodb-session": "*",
     "cookie-parser": "*",
     "socket.io": "^2.1.1",
-    "random-math-question": "^1.0.3"
+    "random-math-question": "^1.0.3",
+    "babel-preset-stage-2": "^6.24.1"
   },
   "engines": {
     "node": "8.x"
